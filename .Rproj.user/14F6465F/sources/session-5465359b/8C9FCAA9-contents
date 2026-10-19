@@ -1,0 +1,66 @@
+library(xgboost)
+psa_design_final <- bind_rows(design_1, design_2, design_3, design_4, design_5) %>% 
+  mutate(run_id = row_number())
+
+psa_out_final <- bind_rows(out_1, out_2, out_3, out_4, out_5) %>% 
+  mutate(run_id = row_number())
+
+psa_merged <- psa_design_final %>% 
+  merge(psa_out_final, by = "run_id")
+
+psa_merged_98 <- psa_merged %>% 
+  filter(all_spec >= 0.98)
+
+
+
+# Prepare training data
+X_train <- psa_merged_98 %>%
+  select(all_sens, all_spec, mced_test_cost)
+
+psa_merged_98$NMB <- with(psa_merged_98, Incremental_Utility * wtp - Incremental_Cost)
+psa_merged_98$CE_flag <- ifelse(psa_merged_98$NMB > 0, 1, 0)
+
+y_train <- psa_merged_98$CE_flag
+
+X_mat_train <- as.matrix(X_train)
+y_train_bin <- as.numeric(y_train)
+
+# Train model
+xgb_mod <- xgboost(data = X_mat_train, label = y_train_bin,
+                   objective = "binary:logistic",
+                   nrounds = 100, verbose = 0)
+
+grid_df <- expand_grid(
+  all_sens = seq(0.75, 1.25, length.out = 25),
+  all_spec = seq(0.98, 0.9999, length.out = 25),
+  mced_test_cost = seq(50, 1000, length.out = 25)
+)
+
+X_grid <- as.matrix(grid_df)
+
+# Predict probability of being cost-effective
+grid_df$prob_CE <- predict(xgb_mod, newdata = X_grid)
+
+# Label as cost-effective if probability > 0.5 (or another threshold)
+grid_df$CE_pred <- grid_df$prob_CE > 0.5
+
+grid_df %>%
+  filter(mced_test_cost == 500) %>%  # or use near(mced_test_cost, 500)
+  ggplot(aes(x = all_sens, y = all_spec, fill = CE_pred)) +
+  geom_tile() +
+  scale_fill_manual(values = c("red", "green"), labels = c("Not CE", "Cost-Effective")) +
+  labs(title = "CE Region at MCD Test Cost = $500",
+       x = "All Sensitivity", y = "All Specificity", fill = "Predicted CE") +
+  theme_minimal()
+
+grid_df <- grid_df %>%
+  mutate(cost_slice = round(mced_test_cost, -2))  # Round cost to nearest $100
+
+ggplot(grid_df, aes(x = all_sens, y = all_spec, z = prob_CE)) +
+  geom_contour_filled(breaks = c(0, 0.5, 1)) +  # Shows CE boundary at prob = 0.5
+  facet_wrap(~cost_slice, labeller = label_both) +
+  labs(
+    title = "Cost-Effectiveness Zone by MCD Test Cost",
+    x = "All Sensitivity", y = "All Specificity", fill = "CE Region"
+  ) +
+  theme_minimal()

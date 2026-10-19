@@ -1,0 +1,402 @@
+# ── Train XGBoost & Random Forest for CE classification ────────────────────
+library(dplyr)
+library(yardstick)
+library(pROC)
+library(xgboost)
+library(randomForest)
+library(broom)
+
+# Binding and creating cloud and CE Acceptability Curve
+design_1 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_design_batch_1.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_2 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_design_batch_2.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_3 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_design_batch_3.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_4 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_design_batch_4.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_5 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_design_batch_5.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+
+out_1 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_out_batch_1.csv", show_col_types = FALSE)
+out_2 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_out_batch_2.csv", show_col_types = FALSE)
+out_3 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_out_batch_3.csv", show_col_types = FALSE)
+out_4 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_out_batch_4.csv", show_col_types = FALSE)
+out_5 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_out_batch_5.csv", show_col_types = FALSE)
+
+## ── 1. Combine PSA outputs ─────────────────────────────────────────────
+psa_design_final <- bind_rows(design_1, design_2, design_3, design_4, design_5) %>% 
+  mutate(run_id = row_number()) 
+
+psa_out_final <- bind_rows(out_1, out_2, out_3, out_4, out_5) %>% 
+  mutate(run_id = row_number())
+
+psa_merged <- psa_design_final %>% 
+  merge(psa_out_final, by = "run_id") %>%
+  filter(all_spec >= 0.98)
+
+wtp <- 100000
+psa_merged$NMB <- with(psa_merged, Incremental_Utility * wtp - Incremental_Cost)
+psa_merged$CE_flag <- psa_merged$NMB > 0
+
+set.seed(2025)
+n <- nrow(psa_merged)
+train_idx <- sample(seq_len(n), size = 0.7 * n)
+
+X <- psa_merged[, 2:35]
+y <- psa_merged$CE_flag
+
+X_train <- X[train_idx, ]
+y_train <- y[train_idx]
+X_test  <- X[-train_idx, ]
+y_test  <- y[-train_idx]
+
+X_train_clean <- X_train %>% janitor::clean_names()
+X_test_clean <- X_test %>% janitor::clean_names()
+colnames(X_train_clean)
+
+
+# Ensure targets are in the right format
+y_train_num <- as.numeric(y_train)  # 0/1 numeric for xgboost (FALSE=0, TRUE=1)
+y_test_num  <- as.numeric(y_test)
+y_train_fac <- factor(y_train, levels = c(FALSE, TRUE))  # for RF
+y_test_fac  <- factor(y_test,  levels = c(FALSE, TRUE))
+
+# =============== XGBOOST ===============
+# Matrix inputs
+X_train_mat <- as.matrix(X_train_clean)
+X_test_mat  <- as.matrix(X_test_clean)
+
+dtrain <- xgb.DMatrix(data = X_train_mat, label = y_train_fac)
+dtest  <- xgb.DMatrix(data = X_test_mat,  label = y_test_fac)
+
+# # Small tuning grid (expand if you want more thorough search)
+xgb_grid <- expand.grid(
+  eta = c(0.05, 0.1),
+  max_depth = c(3, 5, 7),
+  min_child_weight = c(1, 5),
+  subsample = c(0.8, 1.0),
+  colsample_bytree = c(0.8, 1.0)
+)
+#
+cv_nrounds <- 1000
+early_stopping <- 25
+best <- NULL
+
+for (i in seq_len(nrow(xgb_grid))) {
+  prm <- xgb_grid[i, ]
+  params <- list(
+    objective = "binary:logistic",
+    eval_metric = "auc",
+    eta = prm$eta,
+    max_depth = prm$max_depth,
+    min_child_weight = prm$min_child_weight,
+    subsample = prm$subsample,
+    colsample_bytree = prm$colsample_bytree,
+    nthread = 0
+  )
+  cv <- xgb.cv(
+    params = params,
+    data = dtrain,
+    nrounds = cv_nrounds,
+    nfold = 5,
+    stratified = TRUE,
+    showsd = FALSE,
+    verbose = 0,
+    early_stopping_rounds = early_stopping,
+    maximize = TRUE
+  )
+  score <- max(cv$evaluation_log$test_auc_mean)
+  best_iter <- cv$best_iteration
+  cand <- list(params = params, score = score, best_iter = best_iter)
+  if (is.null(best) || cand$score > best$score) best <- cand
+}
+#
+# # Train final XGBoost with best params/iterations
+# xgb_mod <- xgb.train(
+#   params = best$params,
+#   data = dtrain,
+#   nrounds = best$best_iter,
+#   watchlist = list(train = dtrain, test = dtest),
+#   verbose = 0
+# )
+#
+# # XGB predictions & metrics
+# pred_xgb_prob <- predict(xgb_mod, newdata = dtest)
+# pred_xgb_cls  <- pred_xgb_prob > 0.5
+#
+# xgb_auc <- pROC::auc(y_test_fac, pred_xgb_prob)
+# xgb_metrics <- yardstick::metrics(
+#   data.frame(
+#     truth = y_test_fac,
+#     .pred = pred_xgb_prob,
+#     .pred_class = factor(pred_xgb_cls, levels = c(FALSE, TRUE))
+#   ),
+#   truth = truth,
+#   estimate = .pred_class
+# ) %>%
+#   bind_rows(
+#     tibble(.metric = "roc_auc", .estimator = "binary", .estimate = as.numeric(xgb_auc))
+#   )
+#
+# cat("XGBoost metrics:\n")
+# print(xgb_metrics)
+
+# # Feature importance (gain)
+# xgb_imp <- xgb.importance(model = xgb_mod, feature_names = colnames(X_train_mat))
+# head(xgb_imp, 10)
+
+
+
+# =============== XGBOOST QUICK =============== 
+# XGBOOST quick test
+X_train_mat <- as.matrix(X_train_clean)
+X_test_mat  <- as.matrix(X_test_clean)
+
+xgb_mod <- xgboost(
+  x = X_train_mat,
+  y = y_train_fac,
+  objective = "binary:logistic",
+  nrounds = 100,
+  verbosity = 0
+)
+
+pred_xgb_quick <- predict(xgb_mod, newdata = X_test_mat)
+
+# =============== RF QUICK =============== 
+rf_mod <- randomForest(x = X_train_clean, y = as.factor(y_train), ntree = 100)
+
+pred_rf_quick <- predict(rf_mod, newdata = X_test_clean, type = "prob")[, "TRUE"]
+
+# Quick check
+cat("XGB preds:", head(pred_xgb_quick), "\n")
+cat("RF preds:", head(pred_rf_quick), "\n")
+# # =============== RANDOM FOREST ===============
+# # Simple tuning over mtry; you can also tune ntree and nodesize if needed
+# mtry_candidates <- pmax(1, round(c(sqrt(ncol(X_train_clean)), ncol(X_train_clean)/3, ncol(X_train_clean)/2)))
+# mtry_candidates <- unique(mtry_candidates)
+# 
+# rf_results <- lapply(mtry_candidates, function(m) {
+#   rf <- randomForest(
+#     x = X_train_clean,
+#     y = y_train_fac,
+#     ntree = 500,
+#     mtry = m,
+#     importance = TRUE
+#   )
+#   probs <- predict(rf, newdata = X_test_clean, type = "prob")[, "TRUE"]
+#   cls   <- probs > 0.5
+#   auc   <- pROC::auc(y_test_fac, probs)
+#   acc   <- mean(cls == y_test_fac)
+#   list(model = rf, mtry = m, auc = as.numeric(auc), acc = acc)
+# })
+# 
+# best_rf <- rf_results[[ which.max(sapply(rf_results, `[[`, "auc")) ]]
+# rf_mod  <- best_rf$model
+# 
+# pred_rf_prob <- predict(rf_mod, newdata = X_test_clean, type = "prob")[, "TRUE"]
+# pred_rf_cls  <- pred_rf_prob > 0.5
+# 
+# rf_auc <- pROC::auc(y_test_fac, pred_rf_prob)
+# rf_metrics <- yardstick::metrics(
+#   data.frame(
+#     truth = y_test_fac,
+#     .pred = pred_rf_prob,
+#     .pred_class = factor(pred_rf_cls, levels = c(FALSE, TRUE))
+#   ),
+#   truth = truth,
+#   estimate = .pred_class
+# ) %>%
+#   bind_rows(
+#     tibble(.metric = "roc_auc", .estimator = "binary", .estimate = as.numeric(rf_auc))
+#   )
+# 
+# cat("Random Forest metrics (best mtry =", best_rf$mtry, "):\n")
+# print(rf_metrics)
+# 
+# # RF variable importance (mean decrease Gini)
+# rf_imp <- broom::tidy(rf_mod, type = 2) %>% arrange(desc(importance))
+# head(rf_imp, 10)
+
+
+# =============== SAVE MODELS ===============
+# dir.create("Models", showWarnings = FALSE, recursive = TRUE)
+# xgb.save(xgb_mod, fname = "Models/xgb_model.json")
+# saveRDS(rf_mod, file = "Models/rf_model.rds")
+# 
+# # Optional: save importances
+# readr::write_csv(as_tibble(xgb_imp), "Models/xgb_importance.csv")
+# readr::write_csv(rf_imp, "Models/rf_importance.csv")
+
+
+
+base_long <- read_csv("mcd_base_values.csv", show_col_types = FALSE)
+
+base_map <- base_long %>%
+  mutate(
+    param_name = janitor::make_clean_names(param_name),
+    base_value = as.numeric(base_value)   # force numeric
+  ) %>%
+  select(param_name, base_value) %>%
+  deframe()
+
+features <- colnames(X_train_clean)  # the features your models expect (already clean_names())
+
+# Build a single-row base vector for *all* features the model needs.
+# If a feature isn't in base_map, we fall back to the *training* column mean.
+base_row <- as_tibble(as.list(setNames(rep(NA_real_, length(features)), features)))
+
+for (nm in features) {
+  if (nm %in% names(base_map)) {
+    base_row[[nm]] <- as.numeric(base_map[[nm]])
+  } else if (nm %in% names(X_train_clean)) {
+    val <- suppressWarnings(mean(X_train_clean[[nm]], na.rm = TRUE))
+    base_row[[nm]] <- ifelse(is.na(val), 0, val)
+  } else {
+    base_row[[nm]] <- 0
+  }
+}
+
+# --- 2) Define the sequences for the three knobs ---
+spec_seq <- unique(c(seq(0.98, 0.999, by = 0.005), 0.9999))
+sens_seq <- seq(0.75, 1.25, by = 0.05)          # adjust if you want a finer grid
+cost_seq <- seq(50, 1000, by = 50)
+
+grid <- tidyr::crossing(
+  all_spec = spec_seq,
+  all_sens = sens_seq,
+  mced_test_cost = cost_seq
+)
+
+# --- 3) Build a prediction frame: replicate base row and overwrite the 3 columns per grid ---
+# Guard: ensure the three columns exist in your features
+needed <- c("all_spec", "all_sens", "mced_test_cost")
+missing_needed <- setdiff(needed, features)
+if (length(missing_needed) > 0) {
+  stop(paste("These required features are missing from your training matrix:",
+             paste(missing_needed, collapse = ", ")))
+}
+
+# Replicate the base row as many times as there are rows in grid
+base_mat <- base_row[rep(1, nrow(grid)), ]
+
+# Overwrite the three varying columns with grid values
+pred_df <- base_mat %>%
+  mutate(
+    all_spec       = grid$all_spec,
+    all_sens       = grid$all_sens,
+    mced_test_cost = grid$mced_test_cost
+  )
+
+# --- 4) Predict probabilities with both models ---
+# XGBoost expects a matrix
+X_mat_pred <- as.matrix(pred_df[, features, drop = FALSE])
+pred_xgb <- as.numeric(predict(xgb_mod, newdata = X_mat_pred))
+
+# Random forest probabilities (assumes y was factor with "TRUE"/"FALSE")
+pred_rf_probs <- predict(rf_mod, newdata = pred_df[, features, drop = FALSE], type = "prob")
+# Get probability of CE == TRUE; adjust the column name if your positive class label differs
+rf_true_col <- if ("TRUE" %in% colnames(pred_rf_probs)) "TRUE" else colnames(pred_rf_probs)[2]
+pred_rf <- as.numeric(pred_rf_probs[, rf_true_col])
+
+# Simple ensemble (optional)
+pred_ens <- (pred_xgb + pred_rf) / 2
+
+# --- 5) Assemble results and save ---
+results <- grid %>%
+  mutate(
+    p_ce_xgb = pred_xgb,
+    p_ce_rf  = pred_rf,
+    p_ce_avg = pred_ens
+  )
+
+
+library(ggplot2)
+
+results %>%
+  filter(mced_test_cost == 500) %>%   # pick one slice
+  ggplot(aes(x = all_sens, y = all_spec, fill = p_ce_xgb)) +
+  geom_tile() +
+  scale_fill_viridis_c(name = "P(CE)") +
+  labs(
+    title = "Cost-effectiveness probability at MCED test cost = $500",
+    x = "Sensitivity multiplier (all_sens)",
+    y = "Specificity (all_spec)"
+  ) +
+  theme_minimal()
+
+results %>%
+  filter(all_spec == 0.99, all_sens == 1.0) %>%   # choose a combo
+  ggplot(aes(x = mced_test_cost, y = p_ce_xgb)) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(limits = c(0,1)) +
+  labs(
+    title = "Probability of CE vs. Test Cost",
+    x = "MCED test cost ($)",
+    y = "P(CE)"
+  ) +
+  theme_minimal()
+
+results %>%
+  mutate(mced_test_cost = as.numeric(mced_test_cost)) %>%          # ensure numeric
+  ggplot(aes(x = all_sens, y = all_spec, fill = p_ce_avg)) +
+  geom_tile(color = "white", linewidth = 0.1) +
+  facet_wrap(
+    ~ mced_test_cost, ncol = 5,
+    labeller = labeller(mced_test_cost = function(x)
+      paste0("MCD test cost = ", dollar(as.numeric(x))))
+  ) +
+  scale_fill_viridis_c(option = "plasma", name = "P(Cost-Effective)", limits = c(0,1)) +
+  scale_x_continuous(breaks = seq(0.75, 1.25, 0.1)) +
+  scale_y_continuous(breaks = seq(0.98, 1.00, 0.005)) +
+  labs(x = "Sensitivity multiplier", y = "Specificity") +
+  theme_minimal(base_size = 18) +
+  theme(
+    axis.text.x    = element_text(angle = 45, hjust = 1),
+    panel.grid     = element_blank(),
+    strip.background = element_rect(fill = "grey90", color = NA),
+    strip.text     = element_text(face = "bold")
+  )
+
+# # Save for later analysis (heatmaps, threshold slices, etc.)
+# write_csv(results, "Outputs/ce_probability_grid_all_spec_sens_cost.csv")
+# 
+# # --- 6) (Optional) Quick helper: at each test cost, find the minimum sens/spec reaching p>0.5 ---
+# # You can change 0.5 to a different target probability.
+# threshold_summary <- results %>%
+#   mutate(hit = p_ce_avg > 0.5) %>%
+#   group_by(mced_test_cost, all_spec) %>%
+#   summarize(min_all_sens_for_50pct = if (any(hit)) min(all_sens[hit]) else NA_real_,
+#             .groups = "drop")
+
+
+# On test set only
+pred_xgb_prob <- predict(xgb_mod, newdata = as.matrix(X_test_clean))
+pred_rf_prob  <- predict(rf_mod, newdata = X_test_clean, type = "prob")[, "TRUE"]
+
+# Convert to classes
+pred_xgb_cls <- factor(pred_xgb_prob > 0.5, levels = c(FALSE, TRUE))
+pred_rf_cls  <- factor(pred_rf_prob > 0.5,  levels = c(FALSE, TRUE))
+
+truth <- y_test_fac  # test set labels
+
+# Function for metrics
+get_metrics <- function(model_name, truth, pred_class) {
+  tibble(
+    Model = model_name,
+    Accuracy    = yardstick::accuracy_vec(truth, pred_class),
+    F1          = yardstick::f_meas_vec(truth, pred_class),
+    Sensitivity = yardstick::sens_vec(truth, pred_class),
+    Specificity = yardstick::spec_vec(truth, pred_class)
+  )
+}
+
+# Apply
+results_table <- bind_rows(
+  get_metrics("Random Forest", truth, pred_rf_cls),
+  get_metrics("XGBoost", truth, pred_xgb_cls)
+) %>%
+  mutate(across(-Model, ~ round(.x, 2)))
+
+print(results_table)

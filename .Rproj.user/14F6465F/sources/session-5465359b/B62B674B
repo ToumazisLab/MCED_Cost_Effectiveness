@@ -1,0 +1,26 @@
+{
+    "id": "B62B674B",
+    "path": "~/Documents/MCED_testing/MCED_Cost_Effectiveness_1/Functions/Shiny/Sensitivity_analysis.R",
+    "project_path": "Functions/Shiny/Sensitivity_analysis.R",
+    "type": "r_source",
+    "hash": "3425498440",
+    "contents": "",
+    "dirty": false,
+    "created": 1783359587136.0,
+    "source_on_save": false,
+    "relative_order": 16,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "627,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1783088182,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1783088182,
+    "read_only": false,
+    "read_only_alternatives": []
+}

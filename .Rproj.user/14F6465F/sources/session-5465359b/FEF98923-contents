@@ -1,0 +1,61 @@
+# 1. Compute your breaks and labels once:
+test_thresholds <- sort(c(50, 250, 400, 550, 700, 850, 1000))
+
+# 2. arrange your labels in the same order
+ordered_labels <- psa_ce_thresholds %>%
+  arrange(test_thresh) %>%
+  mutate(full_label = ifelse(label == "$1000", label, paste0(label, " (", round(pct_CE, 1), "%)"))) %>%
+  pull(full_label)
+
+# 2. Then in ggplot, map color to the numeric cost:
+ggplot(psa_cloud, aes(
+  x = Incremental_Utility,
+  y = Incremental_Cost / 1e6,
+  color = mced_test_cost    # <- continuous mapping
+)) +
+  geom_point(size = 2, alpha = 0.5) +
+  geom_hline(yintercept = 0, colour = "grey50") +
+  geom_vline(xintercept = 0, colour = "grey50") +
+  geom_abline(
+    intercept = 0,
+    slope     = wtp / 1e6,
+    linetype  = "dashed",
+    colour    = "black"
+  ) +
+  annotate(
+    "text",
+    x     = max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+    y     = (wtp / 1e6) * max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+    label = "WTP = $100,000/QALY",
+    hjust = 1.1, vjust = 0.5,
+    size  = 5, fontface = "italic"
+  ) +
+  # 3. Continuous grey scale with custom breaks & labels:
+  scale_color_gradient(
+    name   = "MCD Test Cost Threshold",
+    low    = "#D9D9D9",
+    high   = "#404040",
+    # force the legend to show each threshold
+    breaks = test_thresholds,
+    labels = ordered_labels,
+    # make sure 50 is inside the scale
+    limits = range(test_thresholds),
+    # no extra padding
+    expand = c(0, 0)
+  ) +
+  guides(color = guide_colorbar(
+    title.position = "top",
+    label.position = "bottom",
+    barwidth       = unit(12, "cm"),
+    barheight      = unit(0.4, "cm")
+  )) +
+  scale_y_continuous(
+    name   = "Incremental Cost (millions USD)",
+    labels = scales::dollar_format(prefix = "$", suffix = " M")
+  ) +
+  scale_x_continuous(
+    name   = "Incremental Utility (QALYs)",
+    labels = scales::comma_format()
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "bottom")

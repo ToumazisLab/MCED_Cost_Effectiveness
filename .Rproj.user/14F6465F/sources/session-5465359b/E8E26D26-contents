@@ -1,0 +1,5 @@
+model,accuracy,precision,recall,f1
+XGBoost,0.95,0.96,0.97,0.96
+Random Forest,0.91,0.91,0.97,0.94
+Ridge Logistic,0.96,0.95,0.99,0.97
+SVM,0.96,0.96,0.97,0.97

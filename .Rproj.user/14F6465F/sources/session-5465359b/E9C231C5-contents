@@ -1,0 +1,486 @@
+get_stage_distribution <- function(matrix) {
+  stage_counts <- colSums(matrix)
+  stage_labels <- sub("_.*", "", names(stage_counts))
+  total <- sum(stage_counts)
+  tapply(stage_counts, stage_labels, sum) / total
+}
+
+get_stage_distribution_by_cancer <- function(matrix) {
+  stage_counts <- colSums(matrix)
+  tibble(
+    Stage = sub("_.*", "", names(stage_counts)),
+    Cancer = sub(".*_", "", names(stage_counts)),
+    Count = stage_counts
+  ) %>%
+    group_by(Cancer, Stage) %>%
+    summarise(Proportion = Count / sum(Count), .groups = "drop")
+}
+
+get_fp_summary <- function(summary_df, Arm, vars) {
+  summary_df %>%
+    filter(Arm == !!Arm, Variable %in% vars) %>%
+    group_by(Cancer) %>%
+    summarise(Value = sum(Value), .groups = "drop")
+}
+
+safe_sum <- function(x) {
+  if (is.null(x)) return(0)
+  sum(x, na.rm = TRUE)
+}
+
+secondary_summarize_run <- function(run_obj, run_name, is_usual = FALSE) {
+  icer_df <- run_obj[["final_result_list"]][["Overall"]][["final_icer_result"]]
+  summary_df <- run_obj[["overall_summary"]]
+  
+  if (is_usual) {
+    cost <- icer_df$Value[icer_df$Variable == "usual_cost"]
+    qalys <- icer_df$Value[icer_df$Variable == "usual_utility"]
+    inc_cost <- 0
+    inc_qalys <- 0
+    icer <- 0
+    stage_dist <- get_stage_distribution(run_obj[["incident_matrix_trimmed"]])
+    stage_by_cancer <- get_stage_distribution_by_cancer(run_obj[["incident_matrix_trimmed"]])
+    deaths_averted <- 0
+    overdx <- 0
+    
+    
+    fp_count <- summary_df %>%
+      filter(Arm == "uc", Variable == "UC_FPx1") %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    fp_procedures <- summary_df %>%
+      filter(Arm == "uc", Variable %in% c("UC_FPx1", "UC_FPx2")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    true_TN <- 0
+    fp_percent <- 0
+    tp <- 0
+    fn <- 0
+    screen_dx <- summary_df %>%
+      filter(Arm == "uc", Variable %in% c("screen_dx")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    incidental_dx <- summary_df %>%
+      filter(Arm == "uc", Variable == "incidental_dx") %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    imaging_cost <- summary_df %>%
+      filter(Arm == "uc", Variable %in% c("h_Imaging_cost", "c_Imaging_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    diagnostic_cost <- summary_df %>%
+      filter(Arm == "uc", Variable %in% c("h_Diagnostic_cost", "c_Diagnostic_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    invasive_cost <- summary_df %>%
+      filter(Arm == "uc", Variable %in% c("h_Invasive_cost", "c_Invasive_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    
+  } else {
+    tp <- summary_df %>%
+      filter(Arm == "m", Variable == "s_cases_TP") %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    screen_dx <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("screen_dx", "mced_dx")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    incidental_dx <- summary_df %>%
+      filter(Arm == "m", Variable == "incidental_dx") %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    # False negatives (symptomatic + incidental)
+    fn <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("s_cases_FN", "i_cases_FN")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    cost <- icer_df$Value[icer_df$Variable == "mced_cost"]
+    qalys <- icer_df$Value[icer_df$Variable == "mced_utility"]
+    inc_cost <- icer_df$Value[icer_df$Variable == "Incremental_Cost"]
+    inc_qalys <- icer_df$Value[icer_df$Variable == "Incremental_Utility"]
+    icer <- icer_df$Value[icer_df$Variable == "ICER"]
+    stage_dist <- get_stage_distribution(run_obj[["mced_incident_matrix"]])
+    stage_by_cancer <- get_stage_distribution_by_cancer(run_obj[["mced_incident_matrix"]])
+    deaths_averted <- summary_df %>%
+      filter(Arm == "m_v_uc", Variable == "Cancer_deaths_averted") %>%
+      summarise(Value = sum(pmax(Value, 0))) %>% pull(Value)
+    overdx <- summary_df %>%
+      filter(Arm == "m", Variable == "overdx_Total") %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    downstream_procedures <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("FPx2", "FPx3", "UC_FPx1", "UC_FPx2")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    fp_count <- sum(run_obj[["final_result_list"]][["Overall"]][["mced_TN_FP"]][["fp_counts"]], na.rm = TRUE)
+    fp_procedures <- sum(run_obj[["final_result_list"]][["Overall"]][["mced_TN_FP"]][["Total_FP_fu"]], na.rm = TRUE) + downstream_procedures
+    true_TN <- sum(run_obj[["final_result_list"]][["Overall"]][["mced_TN_FP"]][["True_TN"]], na.rm = TRUE)
+    fp_percent <- 100* (fp_count/(fp_count+true_TN))
+    
+    
+    imaging_cost <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("h_Imaging_cost", "c_Imaging_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    diagnostic_cost <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("h_Diagnostic_cost", "c_Diagnostic_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    invasive_cost <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("h_Invasive_cost", "c_Invasive_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+  }
+  
+  tibble(
+    Run = run_name,
+    # `Cost (Millions, $USD)` = round(cost/1e6, 0),
+    # `QALYs (Thousands)` = round(qalys/1e3,0),
+    # `Incremental Cost (Millions, $USD)` = round(inc_cost/1e6, 0),
+    # `Incremental Utility` = round(inc_qalys, 0),
+    # ICER = round(icer,0),
+    `True Positives` = round(tp),
+    `False Negatives` = round(fn),
+    `Screen-diagnosed cases` = round(screen_dx),
+    `Incidentally diagnosed cases` = round(incidental_dx),
+    # `Imaging cost (Millions, $USD)` = round(imaging_cost/1e6),
+    # `Diagnostic cost (Millions, $USD)` = round(diagnostic_cost/1e6),
+    # `Invasive cost (Millions, $USD)` = round(invasive_cost/1e6),
+    `Cancer Deaths Averted` = round(deaths_averted, 0),
+    `Cases Overdiagnosed` = round(overdx, 0),
+    # `FPs (MCD exams resulting in at least 1 MCD FP, Thousands)` = round(fp_count/1e3, 0),
+    # `Downstream FP Procedures (count)` = round(fp_procedures/1e3, 0),
+    # `TN (Count, Thousands)` = round(true_TN/1e3, 0),
+    # `FP (%)` = round(fp_percent, 4)
+  )
+}
+ 
+main_summarize_run <- function(run_obj, run_name, is_usual = FALSE) {
+  icer_df <- run_obj[["final_result_list"]][["Overall"]][["final_icer_result"]]
+  summary_df <- run_obj[["overall_summary"]]
+
+  if (is_usual) {
+    cost <- icer_df$Value[icer_df$Variable == "usual_cost"]
+    qalys <- icer_df$Value[icer_df$Variable == "usual_utility"]
+    inc_cost <- 0
+    inc_qalys <- 0
+    icer <- 0
+    stage_dist <- get_stage_distribution(run_obj[["incident_matrix_trimmed"]])
+    stage_by_cancer <- get_stage_distribution_by_cancer(run_obj[["incident_matrix_trimmed"]])
+    deaths_averted <- 0
+    overdx <- 0
+    
+    
+    fp_count <- summary_df %>%
+      filter(Arm == "uc", Variable == "UC_FPx1") %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    fp_procedures <- summary_df %>%
+      filter(Arm == "uc", Variable %in% c("UC_FPx1", "UC_FPx2")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    true_TN <- 0
+    fp_percent <- 0
+    tp <- 0
+    fn <- 0
+    screen_dx <- summary_df %>%
+      filter(Arm == "uc", Variable %in% c("screen_dx")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    incidental_dx <- summary_df %>%
+      filter(Arm == "uc", Variable == "incidental_dx") %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    imaging_cost <- summary_df %>%
+      filter(Arm == "uc", Variable %in% c("h_Imaging_cost", "c_Imaging_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    diagnostic_cost <- summary_df %>%
+      filter(Arm == "uc", Variable %in% c("h_Diagnostic_cost", "c_Diagnostic_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    invasive_cost <- summary_df %>%
+      filter(Arm == "uc", Variable %in% c("h_Invasive_cost", "c_Invasive_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+      
+      
+  } else {
+    tp <- summary_df %>%
+      filter(Arm == "m", Variable == "s_cases_TP") %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    screen_dx <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("screen_dx", "mced_dx")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    incidental_dx <- summary_df %>%
+      filter(Arm == "m", Variable == "incidental_dx") %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    # False negatives (symptomatic + incidental)
+    fn <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("s_cases_FN", "i_cases_FN")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    cost <- icer_df$Value[icer_df$Variable == "mced_cost"]
+    qalys <- icer_df$Value[icer_df$Variable == "mced_utility"]
+    inc_cost <- icer_df$Value[icer_df$Variable == "Incremental_Cost"]
+    inc_qalys <- icer_df$Value[icer_df$Variable == "Incremental_Utility"]
+    icer <- icer_df$Value[icer_df$Variable == "ICER"]
+    stage_dist <- get_stage_distribution(run_obj[["mced_incident_matrix"]])
+    stage_by_cancer <- get_stage_distribution_by_cancer(run_obj[["mced_incident_matrix"]])
+    deaths_averted <- summary_df %>%
+      filter(Arm == "m_v_uc", Variable == "Cancer_deaths_averted") %>%
+      summarise(Value = sum(pmax(Value, 0))) %>% pull(Value)
+    overdx <- summary_df %>%
+      filter(Arm == "m", Variable == "overdx_Total") %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    downstream_procedures <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("FPx2", "FPx3", "UC_FPx1", "UC_FPx2")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    fp_count <- sum(run_obj[["final_result_list"]][["Overall"]][["mced_TN_FP"]][["fp_counts"]], na.rm = TRUE)
+    fp_procedures <- sum(run_obj[["final_result_list"]][["Overall"]][["mced_TN_FP"]][["Total_FP_fu"]], na.rm = TRUE) + downstream_procedures
+    true_TN <- sum(run_obj[["final_result_list"]][["Overall"]][["mced_TN_FP"]][["True_TN"]], na.rm = TRUE)
+    fp_percent <- 100* (fp_count/(fp_count+true_TN))
+    
+    
+    imaging_cost <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("h_Imaging_cost", "c_Imaging_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    diagnostic_cost <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("h_Diagnostic_cost", "c_Diagnostic_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+    
+    invasive_cost <- summary_df %>%
+      filter(Arm == "m", Variable %in% c("h_Invasive_cost", "c_Invasive_cost")) %>%
+      summarise(Value = sum(Value)) %>% pull(Value)
+  }
+  
+  tibble(
+    Run = run_name,
+    `Cost (M, $USD)` = round(cost/1e6, 0),
+    `QALYs (Th)` = round(qalys/1e3,0),
+    `Incremental Cost (M, $USD)` = round(inc_cost/1e6, 0),
+    `Incremental Utility` = round(inc_qalys, 0),
+    ICER = round(icer,0),
+    # `True Positives` = round(tp),
+    # `False Negatives` = round(fn),
+    # `Screen-diagnosed cases` = round(screen_dx),
+    # `Incidentally diagnosed cases` = round(incidental_dx),
+    `Imaging cost (M, $USD)` = round(imaging_cost/1e6),
+    `Diagnostic cost (M, $USD)` = round(diagnostic_cost/1e6),
+    `Invasive cost (M, $USD)` = round(invasive_cost/1e6),
+    # `Cancer Deaths Averted` = round(deaths_averted, 0),
+    # `Cases Overdiagnosed` = round(overdx, 0),
+    `FPs (MCD exams resulting in at least 1 MCD FP, Th)` = round(fp_count/1e3, 0),
+    `Downstream FP Procedures (count)` = round(fp_procedures/1e3, 0),
+    `TN (Count, Th)` = round(true_TN/1e3, 0),
+    `FP (%)` = round(fp_percent, 0)
+  )
+}
+
+
+
+# List of all your scenario objects (add them as needed)
+runs_list <- list(
+  "Usual care"       = baseline_list$`98%`,
+  "baseline_All_95"  = baseline_list$`95%`,
+  "baseline_All_96"  = baseline_list$`96%`,
+  "baseline_All_97"  = baseline_list$`97%`,
+  "baseline_All_98"  = baseline_list$`98%`,
+  "baseline_All_99"  = baseline_list$`99%`,
+  "baseline_All_99.99" = baseline_list$`99.99%`
+)
+
+# runs_list <- list(
+#   "Screening Cancers"  = baseline_screening,
+#   "Non-Screening Cancers" = baseline_no_screening
+# )
+
+# runs_list <- list(
+#   "Usual care" = baseline,
+#   "baseline" = baseline,
+#   "CRC Compliance" = baseline_crc136_br,
+#   "CRC Cost" = baseline_crc_cost_br
+# )
+
+
+summary_all <- purrr::imap_dfr(all_runs, function(obj, name) {
+  main_summarize_run(obj, name, is_usual = (name == "Usual care"))
+})
+
+baseline_uc <- main_summarize_run(baseline_list[["baseline*"]],
+                                  "Usual care (All Cancers - spec_0.98_cost_500)", is_usual = TRUE)
+
+uc_screen         <- main_summarize_run(baseline_list[["Screening Cancers Only"]],
+                                        "Usual care (Screening Cancers Only)", is_usual = TRUE)
+
+uc_no_screen      <- main_summarize_run(baseline_list[["Non-Screening Cancers Only"]],
+                                        "Usual care (Non-Screening Cancers Only)", is_usual = TRUE)
+summary_all <- bind_rows(
+  baseline_uc,
+  summary_all,
+  uc_screen,
+  uc_no_screen
+)
+
+runs_list <- list(
+  "Usual care"       = baseline_list$`98%`,
+  "baseline_All_98"  = baseline_list$`98%`
+)
+
+second_summary_all <- purrr::imap_dfr(runs_list, function(obj, name) {
+  secondary_summarize_run(obj, name, is_usual = (name == "Usual care"))
+})
+
+second_summary_screen <- secondary_summarize_run(baseline_screen_only, run_name = "Screening Cancers Only")
+second_uc_screen <- secondary_summarize_run(baseline_screen_only, run_name = "Usual care (Screening Cancers Only)", is_usual = TRUE)
+second_summary_no_screen <- secondary_summarize_run(baseline_no_screen_only, run_name = "Non-Screening Cancers Only")
+second_uc_no_screen <- secondary_summarize_run(baseline_no_screen_only, run_name = "Usual care (Non-Screening Cancers Only)", is_usual = TRUE)
+
+second_summary_all <- bind_rows(
+  second_summary_all,
+  second_uc_screen,
+  second_summary_screen,
+  second_uc_no_screen,
+  second_summary_no_screen
+)
+
+write_csv(summary_all, "../summary_main_07072026.csv")
+
+write_csv(second_summary_all, "../summary_second_07072026.csv")
+
+
+get_stage_distribution_by_cancer <- function(matrix) {
+  stage_counts <- colSums(matrix, na.rm = TRUE)
+  
+  tibble(
+    Stage  = sub("_.*", "", names(stage_counts)),
+    Cancer = sub(".*_", "", names(stage_counts)),
+    Count  = stage_counts
+  ) %>%
+    group_by(Cancer) %>%
+    mutate(Proportion = Count / sum(Count)) %>%
+    ungroup() %>%
+    select(Cancer, Stage, Proportion)
+}
+
+summarize_by_cancer <- function(run_obj, run_name, is_usual = FALSE) {
+  icer_df <- run_obj[["final_result_list"]][["Overall"]][["final_icer_result"]]
+  summary_df <- run_obj[["overall_summary"]]
+  
+  if (is_usual) {
+    cost <- icer_df$Value[icer_df$Variable == "usual_cost"]
+    qalys <- icer_df$Value[icer_df$Variable == "usual_utility"]
+    inc_cost <- 0
+    inc_qalys <- 0
+    icer <- 0
+    stage_df <- get_stage_distribution_by_cancer(run_obj[["incident_matrix_trimmed"]])
+    deaths_averted <- summary_df %>%
+      filter(Arm == "uc", Variable == "Cancer_deaths") %>%
+      group_by(Cancer) %>% summarise(Value = 0, .groups = "drop")
+    overdx <- tibble(Cancer = unique(summary_df$Cancer), Value = 0)
+    
+    fp1 <- summary_df %>%
+      filter(Arm == "uc", Variable == "UC_FPx1") %>%
+      select(Cancer, `FPs (Count)` = Value)
+    fp2 <- summary_df %>%
+      filter(Arm == "uc", Variable == "UC_FPx2") %>%
+      select(Cancer, `FPs (Test Results)` = Value)
+    fp_df <- full_join(fp1, fp2, by = "Cancer") %>%
+      mutate(across(where(is.numeric), ~replace_na(.x, 0)))
+    
+  } else {
+    cost <- icer_df$Value[icer_df$Variable == "mced_cost"]
+    qalys <- icer_df$Value[icer_df$Variable == "mced_utility"]
+    inc_cost <- icer_df$Value[icer_df$Variable == "Incremental_Cost"]
+    inc_qalys <- icer_df$Value[icer_df$Variable == "Incremental_Utility"]
+    icer <- icer_df$Value[icer_df$Variable == "ICER"]
+    stage_df <- get_stage_distribution_by_cancer(run_obj[["mced_incident_matrix"]])
+    deaths_averted <- summary_df %>%
+      filter(Arm == "m_v_uc", Variable == "Cancer_deaths_averted") %>%
+      mutate(Value = pmax(0, Value)) %>%
+      select(Cancer, Value)
+    overdx <- summary_df %>%
+      filter(Arm == "m", Variable == "overdx_Total") %>%
+      select(Cancer, Value)
+    
+    cancer_names <- names(run_obj[["final_result_list"]][["MCED"]])
+    fp_df <- purrr::map_dfr(cancer_names, function(ca) {
+      list_data <- run_obj[["final_result_list"]][["MCED"]][[ca]][["mced_TN_FP"]]
+      tibble(
+        Cancer = ca,
+        `FPs (Count)` = safe_sum(list_data[["FP_fu"]]),
+        `FPs (Test Results)` = safe_sum(list_data[["FP_fu"]])
+      )
+    })
+  }
+  
+  # Join all metrics by cancer
+  out <- stage_df %>%
+    pivot_wider(names_from = Stage, values_from = Proportion, values_fill = 0) %>%
+    rename(
+      `Stage I` = I, `Stage II` = II, `Stage III` = III, `Stage IV` = IV
+    ) %>%
+    left_join(deaths_averted, by = "Cancer") %>%
+    rename(`Cancer Deaths Averted` = Value) %>%
+    left_join(overdx, by = "Cancer") %>%
+    rename(`Cases Overdiagnosed` = Value) %>%
+    left_join(fp_df, by = "Cancer") %>%
+    mutate(
+      Run = run_name,
+      Cost = cost,
+      QALYs = qalys,
+      `Incremental Cost` = inc_cost,
+      `Incremental Utility` = inc_qalys,
+      ICER = icer
+    ) %>%
+    select(Run, Cancer, everything())
+  
+  return(out)
+}
+
+runs_list <- list(
+  "Usual care"       = baseline_All_95,
+  "baseline_All_95"  = baseline_All_95,
+  "baseline_All_96"  = baseline_All_96,
+  "baseline_All_97"  = baseline_All_97,
+  "baseline_All_98"  = baseline_All_98,
+  "baseline_All_99"  = baseline_All_99,
+  "baseline_All_99.99" = baseline_ALL_99.99
+)
+
+by_cancer_df <- purrr::imap_dfr(runs_list, function(obj, name) {
+  summarize_by_cancer(obj, name, is_usual = (name == "Usual care"))
+})
+
+
+mced_case_df <- by_cancer_df %>%
+  filter(Run == "baseline_All_98") %>%
+  select(Cancer, starts_with("Stage"), `Cases Overdiagnosed`, `Cancer Deaths Averted`) %>%
+  rename_with(~ paste0("MCED ", .), starts_with("Stage"))
+
+usual_case_df <- by_cancer_df %>%
+  filter(Run == "Usual care") %>%
+  select(Cancer, starts_with("Stage")) %>%
+  rename_with(~ paste0("Usual ", .), starts_with("Stage"))
+
+# Merge together
+cancer_df_cases <- full_join(usual_case_df, mced_case_df, by = "Cancer")
+
+fp_wide <- by_cancer_df %>%
+  filter(grepl("Usual|95|96|97|98|99|9999", Run)) %>%
+  mutate(Run_clean = case_when(
+    Run == "Usual care" ~ "Usual FP",
+    TRUE ~ paste0(sub(".*_", "", Run), "_FP")
+  )) %>%
+  select(Cancer, Run_clean, `FPs (Count)`) %>%
+  pivot_wider(names_from = Run_clean, values_from = `FPs (Count)`)
+
+
+cost_df <- by_cancer_df %>%
+  filter(grepl("Usual|95|96|97|98|99|9999", Run)) %>%
+  group_by(Run) %>%
+  mutate(Total = sum(Cost),
+         `Cost %` = round(100 * Cost / Total, 2)) %>%
+  select(Cancer, Run, `Cost %`) %>%
+  ungroup()

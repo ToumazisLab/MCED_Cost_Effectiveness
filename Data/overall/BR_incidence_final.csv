@@ -1,0 +1,3905 @@
+Cancer,Stage,Age,rate_smooth,Rate
+anus,I,40,0.00E+00,0.00E+00
+anus,I,41,0.00E+00,0.00E+00
+anus,I,42,0.00E+00,0.00E+00
+anus,I,43,0.00E+00,0.00E+00
+anus,I,44,0.00E+00,0.00E+00
+anus,I,45,0.00E+00,0.00E+00
+anus,I,46,0.00E+00,0.00E+00
+anus,I,47,0.00E+00,0.00E+00
+anus,I,48,0.00E+00,0.00E+00
+anus,I,49,0.00E+00,0.00E+00
+anus,I,50,0.00E+00,0.00E+00
+anus,I,51,0.00E+00,0.00E+00
+anus,I,52,0.00E+00,0.00E+00
+anus,I,53,0.00E+00,0.00E+00
+anus,I,54,0.00E+00,0.00E+00
+anus,I,55,0.00E+00,0.00E+00
+anus,I,56,0.00E+00,0.00E+00
+anus,I,57,0.00E+00,0.00E+00
+anus,I,58,0.00E+00,0.00E+00
+anus,I,59,0.00E+00,0.00E+00
+anus,I,60,0.00E+00,0.00E+00
+anus,I,61,0.00E+00,0.00E+00
+anus,I,62,0.00E+00,0.00E+00
+anus,I,63,0.00E+00,0.00E+00
+anus,I,64,0.00E+00,0.00E+00
+anus,I,65,0.00E+00,0.00E+00
+anus,I,66,0.00E+00,0.00E+00
+anus,I,67,0.00E+00,0.00E+00
+anus,I,68,0.00E+00,0.00E+00
+anus,I,69,0.00E+00,0.00E+00
+anus,I,70,0.00E+00,0.00E+00
+anus,I,71,0.00E+00,0.00E+00
+anus,I,72,0.00E+00,0.00E+00
+anus,I,73,0.00E+00,0.00E+00
+anus,I,74,0.00E+00,0.00E+00
+anus,I,75,0.00E+00,0.00E+00
+anus,I,76,0.00E+00,0.00E+00
+anus,I,77,0.00E+00,0.00E+00
+anus,I,78,0.00E+00,0.00E+00
+anus,I,79,0.00E+00,0.00E+00
+anus,I,80,0.00E+00,0.00E+00
+anus,I,81,0.00E+00,0.00E+00
+anus,I,82,0.00E+00,0.00E+00
+anus,I,83,0.00E+00,0.00E+00
+anus,I,84,0.00E+00,0.00E+00
+anus,I,85,0.00E+00,0.00E+00
+anus,I,86,0.00E+00,0.00E+00
+anus,I,87,0.00E+00,0.00E+00
+anus,I,88,0.00E+00,0.00E+00
+anus,I,89,0.00E+00,0.00E+00
+anus,I,90,0.00E+00,0.00E+00
+anus,I,91,0.00E+00,0.00E+00
+anus,I,92,0.00E+00,0.00E+00
+anus,I,93,0.00E+00,0.00E+00
+anus,I,94,0.00E+00,0.00E+00
+anus,I,95,0.00E+00,0.00E+00
+anus,I,96,0.00E+00,0.00E+00
+anus,I,97,0.00E+00,0.00E+00
+anus,I,98,0.00E+00,0.00E+00
+anus,I,99,0.00E+00,0.00E+00
+anus,I,100,0.00E+00,0.00E+00
+anus,II,40,0.00E+00,0.00E+00
+anus,II,41,0.00E+00,0.00E+00
+anus,II,42,0.00E+00,0.00E+00
+anus,II,43,0.00E+00,0.00E+00
+anus,II,44,0.00E+00,0.00E+00
+anus,II,45,0.00E+00,0.00E+00
+anus,II,46,0.00E+00,0.00E+00
+anus,II,47,0.00E+00,0.00E+00
+anus,II,48,0.00E+00,0.00E+00
+anus,II,49,0.00E+00,0.00E+00
+anus,II,50,0.00E+00,0.00E+00
+anus,II,51,0.00E+00,0.00E+00
+anus,II,52,0.00E+00,0.00E+00
+anus,II,53,0.00E+00,0.00E+00
+anus,II,54,0.00E+00,0.00E+00
+anus,II,55,0.00E+00,0.00E+00
+anus,II,56,0.00E+00,0.00E+00
+anus,II,57,0.00E+00,0.00E+00
+anus,II,58,0.00E+00,0.00E+00
+anus,II,59,0.00E+00,0.00E+00
+anus,II,60,0.00E+00,0.00E+00
+anus,II,61,0.00E+00,0.00E+00
+anus,II,62,0.00E+00,0.00E+00
+anus,II,63,0.00E+00,0.00E+00
+anus,II,64,0.00E+00,0.00E+00
+anus,II,65,0.00E+00,0.00E+00
+anus,II,66,0.00E+00,0.00E+00
+anus,II,67,0.00E+00,0.00E+00
+anus,II,68,0.00E+00,0.00E+00
+anus,II,69,0.00E+00,0.00E+00
+anus,II,70,0.00E+00,0.00E+00
+anus,II,71,0.00E+00,0.00E+00
+anus,II,72,0.00E+00,0.00E+00
+anus,II,73,0.00E+00,0.00E+00
+anus,II,74,0.00E+00,0.00E+00
+anus,II,75,0.00E+00,0.00E+00
+anus,II,76,0.00E+00,0.00E+00
+anus,II,77,0.00E+00,0.00E+00
+anus,II,78,0.00E+00,0.00E+00
+anus,II,79,0.00E+00,0.00E+00
+anus,II,80,0.00E+00,0.00E+00
+anus,II,81,0.00E+00,0.00E+00
+anus,II,82,0.00E+00,0.00E+00
+anus,II,83,0.00E+00,0.00E+00
+anus,II,84,0.00E+00,0.00E+00
+anus,II,85,0.00E+00,0.00E+00
+anus,II,86,0.00E+00,0.00E+00
+anus,II,87,0.00E+00,0.00E+00
+anus,II,88,0.00E+00,0.00E+00
+anus,II,89,0.00E+00,0.00E+00
+anus,II,90,0.00E+00,0.00E+00
+anus,II,91,0.00E+00,0.00E+00
+anus,II,92,0.00E+00,0.00E+00
+anus,II,93,0.00E+00,0.00E+00
+anus,II,94,0.00E+00,0.00E+00
+anus,II,95,0.00E+00,0.00E+00
+anus,II,96,0.00E+00,0.00E+00
+anus,II,97,0.00E+00,0.00E+00
+anus,II,98,0.00E+00,0.00E+00
+anus,II,99,0.00E+00,0.00E+00
+anus,II,100,0.00E+00,0.00E+00
+anus,III,40,0.00E+00,0.00E+00
+anus,III,41,0.00E+00,0.00E+00
+anus,III,42,0.00E+00,0.00E+00
+anus,III,43,0.00E+00,0.00E+00
+anus,III,44,0.00E+00,0.00E+00
+anus,III,45,0.00E+00,0.00E+00
+anus,III,46,0.00E+00,0.00E+00
+anus,III,47,0.00E+00,0.00E+00
+anus,III,48,0.00E+00,0.00E+00
+anus,III,49,0.00E+00,0.00E+00
+anus,III,50,0.00E+00,0.00E+00
+anus,III,51,0.00E+00,0.00E+00
+anus,III,52,0.00E+00,0.00E+00
+anus,III,53,0.00E+00,0.00E+00
+anus,III,54,0.00E+00,0.00E+00
+anus,III,55,0.00E+00,0.00E+00
+anus,III,56,0.00E+00,0.00E+00
+anus,III,57,0.00E+00,0.00E+00
+anus,III,58,0.00E+00,0.00E+00
+anus,III,59,0.00E+00,0.00E+00
+anus,III,60,0.00E+00,0.00E+00
+anus,III,61,0.00E+00,0.00E+00
+anus,III,62,0.00E+00,0.00E+00
+anus,III,63,0.00E+00,0.00E+00
+anus,III,64,0.00E+00,0.00E+00
+anus,III,65,0.00E+00,0.00E+00
+anus,III,66,0.00E+00,0.00E+00
+anus,III,67,0.00E+00,0.00E+00
+anus,III,68,0.00E+00,0.00E+00
+anus,III,69,0.00E+00,0.00E+00
+anus,III,70,0.00E+00,0.00E+00
+anus,III,71,0.00E+00,0.00E+00
+anus,III,72,0.00E+00,0.00E+00
+anus,III,73,0.00E+00,0.00E+00
+anus,III,74,0.00E+00,0.00E+00
+anus,III,75,0.00E+00,0.00E+00
+anus,III,76,0.00E+00,0.00E+00
+anus,III,77,0.00E+00,0.00E+00
+anus,III,78,0.00E+00,0.00E+00
+anus,III,79,0.00E+00,0.00E+00
+anus,III,80,0.00E+00,0.00E+00
+anus,III,81,0.00E+00,0.00E+00
+anus,III,82,0.00E+00,0.00E+00
+anus,III,83,0.00E+00,0.00E+00
+anus,III,84,0.00E+00,0.00E+00
+anus,III,85,0.00E+00,0.00E+00
+anus,III,86,0.00E+00,0.00E+00
+anus,III,87,0.00E+00,0.00E+00
+anus,III,88,0.00E+00,0.00E+00
+anus,III,89,0.00E+00,0.00E+00
+anus,III,90,0.00E+00,0.00E+00
+anus,III,91,0.00E+00,0.00E+00
+anus,III,92,0.00E+00,0.00E+00
+anus,III,93,0.00E+00,0.00E+00
+anus,III,94,0.00E+00,0.00E+00
+anus,III,95,0.00E+00,0.00E+00
+anus,III,96,0.00E+00,0.00E+00
+anus,III,97,0.00E+00,0.00E+00
+anus,III,98,0.00E+00,0.00E+00
+anus,III,99,0.00E+00,0.00E+00
+anus,III,100,0.00E+00,0.00E+00
+anus,IV,40,0.00E+00,0.00E+00
+anus,IV,41,0.00E+00,0.00E+00
+anus,IV,42,0.00E+00,0.00E+00
+anus,IV,43,0.00E+00,0.00E+00
+anus,IV,44,0.00E+00,0.00E+00
+anus,IV,45,0.00E+00,0.00E+00
+anus,IV,46,0.00E+00,0.00E+00
+anus,IV,47,0.00E+00,0.00E+00
+anus,IV,48,0.00E+00,0.00E+00
+anus,IV,49,0.00E+00,0.00E+00
+anus,IV,50,0.00E+00,0.00E+00
+anus,IV,51,0.00E+00,0.00E+00
+anus,IV,52,0.00E+00,0.00E+00
+anus,IV,53,0.00E+00,0.00E+00
+anus,IV,54,0.00E+00,0.00E+00
+anus,IV,55,0.00E+00,0.00E+00
+anus,IV,56,0.00E+00,0.00E+00
+anus,IV,57,0.00E+00,0.00E+00
+anus,IV,58,0.00E+00,0.00E+00
+anus,IV,59,0.00E+00,0.00E+00
+anus,IV,60,0.00E+00,0.00E+00
+anus,IV,61,0.00E+00,0.00E+00
+anus,IV,62,0.00E+00,0.00E+00
+anus,IV,63,0.00E+00,0.00E+00
+anus,IV,64,0.00E+00,0.00E+00
+anus,IV,65,0.00E+00,0.00E+00
+anus,IV,66,0.00E+00,0.00E+00
+anus,IV,67,0.00E+00,0.00E+00
+anus,IV,68,0.00E+00,0.00E+00
+anus,IV,69,0.00E+00,0.00E+00
+anus,IV,70,0.00E+00,0.00E+00
+anus,IV,71,0.00E+00,0.00E+00
+anus,IV,72,0.00E+00,0.00E+00
+anus,IV,73,0.00E+00,0.00E+00
+anus,IV,74,0.00E+00,0.00E+00
+anus,IV,75,0.00E+00,0.00E+00
+anus,IV,76,0.00E+00,0.00E+00
+anus,IV,77,0.00E+00,0.00E+00
+anus,IV,78,0.00E+00,0.00E+00
+anus,IV,79,0.00E+00,0.00E+00
+anus,IV,80,0.00E+00,0.00E+00
+anus,IV,81,0.00E+00,0.00E+00
+anus,IV,82,0.00E+00,0.00E+00
+anus,IV,83,0.00E+00,0.00E+00
+anus,IV,84,0.00E+00,0.00E+00
+anus,IV,85,0.00E+00,0.00E+00
+anus,IV,86,0.00E+00,0.00E+00
+anus,IV,87,0.00E+00,0.00E+00
+anus,IV,88,0.00E+00,0.00E+00
+anus,IV,89,0.00E+00,0.00E+00
+anus,IV,90,0.00E+00,0.00E+00
+anus,IV,91,0.00E+00,0.00E+00
+anus,IV,92,0.00E+00,0.00E+00
+anus,IV,93,0.00E+00,0.00E+00
+anus,IV,94,0.00E+00,0.00E+00
+anus,IV,95,0.00E+00,0.00E+00
+anus,IV,96,0.00E+00,0.00E+00
+anus,IV,97,0.00E+00,0.00E+00
+anus,IV,98,0.00E+00,0.00E+00
+anus,IV,99,0.00E+00,0.00E+00
+anus,IV,100,0.00E+00,0.00E+00
+bladder,I,40,0.00E+00,0.00E+00
+bladder,I,41,0.00E+00,0.00E+00
+bladder,I,42,0.00E+00,0.00E+00
+bladder,I,43,0.00E+00,0.00E+00
+bladder,I,44,0.00E+00,0.00E+00
+bladder,I,45,0.00E+00,0.00E+00
+bladder,I,46,0.00E+00,0.00E+00
+bladder,I,47,0.00E+00,0.00E+00
+bladder,I,48,0.00E+00,0.00E+00
+bladder,I,49,0.00E+00,0.00E+00
+bladder,I,50,0.00E+00,0.00E+00
+bladder,I,51,0.00E+00,0.00E+00
+bladder,I,52,0.00E+00,0.00E+00
+bladder,I,53,0.00E+00,0.00E+00
+bladder,I,54,0.00E+00,0.00E+00
+bladder,I,55,0.00E+00,0.00E+00
+bladder,I,56,0.00E+00,0.00E+00
+bladder,I,57,0.00E+00,0.00E+00
+bladder,I,58,0.00E+00,0.00E+00
+bladder,I,59,0.00E+00,0.00E+00
+bladder,I,60,0.00E+00,0.00E+00
+bladder,I,61,0.00E+00,0.00E+00
+bladder,I,62,0.00E+00,0.00E+00
+bladder,I,63,0.00E+00,0.00E+00
+bladder,I,64,0.00E+00,0.00E+00
+bladder,I,65,0.00E+00,0.00E+00
+bladder,I,66,0.00E+00,0.00E+00
+bladder,I,67,0.00E+00,0.00E+00
+bladder,I,68,0.00E+00,0.00E+00
+bladder,I,69,0.00E+00,0.00E+00
+bladder,I,70,0.00E+00,0.00E+00
+bladder,I,71,0.00E+00,0.00E+00
+bladder,I,72,0.00E+00,0.00E+00
+bladder,I,73,0.00E+00,0.00E+00
+bladder,I,74,0.00E+00,0.00E+00
+bladder,I,75,0.00E+00,0.00E+00
+bladder,I,76,0.00E+00,0.00E+00
+bladder,I,77,0.00E+00,0.00E+00
+bladder,I,78,0.00E+00,0.00E+00
+bladder,I,79,0.00E+00,0.00E+00
+bladder,I,80,0.00E+00,0.00E+00
+bladder,I,81,0.00E+00,0.00E+00
+bladder,I,82,0.00E+00,0.00E+00
+bladder,I,83,0.00E+00,0.00E+00
+bladder,I,84,0.00E+00,0.00E+00
+bladder,I,85,0.00E+00,0.00E+00
+bladder,I,86,0.00E+00,0.00E+00
+bladder,I,87,0.00E+00,0.00E+00
+bladder,I,88,0.00E+00,0.00E+00
+bladder,I,89,0.00E+00,0.00E+00
+bladder,I,90,0.00E+00,0.00E+00
+bladder,I,91,0.00E+00,0.00E+00
+bladder,I,92,0.00E+00,0.00E+00
+bladder,I,93,0.00E+00,0.00E+00
+bladder,I,94,0.00E+00,0.00E+00
+bladder,I,95,0.00E+00,0.00E+00
+bladder,I,96,0.00E+00,0.00E+00
+bladder,I,97,0.00E+00,0.00E+00
+bladder,I,98,0.00E+00,0.00E+00
+bladder,I,99,0.00E+00,0.00E+00
+bladder,I,100,0.00E+00,0.00E+00
+bladder,II,40,0.00E+00,0.00E+00
+bladder,II,41,0.00E+00,0.00E+00
+bladder,II,42,0.00E+00,0.00E+00
+bladder,II,43,0.00E+00,0.00E+00
+bladder,II,44,0.00E+00,0.00E+00
+bladder,II,45,0.00E+00,0.00E+00
+bladder,II,46,0.00E+00,0.00E+00
+bladder,II,47,0.00E+00,0.00E+00
+bladder,II,48,0.00E+00,0.00E+00
+bladder,II,49,0.00E+00,0.00E+00
+bladder,II,50,0.00E+00,0.00E+00
+bladder,II,51,0.00E+00,0.00E+00
+bladder,II,52,0.00E+00,0.00E+00
+bladder,II,53,0.00E+00,0.00E+00
+bladder,II,54,0.00E+00,0.00E+00
+bladder,II,55,0.00E+00,0.00E+00
+bladder,II,56,0.00E+00,0.00E+00
+bladder,II,57,0.00E+00,0.00E+00
+bladder,II,58,0.00E+00,0.00E+00
+bladder,II,59,0.00E+00,0.00E+00
+bladder,II,60,0.00E+00,0.00E+00
+bladder,II,61,0.00E+00,0.00E+00
+bladder,II,62,0.00E+00,0.00E+00
+bladder,II,63,0.00E+00,0.00E+00
+bladder,II,64,0.00E+00,0.00E+00
+bladder,II,65,0.00E+00,0.00E+00
+bladder,II,66,0.00E+00,0.00E+00
+bladder,II,67,0.00E+00,0.00E+00
+bladder,II,68,0.00E+00,0.00E+00
+bladder,II,69,0.00E+00,0.00E+00
+bladder,II,70,0.00E+00,0.00E+00
+bladder,II,71,0.00E+00,0.00E+00
+bladder,II,72,0.00E+00,0.00E+00
+bladder,II,73,0.00E+00,0.00E+00
+bladder,II,74,0.00E+00,0.00E+00
+bladder,II,75,0.00E+00,0.00E+00
+bladder,II,76,0.00E+00,0.00E+00
+bladder,II,77,0.00E+00,0.00E+00
+bladder,II,78,0.00E+00,0.00E+00
+bladder,II,79,0.00E+00,0.00E+00
+bladder,II,80,0.00E+00,0.00E+00
+bladder,II,81,0.00E+00,0.00E+00
+bladder,II,82,0.00E+00,0.00E+00
+bladder,II,83,0.00E+00,0.00E+00
+bladder,II,84,0.00E+00,0.00E+00
+bladder,II,85,0.00E+00,0.00E+00
+bladder,II,86,0.00E+00,0.00E+00
+bladder,II,87,0.00E+00,0.00E+00
+bladder,II,88,0.00E+00,0.00E+00
+bladder,II,89,0.00E+00,0.00E+00
+bladder,II,90,0.00E+00,0.00E+00
+bladder,II,91,0.00E+00,0.00E+00
+bladder,II,92,0.00E+00,0.00E+00
+bladder,II,93,0.00E+00,0.00E+00
+bladder,II,94,0.00E+00,0.00E+00
+bladder,II,95,0.00E+00,0.00E+00
+bladder,II,96,0.00E+00,0.00E+00
+bladder,II,97,0.00E+00,0.00E+00
+bladder,II,98,0.00E+00,0.00E+00
+bladder,II,99,0.00E+00,0.00E+00
+bladder,II,100,0.00E+00,0.00E+00
+bladder,III,40,0.00E+00,0.00E+00
+bladder,III,41,0.00E+00,0.00E+00
+bladder,III,42,0.00E+00,0.00E+00
+bladder,III,43,0.00E+00,0.00E+00
+bladder,III,44,0.00E+00,0.00E+00
+bladder,III,45,0.00E+00,0.00E+00
+bladder,III,46,0.00E+00,0.00E+00
+bladder,III,47,0.00E+00,0.00E+00
+bladder,III,48,0.00E+00,0.00E+00
+bladder,III,49,0.00E+00,0.00E+00
+bladder,III,50,0.00E+00,0.00E+00
+bladder,III,51,0.00E+00,0.00E+00
+bladder,III,52,0.00E+00,0.00E+00
+bladder,III,53,0.00E+00,0.00E+00
+bladder,III,54,0.00E+00,0.00E+00
+bladder,III,55,0.00E+00,0.00E+00
+bladder,III,56,0.00E+00,0.00E+00
+bladder,III,57,0.00E+00,0.00E+00
+bladder,III,58,0.00E+00,0.00E+00
+bladder,III,59,0.00E+00,0.00E+00
+bladder,III,60,0.00E+00,0.00E+00
+bladder,III,61,0.00E+00,0.00E+00
+bladder,III,62,0.00E+00,0.00E+00
+bladder,III,63,0.00E+00,0.00E+00
+bladder,III,64,0.00E+00,0.00E+00
+bladder,III,65,0.00E+00,0.00E+00
+bladder,III,66,0.00E+00,0.00E+00
+bladder,III,67,0.00E+00,0.00E+00
+bladder,III,68,0.00E+00,0.00E+00
+bladder,III,69,0.00E+00,0.00E+00
+bladder,III,70,0.00E+00,0.00E+00
+bladder,III,71,0.00E+00,0.00E+00
+bladder,III,72,0.00E+00,0.00E+00
+bladder,III,73,0.00E+00,0.00E+00
+bladder,III,74,0.00E+00,0.00E+00
+bladder,III,75,0.00E+00,0.00E+00
+bladder,III,76,0.00E+00,0.00E+00
+bladder,III,77,0.00E+00,0.00E+00
+bladder,III,78,0.00E+00,0.00E+00
+bladder,III,79,0.00E+00,0.00E+00
+bladder,III,80,0.00E+00,0.00E+00
+bladder,III,81,0.00E+00,0.00E+00
+bladder,III,82,0.00E+00,0.00E+00
+bladder,III,83,0.00E+00,0.00E+00
+bladder,III,84,0.00E+00,0.00E+00
+bladder,III,85,0.00E+00,0.00E+00
+bladder,III,86,0.00E+00,0.00E+00
+bladder,III,87,0.00E+00,0.00E+00
+bladder,III,88,0.00E+00,0.00E+00
+bladder,III,89,0.00E+00,0.00E+00
+bladder,III,90,0.00E+00,0.00E+00
+bladder,III,91,0.00E+00,0.00E+00
+bladder,III,92,0.00E+00,0.00E+00
+bladder,III,93,0.00E+00,0.00E+00
+bladder,III,94,0.00E+00,0.00E+00
+bladder,III,95,0.00E+00,0.00E+00
+bladder,III,96,0.00E+00,0.00E+00
+bladder,III,97,0.00E+00,0.00E+00
+bladder,III,98,0.00E+00,0.00E+00
+bladder,III,99,0.00E+00,0.00E+00
+bladder,III,100,0.00E+00,0.00E+00
+bladder,IV,40,0.00E+00,0.00E+00
+bladder,IV,41,0.00E+00,0.00E+00
+bladder,IV,42,0.00E+00,0.00E+00
+bladder,IV,43,0.00E+00,0.00E+00
+bladder,IV,44,0.00E+00,0.00E+00
+bladder,IV,45,0.00E+00,0.00E+00
+bladder,IV,46,0.00E+00,0.00E+00
+bladder,IV,47,0.00E+00,0.00E+00
+bladder,IV,48,0.00E+00,0.00E+00
+bladder,IV,49,0.00E+00,0.00E+00
+bladder,IV,50,0.00E+00,0.00E+00
+bladder,IV,51,0.00E+00,0.00E+00
+bladder,IV,52,0.00E+00,0.00E+00
+bladder,IV,53,0.00E+00,0.00E+00
+bladder,IV,54,0.00E+00,0.00E+00
+bladder,IV,55,0.00E+00,0.00E+00
+bladder,IV,56,0.00E+00,0.00E+00
+bladder,IV,57,0.00E+00,0.00E+00
+bladder,IV,58,0.00E+00,0.00E+00
+bladder,IV,59,0.00E+00,0.00E+00
+bladder,IV,60,0.00E+00,0.00E+00
+bladder,IV,61,0.00E+00,0.00E+00
+bladder,IV,62,0.00E+00,0.00E+00
+bladder,IV,63,0.00E+00,0.00E+00
+bladder,IV,64,0.00E+00,0.00E+00
+bladder,IV,65,0.00E+00,0.00E+00
+bladder,IV,66,0.00E+00,0.00E+00
+bladder,IV,67,0.00E+00,0.00E+00
+bladder,IV,68,0.00E+00,0.00E+00
+bladder,IV,69,0.00E+00,0.00E+00
+bladder,IV,70,0.00E+00,0.00E+00
+bladder,IV,71,0.00E+00,0.00E+00
+bladder,IV,72,0.00E+00,0.00E+00
+bladder,IV,73,0.00E+00,0.00E+00
+bladder,IV,74,0.00E+00,0.00E+00
+bladder,IV,75,0.00E+00,0.00E+00
+bladder,IV,76,0.00E+00,0.00E+00
+bladder,IV,77,0.00E+00,0.00E+00
+bladder,IV,78,0.00E+00,0.00E+00
+bladder,IV,79,0.00E+00,0.00E+00
+bladder,IV,80,0.00E+00,0.00E+00
+bladder,IV,81,0.00E+00,0.00E+00
+bladder,IV,82,0.00E+00,0.00E+00
+bladder,IV,83,0.00E+00,0.00E+00
+bladder,IV,84,0.00E+00,0.00E+00
+bladder,IV,85,0.00E+00,0.00E+00
+bladder,IV,86,0.00E+00,0.00E+00
+bladder,IV,87,0.00E+00,0.00E+00
+bladder,IV,88,0.00E+00,0.00E+00
+bladder,IV,89,0.00E+00,0.00E+00
+bladder,IV,90,0.00E+00,0.00E+00
+bladder,IV,91,0.00E+00,0.00E+00
+bladder,IV,92,0.00E+00,0.00E+00
+bladder,IV,93,0.00E+00,0.00E+00
+bladder,IV,94,0.00E+00,0.00E+00
+bladder,IV,95,0.00E+00,0.00E+00
+bladder,IV,96,0.00E+00,0.00E+00
+bladder,IV,97,0.00E+00,0.00E+00
+bladder,IV,98,0.00E+00,0.00E+00
+bladder,IV,99,0.00E+00,0.00E+00
+bladder,IV,100,0.00E+00,0.00E+00
+breast,I,40,0.00E+00,0.00E+00
+breast,I,41,0.00E+00,0.00E+00
+breast,I,42,0.00E+00,0.00E+00
+breast,I,43,0.00E+00,0.00E+00
+breast,I,44,0.00E+00,0.00E+00
+breast,I,45,0.00E+00,0.00E+00
+breast,I,46,0.00E+00,0.00E+00
+breast,I,47,0.00E+00,0.00E+00
+breast,I,48,0.00E+00,0.00E+00
+breast,I,49,0.00E+00,0.00E+00
+breast,I,50,0.00E+00,0.00E+00
+breast,I,51,0.00E+00,0.00E+00
+breast,I,52,0.00E+00,0.00E+00
+breast,I,53,0.00E+00,0.00E+00
+breast,I,54,0.00E+00,0.00E+00
+breast,I,55,0.00E+00,0.00E+00
+breast,I,56,0.00E+00,0.00E+00
+breast,I,57,0.00E+00,0.00E+00
+breast,I,58,0.00E+00,0.00E+00
+breast,I,59,0.00E+00,0.00E+00
+breast,I,60,0.00E+00,0.00E+00
+breast,I,61,0.00E+00,0.00E+00
+breast,I,62,0.00E+00,0.00E+00
+breast,I,63,0.00E+00,0.00E+00
+breast,I,64,0.00E+00,0.00E+00
+breast,I,65,0.00E+00,0.00E+00
+breast,I,66,0.00E+00,0.00E+00
+breast,I,67,0.00E+00,0.00E+00
+breast,I,68,0.00E+00,0.00E+00
+breast,I,69,0.00E+00,0.00E+00
+breast,I,70,0.00E+00,0.00E+00
+breast,I,71,0.00E+00,0.00E+00
+breast,I,72,0.00E+00,0.00E+00
+breast,I,73,0.00E+00,0.00E+00
+breast,I,74,0.00E+00,0.00E+00
+breast,I,75,0.00E+00,0.00E+00
+breast,I,76,0.00E+00,0.00E+00
+breast,I,77,0.00E+00,0.00E+00
+breast,I,78,0.00E+00,0.00E+00
+breast,I,79,0.00E+00,0.00E+00
+breast,I,80,0.00E+00,0.00E+00
+breast,I,81,0.00E+00,0.00E+00
+breast,I,82,0.00E+00,0.00E+00
+breast,I,83,0.00E+00,0.00E+00
+breast,I,84,0.00E+00,0.00E+00
+breast,I,85,0.00E+00,0.00E+00
+breast,I,86,0.00E+00,0.00E+00
+breast,I,87,0.00E+00,0.00E+00
+breast,I,88,0.00E+00,0.00E+00
+breast,I,89,0.00E+00,0.00E+00
+breast,I,90,0.00E+00,0.00E+00
+breast,I,91,0.00E+00,0.00E+00
+breast,I,92,0.00E+00,0.00E+00
+breast,I,93,0.00E+00,0.00E+00
+breast,I,94,0.00E+00,0.00E+00
+breast,I,95,0.00E+00,0.00E+00
+breast,I,96,0.00E+00,0.00E+00
+breast,I,97,0.00E+00,0.00E+00
+breast,I,98,0.00E+00,0.00E+00
+breast,I,99,0.00E+00,0.00E+00
+breast,I,100,0.00E+00,0.00E+00
+breast,II,40,0.00E+00,0.00E+00
+breast,II,41,0.00E+00,0.00E+00
+breast,II,42,0.00E+00,0.00E+00
+breast,II,43,0.00E+00,0.00E+00
+breast,II,44,0.00E+00,0.00E+00
+breast,II,45,0.00E+00,0.00E+00
+breast,II,46,0.00E+00,0.00E+00
+breast,II,47,0.00E+00,0.00E+00
+breast,II,48,0.00E+00,0.00E+00
+breast,II,49,0.00E+00,0.00E+00
+breast,II,50,0.00E+00,0.00E+00
+breast,II,51,0.00E+00,0.00E+00
+breast,II,52,0.00E+00,0.00E+00
+breast,II,53,0.00E+00,0.00E+00
+breast,II,54,0.00E+00,0.00E+00
+breast,II,55,0.00E+00,0.00E+00
+breast,II,56,0.00E+00,0.00E+00
+breast,II,57,0.00E+00,0.00E+00
+breast,II,58,0.00E+00,0.00E+00
+breast,II,59,0.00E+00,0.00E+00
+breast,II,60,0.00E+00,0.00E+00
+breast,II,61,0.00E+00,0.00E+00
+breast,II,62,0.00E+00,0.00E+00
+breast,II,63,0.00E+00,0.00E+00
+breast,II,64,0.00E+00,0.00E+00
+breast,II,65,0.00E+00,0.00E+00
+breast,II,66,0.00E+00,0.00E+00
+breast,II,67,0.00E+00,0.00E+00
+breast,II,68,0.00E+00,0.00E+00
+breast,II,69,0.00E+00,0.00E+00
+breast,II,70,0.00E+00,0.00E+00
+breast,II,71,0.00E+00,0.00E+00
+breast,II,72,0.00E+00,0.00E+00
+breast,II,73,0.00E+00,0.00E+00
+breast,II,74,0.00E+00,0.00E+00
+breast,II,75,0.00E+00,0.00E+00
+breast,II,76,0.00E+00,0.00E+00
+breast,II,77,0.00E+00,0.00E+00
+breast,II,78,0.00E+00,0.00E+00
+breast,II,79,0.00E+00,0.00E+00
+breast,II,80,0.00E+00,0.00E+00
+breast,II,81,0.00E+00,0.00E+00
+breast,II,82,0.00E+00,0.00E+00
+breast,II,83,0.00E+00,0.00E+00
+breast,II,84,0.00E+00,0.00E+00
+breast,II,85,0.00E+00,0.00E+00
+breast,II,86,0.00E+00,0.00E+00
+breast,II,87,0.00E+00,0.00E+00
+breast,II,88,0.00E+00,0.00E+00
+breast,II,89,0.00E+00,0.00E+00
+breast,II,90,0.00E+00,0.00E+00
+breast,II,91,0.00E+00,0.00E+00
+breast,II,92,0.00E+00,0.00E+00
+breast,II,93,0.00E+00,0.00E+00
+breast,II,94,0.00E+00,0.00E+00
+breast,II,95,0.00E+00,0.00E+00
+breast,II,96,0.00E+00,0.00E+00
+breast,II,97,0.00E+00,0.00E+00
+breast,II,98,0.00E+00,0.00E+00
+breast,II,99,0.00E+00,0.00E+00
+breast,II,100,0.00E+00,0.00E+00
+breast,III,40,0.00E+00,0.00E+00
+breast,III,41,0.00E+00,0.00E+00
+breast,III,42,0.00E+00,0.00E+00
+breast,III,43,0.00E+00,0.00E+00
+breast,III,44,0.00E+00,0.00E+00
+breast,III,45,0.00E+00,0.00E+00
+breast,III,46,0.00E+00,0.00E+00
+breast,III,47,0.00E+00,0.00E+00
+breast,III,48,0.00E+00,0.00E+00
+breast,III,49,0.00E+00,0.00E+00
+breast,III,50,0.00E+00,0.00E+00
+breast,III,51,0.00E+00,0.00E+00
+breast,III,52,0.00E+00,0.00E+00
+breast,III,53,0.00E+00,0.00E+00
+breast,III,54,0.00E+00,0.00E+00
+breast,III,55,0.00E+00,0.00E+00
+breast,III,56,0.00E+00,0.00E+00
+breast,III,57,0.00E+00,0.00E+00
+breast,III,58,0.00E+00,0.00E+00
+breast,III,59,0.00E+00,0.00E+00
+breast,III,60,0.00E+00,0.00E+00
+breast,III,61,0.00E+00,0.00E+00
+breast,III,62,0.00E+00,0.00E+00
+breast,III,63,0.00E+00,0.00E+00
+breast,III,64,0.00E+00,0.00E+00
+breast,III,65,0.00E+00,0.00E+00
+breast,III,66,0.00E+00,0.00E+00
+breast,III,67,0.00E+00,0.00E+00
+breast,III,68,0.00E+00,0.00E+00
+breast,III,69,0.00E+00,0.00E+00
+breast,III,70,0.00E+00,0.00E+00
+breast,III,71,0.00E+00,0.00E+00
+breast,III,72,0.00E+00,0.00E+00
+breast,III,73,0.00E+00,0.00E+00
+breast,III,74,0.00E+00,0.00E+00
+breast,III,75,0.00E+00,0.00E+00
+breast,III,76,0.00E+00,0.00E+00
+breast,III,77,0.00E+00,0.00E+00
+breast,III,78,0.00E+00,0.00E+00
+breast,III,79,0.00E+00,0.00E+00
+breast,III,80,0.00E+00,0.00E+00
+breast,III,81,0.00E+00,0.00E+00
+breast,III,82,0.00E+00,0.00E+00
+breast,III,83,0.00E+00,0.00E+00
+breast,III,84,0.00E+00,0.00E+00
+breast,III,85,0.00E+00,0.00E+00
+breast,III,86,0.00E+00,0.00E+00
+breast,III,87,0.00E+00,0.00E+00
+breast,III,88,0.00E+00,0.00E+00
+breast,III,89,0.00E+00,0.00E+00
+breast,III,90,0.00E+00,0.00E+00
+breast,III,91,0.00E+00,0.00E+00
+breast,III,92,0.00E+00,0.00E+00
+breast,III,93,0.00E+00,0.00E+00
+breast,III,94,0.00E+00,0.00E+00
+breast,III,95,0.00E+00,0.00E+00
+breast,III,96,0.00E+00,0.00E+00
+breast,III,97,0.00E+00,0.00E+00
+breast,III,98,0.00E+00,0.00E+00
+breast,III,99,0.00E+00,0.00E+00
+breast,III,100,0.00E+00,0.00E+00
+breast,IV,40,0.00E+00,0.00E+00
+breast,IV,41,0.00E+00,0.00E+00
+breast,IV,42,0.00E+00,0.00E+00
+breast,IV,43,0.00E+00,0.00E+00
+breast,IV,44,0.00E+00,0.00E+00
+breast,IV,45,0.00E+00,0.00E+00
+breast,IV,46,0.00E+00,0.00E+00
+breast,IV,47,0.00E+00,0.00E+00
+breast,IV,48,0.00E+00,0.00E+00
+breast,IV,49,0.00E+00,0.00E+00
+breast,IV,50,0.00E+00,0.00E+00
+breast,IV,51,0.00E+00,0.00E+00
+breast,IV,52,0.00E+00,0.00E+00
+breast,IV,53,0.00E+00,0.00E+00
+breast,IV,54,0.00E+00,0.00E+00
+breast,IV,55,0.00E+00,0.00E+00
+breast,IV,56,0.00E+00,0.00E+00
+breast,IV,57,0.00E+00,0.00E+00
+breast,IV,58,0.00E+00,0.00E+00
+breast,IV,59,0.00E+00,0.00E+00
+breast,IV,60,1.00E-04,1.00E-04
+breast,IV,61,0.00E+00,0.00E+00
+breast,IV,62,0.00E+00,0.00E+00
+breast,IV,63,0.00E+00,0.00E+00
+breast,IV,64,0.00E+00,0.00E+00
+breast,IV,65,0.00E+00,0.00E+00
+breast,IV,66,0.00E+00,0.00E+00
+breast,IV,67,0.00E+00,0.00E+00
+breast,IV,68,0.00E+00,0.00E+00
+breast,IV,69,0.00E+00,0.00E+00
+breast,IV,70,0.00E+00,0.00E+00
+breast,IV,71,0.00E+00,0.00E+00
+breast,IV,72,0.00E+00,0.00E+00
+breast,IV,73,0.00E+00,0.00E+00
+breast,IV,74,0.00E+00,0.00E+00
+breast,IV,75,0.00E+00,0.00E+00
+breast,IV,76,0.00E+00,0.00E+00
+breast,IV,77,0.00E+00,0.00E+00
+breast,IV,78,0.00E+00,0.00E+00
+breast,IV,79,0.00E+00,0.00E+00
+breast,IV,80,0.00E+00,0.00E+00
+breast,IV,81,0.00E+00,0.00E+00
+breast,IV,82,0.00E+00,0.00E+00
+breast,IV,83,0.00E+00,0.00E+00
+breast,IV,84,0.00E+00,0.00E+00
+breast,IV,85,0.00E+00,0.00E+00
+breast,IV,86,0.00E+00,0.00E+00
+breast,IV,87,0.00E+00,0.00E+00
+breast,IV,88,0.00E+00,0.00E+00
+breast,IV,89,0.00E+00,0.00E+00
+breast,IV,90,0.00E+00,0.00E+00
+breast,IV,91,0.00E+00,0.00E+00
+breast,IV,92,0.00E+00,0.00E+00
+breast,IV,93,0.00E+00,0.00E+00
+breast,IV,94,0.00E+00,0.00E+00
+breast,IV,95,0.00E+00,0.00E+00
+breast,IV,96,0.00E+00,0.00E+00
+breast,IV,97,0.00E+00,0.00E+00
+breast,IV,98,0.00E+00,0.00E+00
+breast,IV,99,0.00E+00,0.00E+00
+breast,IV,100,0.00E+00,0.00E+00
+cervix,I,40,0.00E+00,0.00E+00
+cervix,I,41,0.00E+00,0.00E+00
+cervix,I,42,0.00E+00,0.00E+00
+cervix,I,43,0.00E+00,0.00E+00
+cervix,I,44,0.00E+00,0.00E+00
+cervix,I,45,0.00E+00,0.00E+00
+cervix,I,46,0.00E+00,0.00E+00
+cervix,I,47,0.00E+00,0.00E+00
+cervix,I,48,0.00E+00,0.00E+00
+cervix,I,49,0.00E+00,0.00E+00
+cervix,I,50,0.00E+00,0.00E+00
+cervix,I,51,0.00E+00,0.00E+00
+cervix,I,52,0.00E+00,0.00E+00
+cervix,I,53,0.00E+00,0.00E+00
+cervix,I,54,0.00E+00,0.00E+00
+cervix,I,55,0.00E+00,0.00E+00
+cervix,I,56,0.00E+00,0.00E+00
+cervix,I,57,0.00E+00,0.00E+00
+cervix,I,58,0.00E+00,0.00E+00
+cervix,I,59,0.00E+00,0.00E+00
+cervix,I,60,0.00E+00,0.00E+00
+cervix,I,61,0.00E+00,0.00E+00
+cervix,I,62,0.00E+00,0.00E+00
+cervix,I,63,0.00E+00,0.00E+00
+cervix,I,64,0.00E+00,0.00E+00
+cervix,I,65,0.00E+00,0.00E+00
+cervix,I,66,0.00E+00,0.00E+00
+cervix,I,67,0.00E+00,0.00E+00
+cervix,I,68,0.00E+00,0.00E+00
+cervix,I,69,0.00E+00,0.00E+00
+cervix,I,70,0.00E+00,0.00E+00
+cervix,I,71,0.00E+00,0.00E+00
+cervix,I,72,0.00E+00,0.00E+00
+cervix,I,73,0.00E+00,0.00E+00
+cervix,I,74,0.00E+00,0.00E+00
+cervix,I,75,0.00E+00,0.00E+00
+cervix,I,76,0.00E+00,0.00E+00
+cervix,I,77,0.00E+00,0.00E+00
+cervix,I,78,0.00E+00,0.00E+00
+cervix,I,79,0.00E+00,0.00E+00
+cervix,I,80,0.00E+00,0.00E+00
+cervix,I,81,0.00E+00,0.00E+00
+cervix,I,82,0.00E+00,0.00E+00
+cervix,I,83,0.00E+00,0.00E+00
+cervix,I,84,0.00E+00,0.00E+00
+cervix,I,85,0.00E+00,0.00E+00
+cervix,I,86,0.00E+00,0.00E+00
+cervix,I,87,0.00E+00,0.00E+00
+cervix,I,88,0.00E+00,0.00E+00
+cervix,I,89,0.00E+00,0.00E+00
+cervix,I,90,0.00E+00,0.00E+00
+cervix,I,91,0.00E+00,0.00E+00
+cervix,I,92,0.00E+00,0.00E+00
+cervix,I,93,0.00E+00,0.00E+00
+cervix,I,94,0.00E+00,0.00E+00
+cervix,I,95,0.00E+00,0.00E+00
+cervix,I,96,0.00E+00,0.00E+00
+cervix,I,97,0.00E+00,0.00E+00
+cervix,I,98,0.00E+00,0.00E+00
+cervix,I,99,0.00E+00,0.00E+00
+cervix,I,100,0.00E+00,0.00E+00
+cervix,II,40,0.00E+00,0.00E+00
+cervix,II,41,0.00E+00,0.00E+00
+cervix,II,42,0.00E+00,0.00E+00
+cervix,II,43,0.00E+00,0.00E+00
+cervix,II,44,0.00E+00,0.00E+00
+cervix,II,45,0.00E+00,0.00E+00
+cervix,II,46,0.00E+00,0.00E+00
+cervix,II,47,0.00E+00,0.00E+00
+cervix,II,48,0.00E+00,0.00E+00
+cervix,II,49,0.00E+00,0.00E+00
+cervix,II,50,0.00E+00,0.00E+00
+cervix,II,51,0.00E+00,0.00E+00
+cervix,II,52,0.00E+00,0.00E+00
+cervix,II,53,0.00E+00,0.00E+00
+cervix,II,54,0.00E+00,0.00E+00
+cervix,II,55,0.00E+00,0.00E+00
+cervix,II,56,0.00E+00,0.00E+00
+cervix,II,57,0.00E+00,0.00E+00
+cervix,II,58,0.00E+00,0.00E+00
+cervix,II,59,0.00E+00,0.00E+00
+cervix,II,60,0.00E+00,0.00E+00
+cervix,II,61,0.00E+00,0.00E+00
+cervix,II,62,0.00E+00,0.00E+00
+cervix,II,63,0.00E+00,0.00E+00
+cervix,II,64,0.00E+00,0.00E+00
+cervix,II,65,0.00E+00,0.00E+00
+cervix,II,66,0.00E+00,0.00E+00
+cervix,II,67,0.00E+00,0.00E+00
+cervix,II,68,0.00E+00,0.00E+00
+cervix,II,69,0.00E+00,0.00E+00
+cervix,II,70,0.00E+00,0.00E+00
+cervix,II,71,0.00E+00,0.00E+00
+cervix,II,72,0.00E+00,0.00E+00
+cervix,II,73,0.00E+00,0.00E+00
+cervix,II,74,0.00E+00,0.00E+00
+cervix,II,75,0.00E+00,0.00E+00
+cervix,II,76,0.00E+00,0.00E+00
+cervix,II,77,0.00E+00,0.00E+00
+cervix,II,78,0.00E+00,0.00E+00
+cervix,II,79,0.00E+00,0.00E+00
+cervix,II,80,0.00E+00,0.00E+00
+cervix,II,81,0.00E+00,0.00E+00
+cervix,II,82,0.00E+00,0.00E+00
+cervix,II,83,0.00E+00,0.00E+00
+cervix,II,84,0.00E+00,0.00E+00
+cervix,II,85,0.00E+00,0.00E+00
+cervix,II,86,0.00E+00,0.00E+00
+cervix,II,87,0.00E+00,0.00E+00
+cervix,II,88,0.00E+00,0.00E+00
+cervix,II,89,0.00E+00,0.00E+00
+cervix,II,90,0.00E+00,0.00E+00
+cervix,II,91,0.00E+00,0.00E+00
+cervix,II,92,0.00E+00,0.00E+00
+cervix,II,93,0.00E+00,0.00E+00
+cervix,II,94,0.00E+00,0.00E+00
+cervix,II,95,0.00E+00,0.00E+00
+cervix,II,96,0.00E+00,0.00E+00
+cervix,II,97,0.00E+00,0.00E+00
+cervix,II,98,0.00E+00,0.00E+00
+cervix,II,99,0.00E+00,0.00E+00
+cervix,II,100,0.00E+00,0.00E+00
+cervix,III,40,0.00E+00,0.00E+00
+cervix,III,41,0.00E+00,0.00E+00
+cervix,III,42,0.00E+00,0.00E+00
+cervix,III,43,0.00E+00,0.00E+00
+cervix,III,44,0.00E+00,0.00E+00
+cervix,III,45,0.00E+00,0.00E+00
+cervix,III,46,0.00E+00,0.00E+00
+cervix,III,47,0.00E+00,0.00E+00
+cervix,III,48,0.00E+00,0.00E+00
+cervix,III,49,0.00E+00,0.00E+00
+cervix,III,50,0.00E+00,0.00E+00
+cervix,III,51,0.00E+00,0.00E+00
+cervix,III,52,0.00E+00,0.00E+00
+cervix,III,53,0.00E+00,0.00E+00
+cervix,III,54,0.00E+00,0.00E+00
+cervix,III,55,0.00E+00,0.00E+00
+cervix,III,56,0.00E+00,0.00E+00
+cervix,III,57,0.00E+00,0.00E+00
+cervix,III,58,0.00E+00,0.00E+00
+cervix,III,59,0.00E+00,0.00E+00
+cervix,III,60,0.00E+00,0.00E+00
+cervix,III,61,0.00E+00,0.00E+00
+cervix,III,62,0.00E+00,0.00E+00
+cervix,III,63,0.00E+00,0.00E+00
+cervix,III,64,0.00E+00,0.00E+00
+cervix,III,65,0.00E+00,0.00E+00
+cervix,III,66,0.00E+00,0.00E+00
+cervix,III,67,0.00E+00,0.00E+00
+cervix,III,68,0.00E+00,0.00E+00
+cervix,III,69,0.00E+00,0.00E+00
+cervix,III,70,0.00E+00,0.00E+00
+cervix,III,71,0.00E+00,0.00E+00
+cervix,III,72,0.00E+00,0.00E+00
+cervix,III,73,0.00E+00,0.00E+00
+cervix,III,74,0.00E+00,0.00E+00
+cervix,III,75,0.00E+00,0.00E+00
+cervix,III,76,0.00E+00,0.00E+00
+cervix,III,77,0.00E+00,0.00E+00
+cervix,III,78,0.00E+00,0.00E+00
+cervix,III,79,0.00E+00,0.00E+00
+cervix,III,80,0.00E+00,0.00E+00
+cervix,III,81,0.00E+00,0.00E+00
+cervix,III,82,0.00E+00,0.00E+00
+cervix,III,83,0.00E+00,0.00E+00
+cervix,III,84,0.00E+00,0.00E+00
+cervix,III,85,0.00E+00,0.00E+00
+cervix,III,86,0.00E+00,0.00E+00
+cervix,III,87,0.00E+00,0.00E+00
+cervix,III,88,0.00E+00,0.00E+00
+cervix,III,89,0.00E+00,0.00E+00
+cervix,III,90,0.00E+00,0.00E+00
+cervix,III,91,0.00E+00,0.00E+00
+cervix,III,92,0.00E+00,0.00E+00
+cervix,III,93,0.00E+00,0.00E+00
+cervix,III,94,0.00E+00,0.00E+00
+cervix,III,95,0.00E+00,0.00E+00
+cervix,III,96,0.00E+00,0.00E+00
+cervix,III,97,0.00E+00,0.00E+00
+cervix,III,98,0.00E+00,0.00E+00
+cervix,III,99,0.00E+00,0.00E+00
+cervix,III,100,0.00E+00,0.00E+00
+cervix,IV,40,0.00E+00,0.00E+00
+cervix,IV,41,0.00E+00,0.00E+00
+cervix,IV,42,0.00E+00,0.00E+00
+cervix,IV,43,0.00E+00,0.00E+00
+cervix,IV,44,0.00E+00,0.00E+00
+cervix,IV,45,0.00E+00,0.00E+00
+cervix,IV,46,0.00E+00,0.00E+00
+cervix,IV,47,0.00E+00,0.00E+00
+cervix,IV,48,0.00E+00,0.00E+00
+cervix,IV,49,0.00E+00,0.00E+00
+cervix,IV,50,0.00E+00,0.00E+00
+cervix,IV,51,0.00E+00,0.00E+00
+cervix,IV,52,0.00E+00,0.00E+00
+cervix,IV,53,0.00E+00,0.00E+00
+cervix,IV,54,0.00E+00,0.00E+00
+cervix,IV,55,0.00E+00,0.00E+00
+cervix,IV,56,0.00E+00,0.00E+00
+cervix,IV,57,0.00E+00,0.00E+00
+cervix,IV,58,0.00E+00,0.00E+00
+cervix,IV,59,0.00E+00,0.00E+00
+cervix,IV,60,0.00E+00,0.00E+00
+cervix,IV,61,0.00E+00,0.00E+00
+cervix,IV,62,0.00E+00,0.00E+00
+cervix,IV,63,0.00E+00,0.00E+00
+cervix,IV,64,0.00E+00,0.00E+00
+cervix,IV,65,0.00E+00,0.00E+00
+cervix,IV,66,0.00E+00,0.00E+00
+cervix,IV,67,0.00E+00,0.00E+00
+cervix,IV,68,0.00E+00,0.00E+00
+cervix,IV,69,0.00E+00,0.00E+00
+cervix,IV,70,0.00E+00,0.00E+00
+cervix,IV,71,0.00E+00,0.00E+00
+cervix,IV,72,0.00E+00,0.00E+00
+cervix,IV,73,0.00E+00,0.00E+00
+cervix,IV,74,0.00E+00,0.00E+00
+cervix,IV,75,0.00E+00,0.00E+00
+cervix,IV,76,0.00E+00,0.00E+00
+cervix,IV,77,0.00E+00,0.00E+00
+cervix,IV,78,0.00E+00,0.00E+00
+cervix,IV,79,0.00E+00,0.00E+00
+cervix,IV,80,0.00E+00,0.00E+00
+cervix,IV,81,0.00E+00,0.00E+00
+cervix,IV,82,0.00E+00,0.00E+00
+cervix,IV,83,0.00E+00,0.00E+00
+cervix,IV,84,0.00E+00,0.00E+00
+cervix,IV,85,0.00E+00,0.00E+00
+cervix,IV,86,0.00E+00,0.00E+00
+cervix,IV,87,0.00E+00,0.00E+00
+cervix,IV,88,0.00E+00,0.00E+00
+cervix,IV,89,0.00E+00,0.00E+00
+cervix,IV,90,0.00E+00,0.00E+00
+cervix,IV,91,0.00E+00,0.00E+00
+cervix,IV,92,0.00E+00,0.00E+00
+cervix,IV,93,0.00E+00,0.00E+00
+cervix,IV,94,0.00E+00,0.00E+00
+cervix,IV,95,0.00E+00,0.00E+00
+cervix,IV,96,0.00E+00,0.00E+00
+cervix,IV,97,0.00E+00,0.00E+00
+cervix,IV,98,0.00E+00,0.00E+00
+cervix,IV,99,0.00E+00,0.00E+00
+cervix,IV,100,0.00E+00,0.00E+00
+colon and rectum,I,40,0.00E+00,0.00E+00
+colon and rectum,I,41,0.00E+00,0.00E+00
+colon and rectum,I,42,0.00E+00,0.00E+00
+colon and rectum,I,43,0.00E+00,0.00E+00
+colon and rectum,I,44,0.00E+00,0.00E+00
+colon and rectum,I,45,0.00E+00,0.00E+00
+colon and rectum,I,46,0.00E+00,0.00E+00
+colon and rectum,I,47,0.00E+00,0.00E+00
+colon and rectum,I,48,0.00E+00,0.00E+00
+colon and rectum,I,49,0.00E+00,0.00E+00
+colon and rectum,I,50,0.00E+00,0.00E+00
+colon and rectum,I,51,0.00E+00,0.00E+00
+colon and rectum,I,52,0.00E+00,0.00E+00
+colon and rectum,I,53,0.00E+00,0.00E+00
+colon and rectum,I,54,0.00E+00,0.00E+00
+colon and rectum,I,55,0.00E+00,0.00E+00
+colon and rectum,I,56,0.00E+00,0.00E+00
+colon and rectum,I,57,0.00E+00,0.00E+00
+colon and rectum,I,58,0.00E+00,0.00E+00
+colon and rectum,I,59,0.00E+00,0.00E+00
+colon and rectum,I,60,0.00E+00,0.00E+00
+colon and rectum,I,61,0.00E+00,0.00E+00
+colon and rectum,I,62,0.00E+00,0.00E+00
+colon and rectum,I,63,0.00E+00,0.00E+00
+colon and rectum,I,64,0.00E+00,0.00E+00
+colon and rectum,I,65,0.00E+00,0.00E+00
+colon and rectum,I,66,0.00E+00,0.00E+00
+colon and rectum,I,67,0.00E+00,0.00E+00
+colon and rectum,I,68,0.00E+00,0.00E+00
+colon and rectum,I,69,0.00E+00,0.00E+00
+colon and rectum,I,70,0.00E+00,0.00E+00
+colon and rectum,I,71,0.00E+00,0.00E+00
+colon and rectum,I,72,0.00E+00,0.00E+00
+colon and rectum,I,73,0.00E+00,0.00E+00
+colon and rectum,I,74,0.00E+00,0.00E+00
+colon and rectum,I,75,0.00E+00,0.00E+00
+colon and rectum,I,76,0.00E+00,0.00E+00
+colon and rectum,I,77,0.00E+00,0.00E+00
+colon and rectum,I,78,0.00E+00,0.00E+00
+colon and rectum,I,79,0.00E+00,0.00E+00
+colon and rectum,I,80,0.00E+00,0.00E+00
+colon and rectum,I,81,0.00E+00,0.00E+00
+colon and rectum,I,82,0.00E+00,0.00E+00
+colon and rectum,I,83,0.00E+00,0.00E+00
+colon and rectum,I,84,0.00E+00,0.00E+00
+colon and rectum,I,85,0.00E+00,0.00E+00
+colon and rectum,I,86,0.00E+00,0.00E+00
+colon and rectum,I,87,0.00E+00,0.00E+00
+colon and rectum,I,88,0.00E+00,0.00E+00
+colon and rectum,I,89,0.00E+00,0.00E+00
+colon and rectum,I,90,0.00E+00,0.00E+00
+colon and rectum,I,91,0.00E+00,0.00E+00
+colon and rectum,I,92,0.00E+00,0.00E+00
+colon and rectum,I,93,0.00E+00,0.00E+00
+colon and rectum,I,94,0.00E+00,0.00E+00
+colon and rectum,I,95,0.00E+00,0.00E+00
+colon and rectum,I,96,0.00E+00,0.00E+00
+colon and rectum,I,97,0.00E+00,0.00E+00
+colon and rectum,I,98,0.00E+00,0.00E+00
+colon and rectum,I,99,0.00E+00,0.00E+00
+colon and rectum,I,100,0.00E+00,0.00E+00
+colon and rectum,II,40,0.00E+00,0.00E+00
+colon and rectum,II,41,0.00E+00,0.00E+00
+colon and rectum,II,42,0.00E+00,0.00E+00
+colon and rectum,II,43,0.00E+00,0.00E+00
+colon and rectum,II,44,0.00E+00,0.00E+00
+colon and rectum,II,45,0.00E+00,0.00E+00
+colon and rectum,II,46,0.00E+00,0.00E+00
+colon and rectum,II,47,0.00E+00,0.00E+00
+colon and rectum,II,48,0.00E+00,0.00E+00
+colon and rectum,II,49,0.00E+00,0.00E+00
+colon and rectum,II,50,0.00E+00,0.00E+00
+colon and rectum,II,51,0.00E+00,0.00E+00
+colon and rectum,II,52,0.00E+00,0.00E+00
+colon and rectum,II,53,0.00E+00,0.00E+00
+colon and rectum,II,54,0.00E+00,0.00E+00
+colon and rectum,II,55,0.00E+00,0.00E+00
+colon and rectum,II,56,0.00E+00,0.00E+00
+colon and rectum,II,57,0.00E+00,0.00E+00
+colon and rectum,II,58,0.00E+00,0.00E+00
+colon and rectum,II,59,0.00E+00,0.00E+00
+colon and rectum,II,60,0.00E+00,0.00E+00
+colon and rectum,II,61,0.00E+00,0.00E+00
+colon and rectum,II,62,0.00E+00,0.00E+00
+colon and rectum,II,63,0.00E+00,0.00E+00
+colon and rectum,II,64,0.00E+00,0.00E+00
+colon and rectum,II,65,0.00E+00,0.00E+00
+colon and rectum,II,66,0.00E+00,0.00E+00
+colon and rectum,II,67,0.00E+00,0.00E+00
+colon and rectum,II,68,0.00E+00,0.00E+00
+colon and rectum,II,69,0.00E+00,0.00E+00
+colon and rectum,II,70,0.00E+00,0.00E+00
+colon and rectum,II,71,0.00E+00,0.00E+00
+colon and rectum,II,72,0.00E+00,0.00E+00
+colon and rectum,II,73,0.00E+00,0.00E+00
+colon and rectum,II,74,0.00E+00,0.00E+00
+colon and rectum,II,75,0.00E+00,0.00E+00
+colon and rectum,II,76,0.00E+00,0.00E+00
+colon and rectum,II,77,0.00E+00,0.00E+00
+colon and rectum,II,78,0.00E+00,0.00E+00
+colon and rectum,II,79,0.00E+00,0.00E+00
+colon and rectum,II,80,0.00E+00,0.00E+00
+colon and rectum,II,81,0.00E+00,0.00E+00
+colon and rectum,II,82,0.00E+00,0.00E+00
+colon and rectum,II,83,0.00E+00,0.00E+00
+colon and rectum,II,84,0.00E+00,0.00E+00
+colon and rectum,II,85,0.00E+00,0.00E+00
+colon and rectum,II,86,0.00E+00,0.00E+00
+colon and rectum,II,87,0.00E+00,0.00E+00
+colon and rectum,II,88,0.00E+00,0.00E+00
+colon and rectum,II,89,0.00E+00,0.00E+00
+colon and rectum,II,90,0.00E+00,0.00E+00
+colon and rectum,II,91,0.00E+00,0.00E+00
+colon and rectum,II,92,0.00E+00,0.00E+00
+colon and rectum,II,93,0.00E+00,0.00E+00
+colon and rectum,II,94,0.00E+00,0.00E+00
+colon and rectum,II,95,0.00E+00,0.00E+00
+colon and rectum,II,96,0.00E+00,0.00E+00
+colon and rectum,II,97,0.00E+00,0.00E+00
+colon and rectum,II,98,0.00E+00,0.00E+00
+colon and rectum,II,99,0.00E+00,0.00E+00
+colon and rectum,II,100,0.00E+00,0.00E+00
+colon and rectum,III,40,0.00E+00,0.00E+00
+colon and rectum,III,41,0.00E+00,0.00E+00
+colon and rectum,III,42,0.00E+00,0.00E+00
+colon and rectum,III,43,0.00E+00,0.00E+00
+colon and rectum,III,44,0.00E+00,0.00E+00
+colon and rectum,III,45,0.00E+00,0.00E+00
+colon and rectum,III,46,0.00E+00,0.00E+00
+colon and rectum,III,47,0.00E+00,0.00E+00
+colon and rectum,III,48,0.00E+00,0.00E+00
+colon and rectum,III,49,0.00E+00,0.00E+00
+colon and rectum,III,50,0.00E+00,0.00E+00
+colon and rectum,III,51,0.00E+00,0.00E+00
+colon and rectum,III,52,0.00E+00,0.00E+00
+colon and rectum,III,53,0.00E+00,0.00E+00
+colon and rectum,III,54,0.00E+00,0.00E+00
+colon and rectum,III,55,0.00E+00,0.00E+00
+colon and rectum,III,56,0.00E+00,0.00E+00
+colon and rectum,III,57,0.00E+00,0.00E+00
+colon and rectum,III,58,0.00E+00,0.00E+00
+colon and rectum,III,59,0.00E+00,0.00E+00
+colon and rectum,III,60,0.00E+00,0.00E+00
+colon and rectum,III,61,0.00E+00,0.00E+00
+colon and rectum,III,62,0.00E+00,0.00E+00
+colon and rectum,III,63,0.00E+00,0.00E+00
+colon and rectum,III,64,0.00E+00,0.00E+00
+colon and rectum,III,65,0.00E+00,0.00E+00
+colon and rectum,III,66,0.00E+00,0.00E+00
+colon and rectum,III,67,0.00E+00,0.00E+00
+colon and rectum,III,68,0.00E+00,0.00E+00
+colon and rectum,III,69,0.00E+00,0.00E+00
+colon and rectum,III,70,0.00E+00,0.00E+00
+colon and rectum,III,71,0.00E+00,0.00E+00
+colon and rectum,III,72,0.00E+00,0.00E+00
+colon and rectum,III,73,0.00E+00,0.00E+00
+colon and rectum,III,74,0.00E+00,0.00E+00
+colon and rectum,III,75,0.00E+00,0.00E+00
+colon and rectum,III,76,0.00E+00,0.00E+00
+colon and rectum,III,77,0.00E+00,0.00E+00
+colon and rectum,III,78,0.00E+00,0.00E+00
+colon and rectum,III,79,0.00E+00,0.00E+00
+colon and rectum,III,80,0.00E+00,0.00E+00
+colon and rectum,III,81,0.00E+00,0.00E+00
+colon and rectum,III,82,0.00E+00,0.00E+00
+colon and rectum,III,83,0.00E+00,0.00E+00
+colon and rectum,III,84,0.00E+00,0.00E+00
+colon and rectum,III,85,0.00E+00,0.00E+00
+colon and rectum,III,86,0.00E+00,0.00E+00
+colon and rectum,III,87,0.00E+00,0.00E+00
+colon and rectum,III,88,0.00E+00,0.00E+00
+colon and rectum,III,89,0.00E+00,0.00E+00
+colon and rectum,III,90,0.00E+00,0.00E+00
+colon and rectum,III,91,0.00E+00,0.00E+00
+colon and rectum,III,92,0.00E+00,0.00E+00
+colon and rectum,III,93,0.00E+00,0.00E+00
+colon and rectum,III,94,0.00E+00,0.00E+00
+colon and rectum,III,95,0.00E+00,0.00E+00
+colon and rectum,III,96,0.00E+00,0.00E+00
+colon and rectum,III,97,0.00E+00,0.00E+00
+colon and rectum,III,98,0.00E+00,0.00E+00
+colon and rectum,III,99,0.00E+00,0.00E+00
+colon and rectum,III,100,0.00E+00,0.00E+00
+colon and rectum,IV,40,0.00E+00,0.00E+00
+colon and rectum,IV,41,0.00E+00,0.00E+00
+colon and rectum,IV,42,0.00E+00,0.00E+00
+colon and rectum,IV,43,0.00E+00,0.00E+00
+colon and rectum,IV,44,0.00E+00,0.00E+00
+colon and rectum,IV,45,0.00E+00,0.00E+00
+colon and rectum,IV,46,0.00E+00,0.00E+00
+colon and rectum,IV,47,0.00E+00,0.00E+00
+colon and rectum,IV,48,0.00E+00,0.00E+00
+colon and rectum,IV,49,0.00E+00,0.00E+00
+colon and rectum,IV,50,0.00E+00,0.00E+00
+colon and rectum,IV,51,0.00E+00,0.00E+00
+colon and rectum,IV,52,0.00E+00,0.00E+00
+colon and rectum,IV,53,0.00E+00,0.00E+00
+colon and rectum,IV,54,0.00E+00,0.00E+00
+colon and rectum,IV,55,0.00E+00,0.00E+00
+colon and rectum,IV,56,0.00E+00,0.00E+00
+colon and rectum,IV,57,0.00E+00,0.00E+00
+colon and rectum,IV,58,0.00E+00,0.00E+00
+colon and rectum,IV,59,0.00E+00,0.00E+00
+colon and rectum,IV,60,0.00E+00,0.00E+00
+colon and rectum,IV,61,0.00E+00,0.00E+00
+colon and rectum,IV,62,0.00E+00,0.00E+00
+colon and rectum,IV,63,0.00E+00,0.00E+00
+colon and rectum,IV,64,0.00E+00,0.00E+00
+colon and rectum,IV,65,0.00E+00,0.00E+00
+colon and rectum,IV,66,0.00E+00,0.00E+00
+colon and rectum,IV,67,0.00E+00,0.00E+00
+colon and rectum,IV,68,0.00E+00,0.00E+00
+colon and rectum,IV,69,0.00E+00,0.00E+00
+colon and rectum,IV,70,0.00E+00,0.00E+00
+colon and rectum,IV,71,0.00E+00,0.00E+00
+colon and rectum,IV,72,0.00E+00,0.00E+00
+colon and rectum,IV,73,0.00E+00,0.00E+00
+colon and rectum,IV,74,0.00E+00,0.00E+00
+colon and rectum,IV,75,0.00E+00,0.00E+00
+colon and rectum,IV,76,0.00E+00,0.00E+00
+colon and rectum,IV,77,0.00E+00,0.00E+00
+colon and rectum,IV,78,0.00E+00,0.00E+00
+colon and rectum,IV,79,0.00E+00,0.00E+00
+colon and rectum,IV,80,0.00E+00,0.00E+00
+colon and rectum,IV,81,0.00E+00,0.00E+00
+colon and rectum,IV,82,0.00E+00,0.00E+00
+colon and rectum,IV,83,0.00E+00,0.00E+00
+colon and rectum,IV,84,0.00E+00,0.00E+00
+colon and rectum,IV,85,0.00E+00,0.00E+00
+colon and rectum,IV,86,0.00E+00,0.00E+00
+colon and rectum,IV,87,0.00E+00,0.00E+00
+colon and rectum,IV,88,0.00E+00,0.00E+00
+colon and rectum,IV,89,0.00E+00,0.00E+00
+colon and rectum,IV,90,0.00E+00,0.00E+00
+colon and rectum,IV,91,0.00E+00,0.00E+00
+colon and rectum,IV,92,0.00E+00,0.00E+00
+colon and rectum,IV,93,0.00E+00,0.00E+00
+colon and rectum,IV,94,0.00E+00,0.00E+00
+colon and rectum,IV,95,0.00E+00,0.00E+00
+colon and rectum,IV,96,0.00E+00,0.00E+00
+colon and rectum,IV,97,0.00E+00,0.00E+00
+colon and rectum,IV,98,0.00E+00,0.00E+00
+colon and rectum,IV,99,0.00E+00,0.00E+00
+colon and rectum,IV,100,0.00E+00,0.00E+00
+esophagus,I,40,0.00E+00,0.00E+00
+esophagus,I,41,0.00E+00,0.00E+00
+esophagus,I,42,0.00E+00,0.00E+00
+esophagus,I,43,0.00E+00,0.00E+00
+esophagus,I,44,0.00E+00,0.00E+00
+esophagus,I,45,0.00E+00,0.00E+00
+esophagus,I,46,0.00E+00,0.00E+00
+esophagus,I,47,0.00E+00,0.00E+00
+esophagus,I,48,0.00E+00,0.00E+00
+esophagus,I,49,0.00E+00,0.00E+00
+esophagus,I,50,0.00E+00,0.00E+00
+esophagus,I,51,0.00E+00,0.00E+00
+esophagus,I,52,0.00E+00,0.00E+00
+esophagus,I,53,0.00E+00,0.00E+00
+esophagus,I,54,0.00E+00,0.00E+00
+esophagus,I,55,0.00E+00,0.00E+00
+esophagus,I,56,0.00E+00,0.00E+00
+esophagus,I,57,0.00E+00,0.00E+00
+esophagus,I,58,0.00E+00,0.00E+00
+esophagus,I,59,0.00E+00,0.00E+00
+esophagus,I,60,0.00E+00,0.00E+00
+esophagus,I,61,0.00E+00,0.00E+00
+esophagus,I,62,0.00E+00,0.00E+00
+esophagus,I,63,0.00E+00,0.00E+00
+esophagus,I,64,0.00E+00,0.00E+00
+esophagus,I,65,0.00E+00,0.00E+00
+esophagus,I,66,0.00E+00,0.00E+00
+esophagus,I,67,0.00E+00,0.00E+00
+esophagus,I,68,0.00E+00,0.00E+00
+esophagus,I,69,0.00E+00,0.00E+00
+esophagus,I,70,0.00E+00,0.00E+00
+esophagus,I,71,0.00E+00,0.00E+00
+esophagus,I,72,0.00E+00,0.00E+00
+esophagus,I,73,0.00E+00,0.00E+00
+esophagus,I,74,0.00E+00,0.00E+00
+esophagus,I,75,0.00E+00,0.00E+00
+esophagus,I,76,0.00E+00,0.00E+00
+esophagus,I,77,0.00E+00,0.00E+00
+esophagus,I,78,0.00E+00,0.00E+00
+esophagus,I,79,0.00E+00,0.00E+00
+esophagus,I,80,0.00E+00,0.00E+00
+esophagus,I,81,0.00E+00,0.00E+00
+esophagus,I,82,0.00E+00,0.00E+00
+esophagus,I,83,0.00E+00,0.00E+00
+esophagus,I,84,0.00E+00,0.00E+00
+esophagus,I,85,0.00E+00,0.00E+00
+esophagus,I,86,0.00E+00,0.00E+00
+esophagus,I,87,0.00E+00,0.00E+00
+esophagus,I,88,0.00E+00,0.00E+00
+esophagus,I,89,0.00E+00,0.00E+00
+esophagus,I,90,0.00E+00,0.00E+00
+esophagus,I,91,0.00E+00,0.00E+00
+esophagus,I,92,0.00E+00,0.00E+00
+esophagus,I,93,0.00E+00,0.00E+00
+esophagus,I,94,0.00E+00,0.00E+00
+esophagus,I,95,0.00E+00,0.00E+00
+esophagus,I,96,0.00E+00,0.00E+00
+esophagus,I,97,0.00E+00,0.00E+00
+esophagus,I,98,0.00E+00,0.00E+00
+esophagus,I,99,0.00E+00,0.00E+00
+esophagus,I,100,0.00E+00,0.00E+00
+esophagus,II,40,0.00E+00,0.00E+00
+esophagus,II,41,0.00E+00,0.00E+00
+esophagus,II,42,0.00E+00,0.00E+00
+esophagus,II,43,0.00E+00,0.00E+00
+esophagus,II,44,0.00E+00,0.00E+00
+esophagus,II,45,0.00E+00,0.00E+00
+esophagus,II,46,0.00E+00,0.00E+00
+esophagus,II,47,0.00E+00,0.00E+00
+esophagus,II,48,0.00E+00,0.00E+00
+esophagus,II,49,0.00E+00,0.00E+00
+esophagus,II,50,0.00E+00,0.00E+00
+esophagus,II,51,0.00E+00,0.00E+00
+esophagus,II,52,0.00E+00,0.00E+00
+esophagus,II,53,0.00E+00,0.00E+00
+esophagus,II,54,0.00E+00,0.00E+00
+esophagus,II,55,0.00E+00,0.00E+00
+esophagus,II,56,0.00E+00,0.00E+00
+esophagus,II,57,0.00E+00,0.00E+00
+esophagus,II,58,0.00E+00,0.00E+00
+esophagus,II,59,0.00E+00,0.00E+00
+esophagus,II,60,0.00E+00,0.00E+00
+esophagus,II,61,0.00E+00,0.00E+00
+esophagus,II,62,0.00E+00,0.00E+00
+esophagus,II,63,0.00E+00,0.00E+00
+esophagus,II,64,0.00E+00,0.00E+00
+esophagus,II,65,0.00E+00,0.00E+00
+esophagus,II,66,0.00E+00,0.00E+00
+esophagus,II,67,0.00E+00,0.00E+00
+esophagus,II,68,0.00E+00,0.00E+00
+esophagus,II,69,0.00E+00,0.00E+00
+esophagus,II,70,0.00E+00,0.00E+00
+esophagus,II,71,0.00E+00,0.00E+00
+esophagus,II,72,0.00E+00,0.00E+00
+esophagus,II,73,0.00E+00,0.00E+00
+esophagus,II,74,0.00E+00,0.00E+00
+esophagus,II,75,0.00E+00,0.00E+00
+esophagus,II,76,0.00E+00,0.00E+00
+esophagus,II,77,0.00E+00,0.00E+00
+esophagus,II,78,0.00E+00,0.00E+00
+esophagus,II,79,0.00E+00,0.00E+00
+esophagus,II,80,0.00E+00,0.00E+00
+esophagus,II,81,0.00E+00,0.00E+00
+esophagus,II,82,0.00E+00,0.00E+00
+esophagus,II,83,0.00E+00,0.00E+00
+esophagus,II,84,0.00E+00,0.00E+00
+esophagus,II,85,0.00E+00,0.00E+00
+esophagus,II,86,0.00E+00,0.00E+00
+esophagus,II,87,0.00E+00,0.00E+00
+esophagus,II,88,0.00E+00,0.00E+00
+esophagus,II,89,0.00E+00,0.00E+00
+esophagus,II,90,0.00E+00,0.00E+00
+esophagus,II,91,0.00E+00,0.00E+00
+esophagus,II,92,0.00E+00,0.00E+00
+esophagus,II,93,0.00E+00,0.00E+00
+esophagus,II,94,0.00E+00,0.00E+00
+esophagus,II,95,0.00E+00,0.00E+00
+esophagus,II,96,0.00E+00,0.00E+00
+esophagus,II,97,0.00E+00,0.00E+00
+esophagus,II,98,0.00E+00,0.00E+00
+esophagus,II,99,0.00E+00,0.00E+00
+esophagus,II,100,0.00E+00,0.00E+00
+esophagus,III,40,0.00E+00,0.00E+00
+esophagus,III,41,0.00E+00,0.00E+00
+esophagus,III,42,0.00E+00,0.00E+00
+esophagus,III,43,0.00E+00,0.00E+00
+esophagus,III,44,0.00E+00,0.00E+00
+esophagus,III,45,0.00E+00,0.00E+00
+esophagus,III,46,0.00E+00,0.00E+00
+esophagus,III,47,0.00E+00,0.00E+00
+esophagus,III,48,0.00E+00,0.00E+00
+esophagus,III,49,0.00E+00,0.00E+00
+esophagus,III,50,0.00E+00,0.00E+00
+esophagus,III,51,0.00E+00,0.00E+00
+esophagus,III,52,0.00E+00,0.00E+00
+esophagus,III,53,0.00E+00,0.00E+00
+esophagus,III,54,0.00E+00,0.00E+00
+esophagus,III,55,0.00E+00,0.00E+00
+esophagus,III,56,0.00E+00,0.00E+00
+esophagus,III,57,0.00E+00,0.00E+00
+esophagus,III,58,0.00E+00,0.00E+00
+esophagus,III,59,0.00E+00,0.00E+00
+esophagus,III,60,0.00E+00,0.00E+00
+esophagus,III,61,0.00E+00,0.00E+00
+esophagus,III,62,0.00E+00,0.00E+00
+esophagus,III,63,0.00E+00,0.00E+00
+esophagus,III,64,0.00E+00,0.00E+00
+esophagus,III,65,0.00E+00,0.00E+00
+esophagus,III,66,0.00E+00,0.00E+00
+esophagus,III,67,0.00E+00,0.00E+00
+esophagus,III,68,0.00E+00,0.00E+00
+esophagus,III,69,0.00E+00,0.00E+00
+esophagus,III,70,0.00E+00,0.00E+00
+esophagus,III,71,0.00E+00,0.00E+00
+esophagus,III,72,0.00E+00,0.00E+00
+esophagus,III,73,0.00E+00,0.00E+00
+esophagus,III,74,0.00E+00,0.00E+00
+esophagus,III,75,0.00E+00,0.00E+00
+esophagus,III,76,0.00E+00,0.00E+00
+esophagus,III,77,0.00E+00,0.00E+00
+esophagus,III,78,0.00E+00,0.00E+00
+esophagus,III,79,0.00E+00,0.00E+00
+esophagus,III,80,0.00E+00,0.00E+00
+esophagus,III,81,0.00E+00,0.00E+00
+esophagus,III,82,0.00E+00,0.00E+00
+esophagus,III,83,0.00E+00,0.00E+00
+esophagus,III,84,0.00E+00,0.00E+00
+esophagus,III,85,0.00E+00,0.00E+00
+esophagus,III,86,0.00E+00,0.00E+00
+esophagus,III,87,0.00E+00,0.00E+00
+esophagus,III,88,0.00E+00,0.00E+00
+esophagus,III,89,0.00E+00,0.00E+00
+esophagus,III,90,0.00E+00,0.00E+00
+esophagus,III,91,0.00E+00,0.00E+00
+esophagus,III,92,0.00E+00,0.00E+00
+esophagus,III,93,0.00E+00,0.00E+00
+esophagus,III,94,0.00E+00,0.00E+00
+esophagus,III,95,0.00E+00,0.00E+00
+esophagus,III,96,0.00E+00,0.00E+00
+esophagus,III,97,0.00E+00,0.00E+00
+esophagus,III,98,0.00E+00,0.00E+00
+esophagus,III,99,0.00E+00,0.00E+00
+esophagus,III,100,0.00E+00,0.00E+00
+esophagus,IV,40,0.00E+00,0.00E+00
+esophagus,IV,41,0.00E+00,0.00E+00
+esophagus,IV,42,0.00E+00,0.00E+00
+esophagus,IV,43,0.00E+00,0.00E+00
+esophagus,IV,44,0.00E+00,0.00E+00
+esophagus,IV,45,0.00E+00,0.00E+00
+esophagus,IV,46,0.00E+00,0.00E+00
+esophagus,IV,47,0.00E+00,0.00E+00
+esophagus,IV,48,0.00E+00,0.00E+00
+esophagus,IV,49,0.00E+00,0.00E+00
+esophagus,IV,50,0.00E+00,0.00E+00
+esophagus,IV,51,0.00E+00,0.00E+00
+esophagus,IV,52,0.00E+00,0.00E+00
+esophagus,IV,53,0.00E+00,0.00E+00
+esophagus,IV,54,0.00E+00,0.00E+00
+esophagus,IV,55,0.00E+00,0.00E+00
+esophagus,IV,56,0.00E+00,0.00E+00
+esophagus,IV,57,0.00E+00,0.00E+00
+esophagus,IV,58,0.00E+00,0.00E+00
+esophagus,IV,59,0.00E+00,0.00E+00
+esophagus,IV,60,0.00E+00,0.00E+00
+esophagus,IV,61,0.00E+00,0.00E+00
+esophagus,IV,62,0.00E+00,0.00E+00
+esophagus,IV,63,0.00E+00,0.00E+00
+esophagus,IV,64,0.00E+00,0.00E+00
+esophagus,IV,65,0.00E+00,0.00E+00
+esophagus,IV,66,0.00E+00,0.00E+00
+esophagus,IV,67,0.00E+00,0.00E+00
+esophagus,IV,68,0.00E+00,0.00E+00
+esophagus,IV,69,0.00E+00,0.00E+00
+esophagus,IV,70,0.00E+00,0.00E+00
+esophagus,IV,71,0.00E+00,0.00E+00
+esophagus,IV,72,0.00E+00,0.00E+00
+esophagus,IV,73,0.00E+00,0.00E+00
+esophagus,IV,74,0.00E+00,0.00E+00
+esophagus,IV,75,0.00E+00,0.00E+00
+esophagus,IV,76,0.00E+00,0.00E+00
+esophagus,IV,77,0.00E+00,0.00E+00
+esophagus,IV,78,0.00E+00,0.00E+00
+esophagus,IV,79,0.00E+00,0.00E+00
+esophagus,IV,80,0.00E+00,0.00E+00
+esophagus,IV,81,0.00E+00,0.00E+00
+esophagus,IV,82,0.00E+00,0.00E+00
+esophagus,IV,83,0.00E+00,0.00E+00
+esophagus,IV,84,0.00E+00,0.00E+00
+esophagus,IV,85,0.00E+00,0.00E+00
+esophagus,IV,86,0.00E+00,0.00E+00
+esophagus,IV,87,0.00E+00,0.00E+00
+esophagus,IV,88,0.00E+00,0.00E+00
+esophagus,IV,89,0.00E+00,0.00E+00
+esophagus,IV,90,0.00E+00,0.00E+00
+esophagus,IV,91,0.00E+00,0.00E+00
+esophagus,IV,92,0.00E+00,0.00E+00
+esophagus,IV,93,0.00E+00,0.00E+00
+esophagus,IV,94,0.00E+00,0.00E+00
+esophagus,IV,95,0.00E+00,0.00E+00
+esophagus,IV,96,0.00E+00,0.00E+00
+esophagus,IV,97,0.00E+00,0.00E+00
+esophagus,IV,98,0.00E+00,0.00E+00
+esophagus,IV,99,0.00E+00,0.00E+00
+esophagus,IV,100,0.00E+00,0.00E+00
+head and neck,I,40,0.00E+00,0.00E+00
+head and neck,I,41,0.00E+00,0.00E+00
+head and neck,I,42,0.00E+00,0.00E+00
+head and neck,I,43,0.00E+00,0.00E+00
+head and neck,I,44,0.00E+00,0.00E+00
+head and neck,I,45,0.00E+00,0.00E+00
+head and neck,I,46,0.00E+00,0.00E+00
+head and neck,I,47,0.00E+00,0.00E+00
+head and neck,I,48,0.00E+00,0.00E+00
+head and neck,I,49,0.00E+00,0.00E+00
+head and neck,I,50,0.00E+00,0.00E+00
+head and neck,I,51,0.00E+00,0.00E+00
+head and neck,I,52,0.00E+00,0.00E+00
+head and neck,I,53,0.00E+00,0.00E+00
+head and neck,I,54,0.00E+00,0.00E+00
+head and neck,I,55,0.00E+00,0.00E+00
+head and neck,I,56,0.00E+00,0.00E+00
+head and neck,I,57,0.00E+00,0.00E+00
+head and neck,I,58,0.00E+00,0.00E+00
+head and neck,I,59,0.00E+00,0.00E+00
+head and neck,I,60,0.00E+00,0.00E+00
+head and neck,I,61,0.00E+00,0.00E+00
+head and neck,I,62,0.00E+00,0.00E+00
+head and neck,I,63,0.00E+00,0.00E+00
+head and neck,I,64,0.00E+00,0.00E+00
+head and neck,I,65,0.00E+00,0.00E+00
+head and neck,I,66,0.00E+00,0.00E+00
+head and neck,I,67,0.00E+00,0.00E+00
+head and neck,I,68,0.00E+00,0.00E+00
+head and neck,I,69,0.00E+00,0.00E+00
+head and neck,I,70,0.00E+00,0.00E+00
+head and neck,I,71,0.00E+00,0.00E+00
+head and neck,I,72,0.00E+00,0.00E+00
+head and neck,I,73,0.00E+00,0.00E+00
+head and neck,I,74,0.00E+00,0.00E+00
+head and neck,I,75,0.00E+00,0.00E+00
+head and neck,I,76,0.00E+00,0.00E+00
+head and neck,I,77,0.00E+00,0.00E+00
+head and neck,I,78,0.00E+00,0.00E+00
+head and neck,I,79,0.00E+00,0.00E+00
+head and neck,I,80,0.00E+00,0.00E+00
+head and neck,I,81,0.00E+00,0.00E+00
+head and neck,I,82,0.00E+00,0.00E+00
+head and neck,I,83,0.00E+00,0.00E+00
+head and neck,I,84,0.00E+00,0.00E+00
+head and neck,I,85,0.00E+00,0.00E+00
+head and neck,I,86,0.00E+00,0.00E+00
+head and neck,I,87,0.00E+00,0.00E+00
+head and neck,I,88,0.00E+00,0.00E+00
+head and neck,I,89,0.00E+00,0.00E+00
+head and neck,I,90,0.00E+00,0.00E+00
+head and neck,I,91,0.00E+00,0.00E+00
+head and neck,I,92,0.00E+00,0.00E+00
+head and neck,I,93,0.00E+00,0.00E+00
+head and neck,I,94,0.00E+00,0.00E+00
+head and neck,I,95,0.00E+00,0.00E+00
+head and neck,I,96,0.00E+00,0.00E+00
+head and neck,I,97,0.00E+00,0.00E+00
+head and neck,I,98,0.00E+00,0.00E+00
+head and neck,I,99,0.00E+00,0.00E+00
+head and neck,I,100,0.00E+00,0.00E+00
+head and neck,II,40,0.00E+00,0.00E+00
+head and neck,II,41,0.00E+00,0.00E+00
+head and neck,II,42,0.00E+00,0.00E+00
+head and neck,II,43,0.00E+00,0.00E+00
+head and neck,II,44,0.00E+00,0.00E+00
+head and neck,II,45,0.00E+00,0.00E+00
+head and neck,II,46,0.00E+00,0.00E+00
+head and neck,II,47,0.00E+00,0.00E+00
+head and neck,II,48,0.00E+00,0.00E+00
+head and neck,II,49,0.00E+00,0.00E+00
+head and neck,II,50,0.00E+00,0.00E+00
+head and neck,II,51,0.00E+00,0.00E+00
+head and neck,II,52,0.00E+00,0.00E+00
+head and neck,II,53,0.00E+00,0.00E+00
+head and neck,II,54,0.00E+00,0.00E+00
+head and neck,II,55,0.00E+00,0.00E+00
+head and neck,II,56,0.00E+00,0.00E+00
+head and neck,II,57,0.00E+00,0.00E+00
+head and neck,II,58,0.00E+00,0.00E+00
+head and neck,II,59,0.00E+00,0.00E+00
+head and neck,II,60,0.00E+00,0.00E+00
+head and neck,II,61,0.00E+00,0.00E+00
+head and neck,II,62,0.00E+00,0.00E+00
+head and neck,II,63,0.00E+00,0.00E+00
+head and neck,II,64,0.00E+00,0.00E+00
+head and neck,II,65,0.00E+00,0.00E+00
+head and neck,II,66,0.00E+00,0.00E+00
+head and neck,II,67,0.00E+00,0.00E+00
+head and neck,II,68,0.00E+00,0.00E+00
+head and neck,II,69,0.00E+00,0.00E+00
+head and neck,II,70,0.00E+00,0.00E+00
+head and neck,II,71,0.00E+00,0.00E+00
+head and neck,II,72,0.00E+00,0.00E+00
+head and neck,II,73,0.00E+00,0.00E+00
+head and neck,II,74,0.00E+00,0.00E+00
+head and neck,II,75,0.00E+00,0.00E+00
+head and neck,II,76,0.00E+00,0.00E+00
+head and neck,II,77,0.00E+00,0.00E+00
+head and neck,II,78,0.00E+00,0.00E+00
+head and neck,II,79,0.00E+00,0.00E+00
+head and neck,II,80,0.00E+00,0.00E+00
+head and neck,II,81,0.00E+00,0.00E+00
+head and neck,II,82,0.00E+00,0.00E+00
+head and neck,II,83,0.00E+00,0.00E+00
+head and neck,II,84,0.00E+00,0.00E+00
+head and neck,II,85,0.00E+00,0.00E+00
+head and neck,II,86,0.00E+00,0.00E+00
+head and neck,II,87,0.00E+00,0.00E+00
+head and neck,II,88,0.00E+00,0.00E+00
+head and neck,II,89,0.00E+00,0.00E+00
+head and neck,II,90,0.00E+00,0.00E+00
+head and neck,II,91,0.00E+00,0.00E+00
+head and neck,II,92,0.00E+00,0.00E+00
+head and neck,II,93,0.00E+00,0.00E+00
+head and neck,II,94,0.00E+00,0.00E+00
+head and neck,II,95,0.00E+00,0.00E+00
+head and neck,II,96,0.00E+00,0.00E+00
+head and neck,II,97,0.00E+00,0.00E+00
+head and neck,II,98,0.00E+00,0.00E+00
+head and neck,II,99,0.00E+00,0.00E+00
+head and neck,II,100,0.00E+00,0.00E+00
+head and neck,III,40,0.00E+00,0.00E+00
+head and neck,III,41,0.00E+00,0.00E+00
+head and neck,III,42,0.00E+00,0.00E+00
+head and neck,III,43,0.00E+00,0.00E+00
+head and neck,III,44,0.00E+00,0.00E+00
+head and neck,III,45,0.00E+00,0.00E+00
+head and neck,III,46,0.00E+00,0.00E+00
+head and neck,III,47,0.00E+00,0.00E+00
+head and neck,III,48,0.00E+00,0.00E+00
+head and neck,III,49,0.00E+00,0.00E+00
+head and neck,III,50,0.00E+00,0.00E+00
+head and neck,III,51,0.00E+00,0.00E+00
+head and neck,III,52,0.00E+00,0.00E+00
+head and neck,III,53,0.00E+00,0.00E+00
+head and neck,III,54,0.00E+00,0.00E+00
+head and neck,III,55,0.00E+00,0.00E+00
+head and neck,III,56,0.00E+00,0.00E+00
+head and neck,III,57,0.00E+00,0.00E+00
+head and neck,III,58,0.00E+00,0.00E+00
+head and neck,III,59,0.00E+00,0.00E+00
+head and neck,III,60,0.00E+00,0.00E+00
+head and neck,III,61,0.00E+00,0.00E+00
+head and neck,III,62,0.00E+00,0.00E+00
+head and neck,III,63,0.00E+00,0.00E+00
+head and neck,III,64,0.00E+00,0.00E+00
+head and neck,III,65,0.00E+00,0.00E+00
+head and neck,III,66,0.00E+00,0.00E+00
+head and neck,III,67,0.00E+00,0.00E+00
+head and neck,III,68,0.00E+00,0.00E+00
+head and neck,III,69,0.00E+00,0.00E+00
+head and neck,III,70,0.00E+00,0.00E+00
+head and neck,III,71,0.00E+00,0.00E+00
+head and neck,III,72,0.00E+00,0.00E+00
+head and neck,III,73,0.00E+00,0.00E+00
+head and neck,III,74,0.00E+00,0.00E+00
+head and neck,III,75,0.00E+00,0.00E+00
+head and neck,III,76,0.00E+00,0.00E+00
+head and neck,III,77,0.00E+00,0.00E+00
+head and neck,III,78,0.00E+00,0.00E+00
+head and neck,III,79,0.00E+00,0.00E+00
+head and neck,III,80,0.00E+00,0.00E+00
+head and neck,III,81,0.00E+00,0.00E+00
+head and neck,III,82,0.00E+00,0.00E+00
+head and neck,III,83,0.00E+00,0.00E+00
+head and neck,III,84,0.00E+00,0.00E+00
+head and neck,III,85,0.00E+00,0.00E+00
+head and neck,III,86,0.00E+00,0.00E+00
+head and neck,III,87,0.00E+00,0.00E+00
+head and neck,III,88,0.00E+00,0.00E+00
+head and neck,III,89,0.00E+00,0.00E+00
+head and neck,III,90,0.00E+00,0.00E+00
+head and neck,III,91,0.00E+00,0.00E+00
+head and neck,III,92,0.00E+00,0.00E+00
+head and neck,III,93,0.00E+00,0.00E+00
+head and neck,III,94,0.00E+00,0.00E+00
+head and neck,III,95,0.00E+00,0.00E+00
+head and neck,III,96,0.00E+00,0.00E+00
+head and neck,III,97,0.00E+00,0.00E+00
+head and neck,III,98,0.00E+00,0.00E+00
+head and neck,III,99,0.00E+00,0.00E+00
+head and neck,III,100,0.00E+00,0.00E+00
+head and neck,IV,40,0.00E+00,0.00E+00
+head and neck,IV,41,0.00E+00,0.00E+00
+head and neck,IV,42,0.00E+00,0.00E+00
+head and neck,IV,43,0.00E+00,0.00E+00
+head and neck,IV,44,0.00E+00,0.00E+00
+head and neck,IV,45,0.00E+00,0.00E+00
+head and neck,IV,46,0.00E+00,0.00E+00
+head and neck,IV,47,0.00E+00,0.00E+00
+head and neck,IV,48,0.00E+00,0.00E+00
+head and neck,IV,49,0.00E+00,0.00E+00
+head and neck,IV,50,0.00E+00,0.00E+00
+head and neck,IV,51,0.00E+00,0.00E+00
+head and neck,IV,52,0.00E+00,0.00E+00
+head and neck,IV,53,0.00E+00,0.00E+00
+head and neck,IV,54,0.00E+00,0.00E+00
+head and neck,IV,55,0.00E+00,0.00E+00
+head and neck,IV,56,0.00E+00,0.00E+00
+head and neck,IV,57,0.00E+00,0.00E+00
+head and neck,IV,58,0.00E+00,0.00E+00
+head and neck,IV,59,0.00E+00,0.00E+00
+head and neck,IV,60,0.00E+00,0.00E+00
+head and neck,IV,61,0.00E+00,0.00E+00
+head and neck,IV,62,0.00E+00,0.00E+00
+head and neck,IV,63,0.00E+00,0.00E+00
+head and neck,IV,64,0.00E+00,0.00E+00
+head and neck,IV,65,0.00E+00,0.00E+00
+head and neck,IV,66,0.00E+00,0.00E+00
+head and neck,IV,67,0.00E+00,0.00E+00
+head and neck,IV,68,0.00E+00,0.00E+00
+head and neck,IV,69,0.00E+00,0.00E+00
+head and neck,IV,70,0.00E+00,0.00E+00
+head and neck,IV,71,0.00E+00,0.00E+00
+head and neck,IV,72,0.00E+00,0.00E+00
+head and neck,IV,73,0.00E+00,0.00E+00
+head and neck,IV,74,0.00E+00,0.00E+00
+head and neck,IV,75,0.00E+00,0.00E+00
+head and neck,IV,76,0.00E+00,0.00E+00
+head and neck,IV,77,0.00E+00,0.00E+00
+head and neck,IV,78,0.00E+00,0.00E+00
+head and neck,IV,79,0.00E+00,0.00E+00
+head and neck,IV,80,0.00E+00,0.00E+00
+head and neck,IV,81,0.00E+00,0.00E+00
+head and neck,IV,82,0.00E+00,0.00E+00
+head and neck,IV,83,0.00E+00,0.00E+00
+head and neck,IV,84,0.00E+00,0.00E+00
+head and neck,IV,85,0.00E+00,0.00E+00
+head and neck,IV,86,0.00E+00,0.00E+00
+head and neck,IV,87,0.00E+00,0.00E+00
+head and neck,IV,88,0.00E+00,0.00E+00
+head and neck,IV,89,0.00E+00,0.00E+00
+head and neck,IV,90,0.00E+00,0.00E+00
+head and neck,IV,91,0.00E+00,0.00E+00
+head and neck,IV,92,0.00E+00,0.00E+00
+head and neck,IV,93,0.00E+00,0.00E+00
+head and neck,IV,94,0.00E+00,0.00E+00
+head and neck,IV,95,0.00E+00,0.00E+00
+head and neck,IV,96,0.00E+00,0.00E+00
+head and neck,IV,97,0.00E+00,0.00E+00
+head and neck,IV,98,0.00E+00,0.00E+00
+head and neck,IV,99,0.00E+00,0.00E+00
+head and neck,IV,100,0.00E+00,0.00E+00
+kidney and renal pelvis,I,40,0.00E+00,0.00E+00
+kidney and renal pelvis,I,41,0.00E+00,0.00E+00
+kidney and renal pelvis,I,42,0.00E+00,0.00E+00
+kidney and renal pelvis,I,43,0.00E+00,0.00E+00
+kidney and renal pelvis,I,44,0.00E+00,0.00E+00
+kidney and renal pelvis,I,45,0.00E+00,0.00E+00
+kidney and renal pelvis,I,46,0.00E+00,0.00E+00
+kidney and renal pelvis,I,47,0.00E+00,0.00E+00
+kidney and renal pelvis,I,48,0.00E+00,0.00E+00
+kidney and renal pelvis,I,49,0.00E+00,0.00E+00
+kidney and renal pelvis,I,50,0.00E+00,0.00E+00
+kidney and renal pelvis,I,51,0.00E+00,0.00E+00
+kidney and renal pelvis,I,52,0.00E+00,0.00E+00
+kidney and renal pelvis,I,53,0.00E+00,0.00E+00
+kidney and renal pelvis,I,54,0.00E+00,0.00E+00
+kidney and renal pelvis,I,55,0.00E+00,0.00E+00
+kidney and renal pelvis,I,56,0.00E+00,0.00E+00
+kidney and renal pelvis,I,57,0.00E+00,0.00E+00
+kidney and renal pelvis,I,58,0.00E+00,0.00E+00
+kidney and renal pelvis,I,59,0.00E+00,0.00E+00
+kidney and renal pelvis,I,60,0.00E+00,0.00E+00
+kidney and renal pelvis,I,61,0.00E+00,0.00E+00
+kidney and renal pelvis,I,62,0.00E+00,0.00E+00
+kidney and renal pelvis,I,63,0.00E+00,0.00E+00
+kidney and renal pelvis,I,64,0.00E+00,0.00E+00
+kidney and renal pelvis,I,65,0.00E+00,0.00E+00
+kidney and renal pelvis,I,66,0.00E+00,0.00E+00
+kidney and renal pelvis,I,67,0.00E+00,0.00E+00
+kidney and renal pelvis,I,68,0.00E+00,0.00E+00
+kidney and renal pelvis,I,69,0.00E+00,0.00E+00
+kidney and renal pelvis,I,70,0.00E+00,0.00E+00
+kidney and renal pelvis,I,71,0.00E+00,0.00E+00
+kidney and renal pelvis,I,72,0.00E+00,0.00E+00
+kidney and renal pelvis,I,73,0.00E+00,0.00E+00
+kidney and renal pelvis,I,74,0.00E+00,0.00E+00
+kidney and renal pelvis,I,75,0.00E+00,0.00E+00
+kidney and renal pelvis,I,76,0.00E+00,0.00E+00
+kidney and renal pelvis,I,77,0.00E+00,0.00E+00
+kidney and renal pelvis,I,78,0.00E+00,0.00E+00
+kidney and renal pelvis,I,79,0.00E+00,0.00E+00
+kidney and renal pelvis,I,80,0.00E+00,0.00E+00
+kidney and renal pelvis,I,81,0.00E+00,0.00E+00
+kidney and renal pelvis,I,82,0.00E+00,0.00E+00
+kidney and renal pelvis,I,83,0.00E+00,0.00E+00
+kidney and renal pelvis,I,84,0.00E+00,0.00E+00
+kidney and renal pelvis,I,85,0.00E+00,0.00E+00
+kidney and renal pelvis,I,86,0.00E+00,0.00E+00
+kidney and renal pelvis,I,87,0.00E+00,0.00E+00
+kidney and renal pelvis,I,88,0.00E+00,0.00E+00
+kidney and renal pelvis,I,89,0.00E+00,0.00E+00
+kidney and renal pelvis,I,90,0.00E+00,0.00E+00
+kidney and renal pelvis,I,91,0.00E+00,0.00E+00
+kidney and renal pelvis,I,92,0.00E+00,0.00E+00
+kidney and renal pelvis,I,93,0.00E+00,0.00E+00
+kidney and renal pelvis,I,94,0.00E+00,0.00E+00
+kidney and renal pelvis,I,95,0.00E+00,0.00E+00
+kidney and renal pelvis,I,96,0.00E+00,0.00E+00
+kidney and renal pelvis,I,97,0.00E+00,0.00E+00
+kidney and renal pelvis,I,98,0.00E+00,0.00E+00
+kidney and renal pelvis,I,99,0.00E+00,0.00E+00
+kidney and renal pelvis,I,100,0.00E+00,0.00E+00
+kidney and renal pelvis,II,40,0.00E+00,0.00E+00
+kidney and renal pelvis,II,41,0.00E+00,0.00E+00
+kidney and renal pelvis,II,42,0.00E+00,0.00E+00
+kidney and renal pelvis,II,43,0.00E+00,0.00E+00
+kidney and renal pelvis,II,44,0.00E+00,0.00E+00
+kidney and renal pelvis,II,45,0.00E+00,0.00E+00
+kidney and renal pelvis,II,46,0.00E+00,0.00E+00
+kidney and renal pelvis,II,47,0.00E+00,0.00E+00
+kidney and renal pelvis,II,48,0.00E+00,0.00E+00
+kidney and renal pelvis,II,49,0.00E+00,0.00E+00
+kidney and renal pelvis,II,50,0.00E+00,0.00E+00
+kidney and renal pelvis,II,51,0.00E+00,0.00E+00
+kidney and renal pelvis,II,52,0.00E+00,0.00E+00
+kidney and renal pelvis,II,53,0.00E+00,0.00E+00
+kidney and renal pelvis,II,54,0.00E+00,0.00E+00
+kidney and renal pelvis,II,55,0.00E+00,0.00E+00
+kidney and renal pelvis,II,56,0.00E+00,0.00E+00
+kidney and renal pelvis,II,57,0.00E+00,0.00E+00
+kidney and renal pelvis,II,58,0.00E+00,0.00E+00
+kidney and renal pelvis,II,59,0.00E+00,0.00E+00
+kidney and renal pelvis,II,60,0.00E+00,0.00E+00
+kidney and renal pelvis,II,61,0.00E+00,0.00E+00
+kidney and renal pelvis,II,62,0.00E+00,0.00E+00
+kidney and renal pelvis,II,63,0.00E+00,0.00E+00
+kidney and renal pelvis,II,64,0.00E+00,0.00E+00
+kidney and renal pelvis,II,65,0.00E+00,0.00E+00
+kidney and renal pelvis,II,66,0.00E+00,0.00E+00
+kidney and renal pelvis,II,67,0.00E+00,0.00E+00
+kidney and renal pelvis,II,68,0.00E+00,0.00E+00
+kidney and renal pelvis,II,69,0.00E+00,0.00E+00
+kidney and renal pelvis,II,70,0.00E+00,0.00E+00
+kidney and renal pelvis,II,71,0.00E+00,0.00E+00
+kidney and renal pelvis,II,72,0.00E+00,0.00E+00
+kidney and renal pelvis,II,73,0.00E+00,0.00E+00
+kidney and renal pelvis,II,74,0.00E+00,0.00E+00
+kidney and renal pelvis,II,75,0.00E+00,0.00E+00
+kidney and renal pelvis,II,76,0.00E+00,0.00E+00
+kidney and renal pelvis,II,77,0.00E+00,0.00E+00
+kidney and renal pelvis,II,78,0.00E+00,0.00E+00
+kidney and renal pelvis,II,79,0.00E+00,0.00E+00
+kidney and renal pelvis,II,80,0.00E+00,0.00E+00
+kidney and renal pelvis,II,81,0.00E+00,0.00E+00
+kidney and renal pelvis,II,82,0.00E+00,0.00E+00
+kidney and renal pelvis,II,83,0.00E+00,0.00E+00
+kidney and renal pelvis,II,84,0.00E+00,0.00E+00
+kidney and renal pelvis,II,85,0.00E+00,0.00E+00
+kidney and renal pelvis,II,86,0.00E+00,0.00E+00
+kidney and renal pelvis,II,87,0.00E+00,0.00E+00
+kidney and renal pelvis,II,88,0.00E+00,0.00E+00
+kidney and renal pelvis,II,89,0.00E+00,0.00E+00
+kidney and renal pelvis,II,90,0.00E+00,0.00E+00
+kidney and renal pelvis,II,91,0.00E+00,0.00E+00
+kidney and renal pelvis,II,92,0.00E+00,0.00E+00
+kidney and renal pelvis,II,93,0.00E+00,0.00E+00
+kidney and renal pelvis,II,94,0.00E+00,0.00E+00
+kidney and renal pelvis,II,95,0.00E+00,0.00E+00
+kidney and renal pelvis,II,96,0.00E+00,0.00E+00
+kidney and renal pelvis,II,97,0.00E+00,0.00E+00
+kidney and renal pelvis,II,98,0.00E+00,0.00E+00
+kidney and renal pelvis,II,99,0.00E+00,0.00E+00
+kidney and renal pelvis,II,100,0.00E+00,0.00E+00
+kidney and renal pelvis,III,40,0.00E+00,0.00E+00
+kidney and renal pelvis,III,41,0.00E+00,0.00E+00
+kidney and renal pelvis,III,42,0.00E+00,0.00E+00
+kidney and renal pelvis,III,43,0.00E+00,0.00E+00
+kidney and renal pelvis,III,44,0.00E+00,0.00E+00
+kidney and renal pelvis,III,45,0.00E+00,0.00E+00
+kidney and renal pelvis,III,46,0.00E+00,0.00E+00
+kidney and renal pelvis,III,47,0.00E+00,0.00E+00
+kidney and renal pelvis,III,48,0.00E+00,0.00E+00
+kidney and renal pelvis,III,49,0.00E+00,0.00E+00
+kidney and renal pelvis,III,50,0.00E+00,0.00E+00
+kidney and renal pelvis,III,51,0.00E+00,0.00E+00
+kidney and renal pelvis,III,52,0.00E+00,0.00E+00
+kidney and renal pelvis,III,53,0.00E+00,0.00E+00
+kidney and renal pelvis,III,54,0.00E+00,0.00E+00
+kidney and renal pelvis,III,55,0.00E+00,0.00E+00
+kidney and renal pelvis,III,56,0.00E+00,0.00E+00
+kidney and renal pelvis,III,57,0.00E+00,0.00E+00
+kidney and renal pelvis,III,58,0.00E+00,0.00E+00
+kidney and renal pelvis,III,59,0.00E+00,0.00E+00
+kidney and renal pelvis,III,60,0.00E+00,0.00E+00
+kidney and renal pelvis,III,61,0.00E+00,0.00E+00
+kidney and renal pelvis,III,62,0.00E+00,0.00E+00
+kidney and renal pelvis,III,63,0.00E+00,0.00E+00
+kidney and renal pelvis,III,64,0.00E+00,0.00E+00
+kidney and renal pelvis,III,65,0.00E+00,0.00E+00
+kidney and renal pelvis,III,66,0.00E+00,0.00E+00
+kidney and renal pelvis,III,67,0.00E+00,0.00E+00
+kidney and renal pelvis,III,68,0.00E+00,0.00E+00
+kidney and renal pelvis,III,69,0.00E+00,0.00E+00
+kidney and renal pelvis,III,70,0.00E+00,0.00E+00
+kidney and renal pelvis,III,71,0.00E+00,0.00E+00
+kidney and renal pelvis,III,72,0.00E+00,0.00E+00
+kidney and renal pelvis,III,73,0.00E+00,0.00E+00
+kidney and renal pelvis,III,74,0.00E+00,0.00E+00
+kidney and renal pelvis,III,75,0.00E+00,0.00E+00
+kidney and renal pelvis,III,76,0.00E+00,0.00E+00
+kidney and renal pelvis,III,77,0.00E+00,0.00E+00
+kidney and renal pelvis,III,78,0.00E+00,0.00E+00
+kidney and renal pelvis,III,79,0.00E+00,0.00E+00
+kidney and renal pelvis,III,80,0.00E+00,0.00E+00
+kidney and renal pelvis,III,81,0.00E+00,0.00E+00
+kidney and renal pelvis,III,82,0.00E+00,0.00E+00
+kidney and renal pelvis,III,83,0.00E+00,0.00E+00
+kidney and renal pelvis,III,84,0.00E+00,0.00E+00
+kidney and renal pelvis,III,85,0.00E+00,0.00E+00
+kidney and renal pelvis,III,86,0.00E+00,0.00E+00
+kidney and renal pelvis,III,87,0.00E+00,0.00E+00
+kidney and renal pelvis,III,88,0.00E+00,0.00E+00
+kidney and renal pelvis,III,89,0.00E+00,0.00E+00
+kidney and renal pelvis,III,90,0.00E+00,0.00E+00
+kidney and renal pelvis,III,91,0.00E+00,0.00E+00
+kidney and renal pelvis,III,92,0.00E+00,0.00E+00
+kidney and renal pelvis,III,93,0.00E+00,0.00E+00
+kidney and renal pelvis,III,94,0.00E+00,0.00E+00
+kidney and renal pelvis,III,95,0.00E+00,0.00E+00
+kidney and renal pelvis,III,96,0.00E+00,0.00E+00
+kidney and renal pelvis,III,97,0.00E+00,0.00E+00
+kidney and renal pelvis,III,98,0.00E+00,0.00E+00
+kidney and renal pelvis,III,99,0.00E+00,0.00E+00
+kidney and renal pelvis,III,100,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,40,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,41,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,42,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,43,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,44,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,45,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,46,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,47,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,48,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,49,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,50,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,51,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,52,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,53,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,54,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,55,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,56,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,57,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,58,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,59,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,60,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,61,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,62,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,63,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,64,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,65,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,66,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,67,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,68,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,69,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,70,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,71,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,72,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,73,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,74,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,75,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,76,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,77,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,78,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,79,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,80,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,81,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,82,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,83,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,84,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,85,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,86,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,87,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,88,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,89,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,90,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,91,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,92,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,93,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,94,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,95,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,96,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,97,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,98,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,99,0.00E+00,0.00E+00
+kidney and renal pelvis,IV,100,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,40,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,41,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,42,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,43,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,44,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,45,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,46,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,47,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,48,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,49,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,50,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,51,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,52,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,53,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,54,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,55,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,56,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,57,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,58,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,59,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,60,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,61,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,62,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,63,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,64,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,65,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,66,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,67,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,68,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,69,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,70,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,71,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,72,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,73,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,74,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,75,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,76,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,77,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,78,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,79,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,80,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,81,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,82,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,83,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,84,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,85,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,86,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,87,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,88,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,89,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,90,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,91,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,92,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,93,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,94,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,95,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,96,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,97,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,98,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,99,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,I,100,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,40,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,41,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,42,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,43,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,44,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,45,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,46,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,47,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,48,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,49,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,50,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,51,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,52,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,53,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,54,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,55,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,56,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,57,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,58,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,59,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,60,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,61,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,62,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,63,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,64,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,65,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,66,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,67,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,68,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,69,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,70,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,71,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,72,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,73,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,74,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,75,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,76,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,77,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,78,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,79,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,80,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,81,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,82,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,83,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,84,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,85,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,86,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,87,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,88,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,89,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,90,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,91,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,92,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,93,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,94,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,95,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,96,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,97,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,98,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,99,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,II,100,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,40,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,41,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,42,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,43,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,44,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,45,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,46,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,47,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,48,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,49,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,50,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,51,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,52,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,53,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,54,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,55,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,56,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,57,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,58,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,59,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,60,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,61,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,62,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,63,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,64,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,65,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,66,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,67,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,68,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,69,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,70,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,71,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,72,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,73,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,74,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,75,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,76,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,77,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,78,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,79,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,80,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,81,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,82,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,83,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,84,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,85,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,86,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,87,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,88,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,89,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,90,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,91,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,92,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,93,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,94,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,95,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,96,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,97,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,98,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,99,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,III,100,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,40,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,41,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,42,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,43,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,44,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,45,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,46,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,47,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,48,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,49,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,50,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,51,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,52,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,53,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,54,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,55,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,56,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,57,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,58,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,59,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,60,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,61,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,62,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,63,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,64,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,65,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,66,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,67,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,68,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,69,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,70,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,71,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,72,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,73,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,74,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,75,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,76,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,77,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,78,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,79,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,80,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,81,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,82,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,83,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,84,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,85,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,86,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,87,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,88,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,89,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,90,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,91,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,92,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,93,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,94,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,95,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,96,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,97,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,98,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,99,0.00E+00,0.00E+00
+liver and intrahepatic bile duct,IV,100,0.00E+00,0.00E+00
+lung and bronchus,I,40,0.00E+00,0.00E+00
+lung and bronchus,I,41,0.00E+00,0.00E+00
+lung and bronchus,I,42,0.00E+00,0.00E+00
+lung and bronchus,I,43,0.00E+00,0.00E+00
+lung and bronchus,I,44,0.00E+00,0.00E+00
+lung and bronchus,I,45,0.00E+00,0.00E+00
+lung and bronchus,I,46,0.00E+00,0.00E+00
+lung and bronchus,I,47,0.00E+00,0.00E+00
+lung and bronchus,I,48,0.00E+00,0.00E+00
+lung and bronchus,I,49,0.00E+00,0.00E+00
+lung and bronchus,I,50,0.00E+00,0.00E+00
+lung and bronchus,I,51,0.00E+00,0.00E+00
+lung and bronchus,I,52,0.00E+00,0.00E+00
+lung and bronchus,I,53,0.00E+00,0.00E+00
+lung and bronchus,I,54,0.00E+00,0.00E+00
+lung and bronchus,I,55,0.00E+00,0.00E+00
+lung and bronchus,I,56,0.00E+00,0.00E+00
+lung and bronchus,I,57,0.00E+00,0.00E+00
+lung and bronchus,I,58,0.00E+00,0.00E+00
+lung and bronchus,I,59,0.00E+00,0.00E+00
+lung and bronchus,I,60,0.00E+00,0.00E+00
+lung and bronchus,I,61,0.00E+00,0.00E+00
+lung and bronchus,I,62,0.00E+00,0.00E+00
+lung and bronchus,I,63,0.00E+00,0.00E+00
+lung and bronchus,I,64,0.00E+00,0.00E+00
+lung and bronchus,I,65,0.00E+00,0.00E+00
+lung and bronchus,I,66,0.00E+00,0.00E+00
+lung and bronchus,I,67,0.00E+00,0.00E+00
+lung and bronchus,I,68,0.00E+00,0.00E+00
+lung and bronchus,I,69,0.00E+00,0.00E+00
+lung and bronchus,I,70,0.00E+00,0.00E+00
+lung and bronchus,I,71,0.00E+00,0.00E+00
+lung and bronchus,I,72,0.00E+00,0.00E+00
+lung and bronchus,I,73,0.00E+00,0.00E+00
+lung and bronchus,I,74,0.00E+00,0.00E+00
+lung and bronchus,I,75,0.00E+00,0.00E+00
+lung and bronchus,I,76,0.00E+00,0.00E+00
+lung and bronchus,I,77,0.00E+00,0.00E+00
+lung and bronchus,I,78,0.00E+00,0.00E+00
+lung and bronchus,I,79,0.00E+00,0.00E+00
+lung and bronchus,I,80,0.00E+00,0.00E+00
+lung and bronchus,I,81,0.00E+00,0.00E+00
+lung and bronchus,I,82,0.00E+00,0.00E+00
+lung and bronchus,I,83,0.00E+00,0.00E+00
+lung and bronchus,I,84,0.00E+00,0.00E+00
+lung and bronchus,I,85,0.00E+00,0.00E+00
+lung and bronchus,I,86,0.00E+00,0.00E+00
+lung and bronchus,I,87,0.00E+00,0.00E+00
+lung and bronchus,I,88,0.00E+00,0.00E+00
+lung and bronchus,I,89,0.00E+00,0.00E+00
+lung and bronchus,I,90,0.00E+00,0.00E+00
+lung and bronchus,I,91,0.00E+00,0.00E+00
+lung and bronchus,I,92,0.00E+00,0.00E+00
+lung and bronchus,I,93,0.00E+00,0.00E+00
+lung and bronchus,I,94,0.00E+00,0.00E+00
+lung and bronchus,I,95,0.00E+00,0.00E+00
+lung and bronchus,I,96,0.00E+00,0.00E+00
+lung and bronchus,I,97,0.00E+00,0.00E+00
+lung and bronchus,I,98,0.00E+00,0.00E+00
+lung and bronchus,I,99,0.00E+00,0.00E+00
+lung and bronchus,I,100,0.00E+00,0.00E+00
+lung and bronchus,II,40,0.00E+00,0.00E+00
+lung and bronchus,II,41,0.00E+00,0.00E+00
+lung and bronchus,II,42,0.00E+00,0.00E+00
+lung and bronchus,II,43,0.00E+00,0.00E+00
+lung and bronchus,II,44,0.00E+00,0.00E+00
+lung and bronchus,II,45,0.00E+00,0.00E+00
+lung and bronchus,II,46,0.00E+00,0.00E+00
+lung and bronchus,II,47,0.00E+00,0.00E+00
+lung and bronchus,II,48,0.00E+00,0.00E+00
+lung and bronchus,II,49,0.00E+00,0.00E+00
+lung and bronchus,II,50,0.00E+00,0.00E+00
+lung and bronchus,II,51,0.00E+00,0.00E+00
+lung and bronchus,II,52,0.00E+00,0.00E+00
+lung and bronchus,II,53,0.00E+00,0.00E+00
+lung and bronchus,II,54,0.00E+00,0.00E+00
+lung and bronchus,II,55,0.00E+00,0.00E+00
+lung and bronchus,II,56,0.00E+00,0.00E+00
+lung and bronchus,II,57,0.00E+00,0.00E+00
+lung and bronchus,II,58,0.00E+00,0.00E+00
+lung and bronchus,II,59,0.00E+00,0.00E+00
+lung and bronchus,II,60,0.00E+00,0.00E+00
+lung and bronchus,II,61,0.00E+00,0.00E+00
+lung and bronchus,II,62,0.00E+00,0.00E+00
+lung and bronchus,II,63,0.00E+00,0.00E+00
+lung and bronchus,II,64,0.00E+00,0.00E+00
+lung and bronchus,II,65,0.00E+00,0.00E+00
+lung and bronchus,II,66,0.00E+00,0.00E+00
+lung and bronchus,II,67,0.00E+00,0.00E+00
+lung and bronchus,II,68,0.00E+00,0.00E+00
+lung and bronchus,II,69,0.00E+00,0.00E+00
+lung and bronchus,II,70,0.00E+00,0.00E+00
+lung and bronchus,II,71,0.00E+00,0.00E+00
+lung and bronchus,II,72,0.00E+00,0.00E+00
+lung and bronchus,II,73,0.00E+00,0.00E+00
+lung and bronchus,II,74,0.00E+00,0.00E+00
+lung and bronchus,II,75,0.00E+00,0.00E+00
+lung and bronchus,II,76,0.00E+00,0.00E+00
+lung and bronchus,II,77,0.00E+00,0.00E+00
+lung and bronchus,II,78,0.00E+00,0.00E+00
+lung and bronchus,II,79,0.00E+00,0.00E+00
+lung and bronchus,II,80,0.00E+00,0.00E+00
+lung and bronchus,II,81,0.00E+00,0.00E+00
+lung and bronchus,II,82,0.00E+00,0.00E+00
+lung and bronchus,II,83,0.00E+00,0.00E+00
+lung and bronchus,II,84,0.00E+00,0.00E+00
+lung and bronchus,II,85,0.00E+00,0.00E+00
+lung and bronchus,II,86,0.00E+00,0.00E+00
+lung and bronchus,II,87,0.00E+00,0.00E+00
+lung and bronchus,II,88,0.00E+00,0.00E+00
+lung and bronchus,II,89,0.00E+00,0.00E+00
+lung and bronchus,II,90,0.00E+00,0.00E+00
+lung and bronchus,II,91,0.00E+00,0.00E+00
+lung and bronchus,II,92,0.00E+00,0.00E+00
+lung and bronchus,II,93,0.00E+00,0.00E+00
+lung and bronchus,II,94,0.00E+00,0.00E+00
+lung and bronchus,II,95,0.00E+00,0.00E+00
+lung and bronchus,II,96,0.00E+00,0.00E+00
+lung and bronchus,II,97,0.00E+00,0.00E+00
+lung and bronchus,II,98,0.00E+00,0.00E+00
+lung and bronchus,II,99,0.00E+00,0.00E+00
+lung and bronchus,II,100,0.00E+00,0.00E+00
+lung and bronchus,III,40,0.00E+00,0.00E+00
+lung and bronchus,III,41,0.00E+00,0.00E+00
+lung and bronchus,III,42,0.00E+00,0.00E+00
+lung and bronchus,III,43,0.00E+00,0.00E+00
+lung and bronchus,III,44,0.00E+00,0.00E+00
+lung and bronchus,III,45,0.00E+00,0.00E+00
+lung and bronchus,III,46,0.00E+00,0.00E+00
+lung and bronchus,III,47,0.00E+00,0.00E+00
+lung and bronchus,III,48,0.00E+00,0.00E+00
+lung and bronchus,III,49,0.00E+00,0.00E+00
+lung and bronchus,III,50,0.00E+00,0.00E+00
+lung and bronchus,III,51,0.00E+00,0.00E+00
+lung and bronchus,III,52,0.00E+00,0.00E+00
+lung and bronchus,III,53,0.00E+00,0.00E+00
+lung and bronchus,III,54,0.00E+00,0.00E+00
+lung and bronchus,III,55,0.00E+00,0.00E+00
+lung and bronchus,III,56,0.00E+00,0.00E+00
+lung and bronchus,III,57,0.00E+00,0.00E+00
+lung and bronchus,III,58,0.00E+00,0.00E+00
+lung and bronchus,III,59,0.00E+00,0.00E+00
+lung and bronchus,III,60,0.00E+00,0.00E+00
+lung and bronchus,III,61,0.00E+00,0.00E+00
+lung and bronchus,III,62,0.00E+00,0.00E+00
+lung and bronchus,III,63,0.00E+00,0.00E+00
+lung and bronchus,III,64,0.00E+00,0.00E+00
+lung and bronchus,III,65,0.00E+00,0.00E+00
+lung and bronchus,III,66,0.00E+00,0.00E+00
+lung and bronchus,III,67,0.00E+00,0.00E+00
+lung and bronchus,III,68,0.00E+00,0.00E+00
+lung and bronchus,III,69,0.00E+00,0.00E+00
+lung and bronchus,III,70,0.00E+00,0.00E+00
+lung and bronchus,III,71,0.00E+00,0.00E+00
+lung and bronchus,III,72,0.00E+00,0.00E+00
+lung and bronchus,III,73,0.00E+00,0.00E+00
+lung and bronchus,III,74,0.00E+00,0.00E+00
+lung and bronchus,III,75,0.00E+00,0.00E+00
+lung and bronchus,III,76,0.00E+00,0.00E+00
+lung and bronchus,III,77,0.00E+00,0.00E+00
+lung and bronchus,III,78,0.00E+00,0.00E+00
+lung and bronchus,III,79,0.00E+00,0.00E+00
+lung and bronchus,III,80,0.00E+00,0.00E+00
+lung and bronchus,III,81,0.00E+00,0.00E+00
+lung and bronchus,III,82,0.00E+00,0.00E+00
+lung and bronchus,III,83,0.00E+00,0.00E+00
+lung and bronchus,III,84,0.00E+00,0.00E+00
+lung and bronchus,III,85,0.00E+00,0.00E+00
+lung and bronchus,III,86,0.00E+00,0.00E+00
+lung and bronchus,III,87,0.00E+00,0.00E+00
+lung and bronchus,III,88,0.00E+00,0.00E+00
+lung and bronchus,III,89,0.00E+00,0.00E+00
+lung and bronchus,III,90,0.00E+00,0.00E+00
+lung and bronchus,III,91,0.00E+00,0.00E+00
+lung and bronchus,III,92,0.00E+00,0.00E+00
+lung and bronchus,III,93,0.00E+00,0.00E+00
+lung and bronchus,III,94,0.00E+00,0.00E+00
+lung and bronchus,III,95,0.00E+00,0.00E+00
+lung and bronchus,III,96,0.00E+00,0.00E+00
+lung and bronchus,III,97,0.00E+00,0.00E+00
+lung and bronchus,III,98,0.00E+00,0.00E+00
+lung and bronchus,III,99,0.00E+00,0.00E+00
+lung and bronchus,III,100,0.00E+00,0.00E+00
+lung and bronchus,IV,40,0.00E+00,0.00E+00
+lung and bronchus,IV,41,0.00E+00,0.00E+00
+lung and bronchus,IV,42,0.00E+00,0.00E+00
+lung and bronchus,IV,43,0.00E+00,0.00E+00
+lung and bronchus,IV,44,0.00E+00,0.00E+00
+lung and bronchus,IV,45,0.00E+00,0.00E+00
+lung and bronchus,IV,46,0.00E+00,0.00E+00
+lung and bronchus,IV,47,0.00E+00,0.00E+00
+lung and bronchus,IV,48,0.00E+00,0.00E+00
+lung and bronchus,IV,49,0.00E+00,0.00E+00
+lung and bronchus,IV,50,0.00E+00,0.00E+00
+lung and bronchus,IV,51,0.00E+00,0.00E+00
+lung and bronchus,IV,52,0.00E+00,0.00E+00
+lung and bronchus,IV,53,0.00E+00,0.00E+00
+lung and bronchus,IV,54,0.00E+00,0.00E+00
+lung and bronchus,IV,55,0.00E+00,0.00E+00
+lung and bronchus,IV,56,0.00E+00,0.00E+00
+lung and bronchus,IV,57,0.00E+00,0.00E+00
+lung and bronchus,IV,58,0.00E+00,0.00E+00
+lung and bronchus,IV,59,0.00E+00,0.00E+00
+lung and bronchus,IV,60,0.00E+00,0.00E+00
+lung and bronchus,IV,61,0.00E+00,0.00E+00
+lung and bronchus,IV,62,0.00E+00,0.00E+00
+lung and bronchus,IV,63,0.00E+00,0.00E+00
+lung and bronchus,IV,64,0.00E+00,0.00E+00
+lung and bronchus,IV,65,0.00E+00,0.00E+00
+lung and bronchus,IV,66,0.00E+00,0.00E+00
+lung and bronchus,IV,67,0.00E+00,0.00E+00
+lung and bronchus,IV,68,0.00E+00,0.00E+00
+lung and bronchus,IV,69,0.00E+00,0.00E+00
+lung and bronchus,IV,70,0.00E+00,0.00E+00
+lung and bronchus,IV,71,0.00E+00,0.00E+00
+lung and bronchus,IV,72,0.00E+00,0.00E+00
+lung and bronchus,IV,73,0.00E+00,0.00E+00
+lung and bronchus,IV,74,0.00E+00,0.00E+00
+lung and bronchus,IV,75,0.00E+00,0.00E+00
+lung and bronchus,IV,76,0.00E+00,0.00E+00
+lung and bronchus,IV,77,0.00E+00,0.00E+00
+lung and bronchus,IV,78,0.00E+00,0.00E+00
+lung and bronchus,IV,79,0.00E+00,0.00E+00
+lung and bronchus,IV,80,0.00E+00,0.00E+00
+lung and bronchus,IV,81,0.00E+00,0.00E+00
+lung and bronchus,IV,82,0.00E+00,0.00E+00
+lung and bronchus,IV,83,0.00E+00,0.00E+00
+lung and bronchus,IV,84,0.00E+00,0.00E+00
+lung and bronchus,IV,85,0.00E+00,0.00E+00
+lung and bronchus,IV,86,0.00E+00,0.00E+00
+lung and bronchus,IV,87,0.00E+00,0.00E+00
+lung and bronchus,IV,88,0.00E+00,0.00E+00
+lung and bronchus,IV,89,0.00E+00,0.00E+00
+lung and bronchus,IV,90,0.00E+00,0.00E+00
+lung and bronchus,IV,91,0.00E+00,0.00E+00
+lung and bronchus,IV,92,0.00E+00,0.00E+00
+lung and bronchus,IV,93,0.00E+00,0.00E+00
+lung and bronchus,IV,94,0.00E+00,0.00E+00
+lung and bronchus,IV,95,0.00E+00,0.00E+00
+lung and bronchus,IV,96,0.00E+00,0.00E+00
+lung and bronchus,IV,97,0.00E+00,0.00E+00
+lung and bronchus,IV,98,0.00E+00,0.00E+00
+lung and bronchus,IV,99,0.00E+00,0.00E+00
+lung and bronchus,IV,100,0.00E+00,0.00E+00
+lymphoma,I,40,0.00E+00,0.00E+00
+lymphoma,I,41,0.00E+00,0.00E+00
+lymphoma,I,42,0.00E+00,0.00E+00
+lymphoma,I,43,0.00E+00,0.00E+00
+lymphoma,I,44,0.00E+00,0.00E+00
+lymphoma,I,45,0.00E+00,0.00E+00
+lymphoma,I,46,0.00E+00,0.00E+00
+lymphoma,I,47,0.00E+00,0.00E+00
+lymphoma,I,48,0.00E+00,0.00E+00
+lymphoma,I,49,0.00E+00,0.00E+00
+lymphoma,I,50,0.00E+00,0.00E+00
+lymphoma,I,51,0.00E+00,0.00E+00
+lymphoma,I,52,0.00E+00,0.00E+00
+lymphoma,I,53,0.00E+00,0.00E+00
+lymphoma,I,54,0.00E+00,0.00E+00
+lymphoma,I,55,0.00E+00,0.00E+00
+lymphoma,I,56,0.00E+00,0.00E+00
+lymphoma,I,57,0.00E+00,0.00E+00
+lymphoma,I,58,0.00E+00,0.00E+00
+lymphoma,I,59,0.00E+00,0.00E+00
+lymphoma,I,60,0.00E+00,0.00E+00
+lymphoma,I,61,0.00E+00,0.00E+00
+lymphoma,I,62,0.00E+00,0.00E+00
+lymphoma,I,63,0.00E+00,0.00E+00
+lymphoma,I,64,0.00E+00,0.00E+00
+lymphoma,I,65,0.00E+00,0.00E+00
+lymphoma,I,66,0.00E+00,0.00E+00
+lymphoma,I,67,0.00E+00,0.00E+00
+lymphoma,I,68,0.00E+00,0.00E+00
+lymphoma,I,69,0.00E+00,0.00E+00
+lymphoma,I,70,0.00E+00,0.00E+00
+lymphoma,I,71,0.00E+00,0.00E+00
+lymphoma,I,72,0.00E+00,0.00E+00
+lymphoma,I,73,0.00E+00,0.00E+00
+lymphoma,I,74,0.00E+00,0.00E+00
+lymphoma,I,75,0.00E+00,0.00E+00
+lymphoma,I,76,0.00E+00,0.00E+00
+lymphoma,I,77,0.00E+00,0.00E+00
+lymphoma,I,78,0.00E+00,0.00E+00
+lymphoma,I,79,0.00E+00,0.00E+00
+lymphoma,I,80,0.00E+00,0.00E+00
+lymphoma,I,81,0.00E+00,0.00E+00
+lymphoma,I,82,0.00E+00,0.00E+00
+lymphoma,I,83,0.00E+00,0.00E+00
+lymphoma,I,84,0.00E+00,0.00E+00
+lymphoma,I,85,0.00E+00,0.00E+00
+lymphoma,I,86,0.00E+00,0.00E+00
+lymphoma,I,87,0.00E+00,0.00E+00
+lymphoma,I,88,0.00E+00,0.00E+00
+lymphoma,I,89,0.00E+00,0.00E+00
+lymphoma,I,90,0.00E+00,0.00E+00
+lymphoma,I,91,0.00E+00,0.00E+00
+lymphoma,I,92,0.00E+00,0.00E+00
+lymphoma,I,93,0.00E+00,0.00E+00
+lymphoma,I,94,0.00E+00,0.00E+00
+lymphoma,I,95,0.00E+00,0.00E+00
+lymphoma,I,96,0.00E+00,0.00E+00
+lymphoma,I,97,0.00E+00,0.00E+00
+lymphoma,I,98,0.00E+00,0.00E+00
+lymphoma,I,99,0.00E+00,0.00E+00
+lymphoma,I,100,0.00E+00,0.00E+00
+lymphoma,II,40,0.00E+00,0.00E+00
+lymphoma,II,41,0.00E+00,0.00E+00
+lymphoma,II,42,0.00E+00,0.00E+00
+lymphoma,II,43,0.00E+00,0.00E+00
+lymphoma,II,44,0.00E+00,0.00E+00
+lymphoma,II,45,0.00E+00,0.00E+00
+lymphoma,II,46,0.00E+00,0.00E+00
+lymphoma,II,47,0.00E+00,0.00E+00
+lymphoma,II,48,0.00E+00,0.00E+00
+lymphoma,II,49,0.00E+00,0.00E+00
+lymphoma,II,50,0.00E+00,0.00E+00
+lymphoma,II,51,0.00E+00,0.00E+00
+lymphoma,II,52,0.00E+00,0.00E+00
+lymphoma,II,53,0.00E+00,0.00E+00
+lymphoma,II,54,0.00E+00,0.00E+00
+lymphoma,II,55,0.00E+00,0.00E+00
+lymphoma,II,56,0.00E+00,0.00E+00
+lymphoma,II,57,0.00E+00,0.00E+00
+lymphoma,II,58,0.00E+00,0.00E+00
+lymphoma,II,59,0.00E+00,0.00E+00
+lymphoma,II,60,0.00E+00,0.00E+00
+lymphoma,II,61,0.00E+00,0.00E+00
+lymphoma,II,62,0.00E+00,0.00E+00
+lymphoma,II,63,0.00E+00,0.00E+00
+lymphoma,II,64,0.00E+00,0.00E+00
+lymphoma,II,65,0.00E+00,0.00E+00
+lymphoma,II,66,0.00E+00,0.00E+00
+lymphoma,II,67,0.00E+00,0.00E+00
+lymphoma,II,68,0.00E+00,0.00E+00
+lymphoma,II,69,0.00E+00,0.00E+00
+lymphoma,II,70,0.00E+00,0.00E+00
+lymphoma,II,71,0.00E+00,0.00E+00
+lymphoma,II,72,0.00E+00,0.00E+00
+lymphoma,II,73,0.00E+00,0.00E+00
+lymphoma,II,74,0.00E+00,0.00E+00
+lymphoma,II,75,0.00E+00,0.00E+00
+lymphoma,II,76,0.00E+00,0.00E+00
+lymphoma,II,77,0.00E+00,0.00E+00
+lymphoma,II,78,0.00E+00,0.00E+00
+lymphoma,II,79,0.00E+00,0.00E+00
+lymphoma,II,80,0.00E+00,0.00E+00
+lymphoma,II,81,0.00E+00,0.00E+00
+lymphoma,II,82,0.00E+00,0.00E+00
+lymphoma,II,83,0.00E+00,0.00E+00
+lymphoma,II,84,0.00E+00,0.00E+00
+lymphoma,II,85,0.00E+00,0.00E+00
+lymphoma,II,86,0.00E+00,0.00E+00
+lymphoma,II,87,0.00E+00,0.00E+00
+lymphoma,II,88,0.00E+00,0.00E+00
+lymphoma,II,89,0.00E+00,0.00E+00
+lymphoma,II,90,0.00E+00,0.00E+00
+lymphoma,II,91,0.00E+00,0.00E+00
+lymphoma,II,92,0.00E+00,0.00E+00
+lymphoma,II,93,0.00E+00,0.00E+00
+lymphoma,II,94,0.00E+00,0.00E+00
+lymphoma,II,95,0.00E+00,0.00E+00
+lymphoma,II,96,0.00E+00,0.00E+00
+lymphoma,II,97,0.00E+00,0.00E+00
+lymphoma,II,98,0.00E+00,0.00E+00
+lymphoma,II,99,0.00E+00,0.00E+00
+lymphoma,II,100,0.00E+00,0.00E+00
+lymphoma,III,40,0.00E+00,0.00E+00
+lymphoma,III,41,0.00E+00,0.00E+00
+lymphoma,III,42,0.00E+00,0.00E+00
+lymphoma,III,43,0.00E+00,0.00E+00
+lymphoma,III,44,0.00E+00,0.00E+00
+lymphoma,III,45,0.00E+00,0.00E+00
+lymphoma,III,46,0.00E+00,0.00E+00
+lymphoma,III,47,0.00E+00,0.00E+00
+lymphoma,III,48,0.00E+00,0.00E+00
+lymphoma,III,49,0.00E+00,0.00E+00
+lymphoma,III,50,0.00E+00,0.00E+00
+lymphoma,III,51,0.00E+00,0.00E+00
+lymphoma,III,52,0.00E+00,0.00E+00
+lymphoma,III,53,0.00E+00,0.00E+00
+lymphoma,III,54,0.00E+00,0.00E+00
+lymphoma,III,55,0.00E+00,0.00E+00
+lymphoma,III,56,0.00E+00,0.00E+00
+lymphoma,III,57,0.00E+00,0.00E+00
+lymphoma,III,58,0.00E+00,0.00E+00
+lymphoma,III,59,0.00E+00,0.00E+00
+lymphoma,III,60,0.00E+00,0.00E+00
+lymphoma,III,61,0.00E+00,0.00E+00
+lymphoma,III,62,0.00E+00,0.00E+00
+lymphoma,III,63,0.00E+00,0.00E+00
+lymphoma,III,64,0.00E+00,0.00E+00
+lymphoma,III,65,0.00E+00,0.00E+00
+lymphoma,III,66,0.00E+00,0.00E+00
+lymphoma,III,67,0.00E+00,0.00E+00
+lymphoma,III,68,0.00E+00,0.00E+00
+lymphoma,III,69,0.00E+00,0.00E+00
+lymphoma,III,70,0.00E+00,0.00E+00
+lymphoma,III,71,0.00E+00,0.00E+00
+lymphoma,III,72,0.00E+00,0.00E+00
+lymphoma,III,73,0.00E+00,0.00E+00
+lymphoma,III,74,0.00E+00,0.00E+00
+lymphoma,III,75,0.00E+00,0.00E+00
+lymphoma,III,76,0.00E+00,0.00E+00
+lymphoma,III,77,0.00E+00,0.00E+00
+lymphoma,III,78,0.00E+00,0.00E+00
+lymphoma,III,79,0.00E+00,0.00E+00
+lymphoma,III,80,0.00E+00,0.00E+00
+lymphoma,III,81,0.00E+00,0.00E+00
+lymphoma,III,82,0.00E+00,0.00E+00
+lymphoma,III,83,0.00E+00,0.00E+00
+lymphoma,III,84,0.00E+00,0.00E+00
+lymphoma,III,85,0.00E+00,0.00E+00
+lymphoma,III,86,0.00E+00,0.00E+00
+lymphoma,III,87,0.00E+00,0.00E+00
+lymphoma,III,88,0.00E+00,0.00E+00
+lymphoma,III,89,0.00E+00,0.00E+00
+lymphoma,III,90,0.00E+00,0.00E+00
+lymphoma,III,91,0.00E+00,0.00E+00
+lymphoma,III,92,0.00E+00,0.00E+00
+lymphoma,III,93,0.00E+00,0.00E+00
+lymphoma,III,94,0.00E+00,0.00E+00
+lymphoma,III,95,0.00E+00,0.00E+00
+lymphoma,III,96,0.00E+00,0.00E+00
+lymphoma,III,97,0.00E+00,0.00E+00
+lymphoma,III,98,0.00E+00,0.00E+00
+lymphoma,III,99,0.00E+00,0.00E+00
+lymphoma,III,100,0.00E+00,0.00E+00
+lymphoma,IV,40,0.00E+00,0.00E+00
+lymphoma,IV,41,0.00E+00,0.00E+00
+lymphoma,IV,42,0.00E+00,0.00E+00
+lymphoma,IV,43,0.00E+00,0.00E+00
+lymphoma,IV,44,0.00E+00,0.00E+00
+lymphoma,IV,45,0.00E+00,0.00E+00
+lymphoma,IV,46,0.00E+00,0.00E+00
+lymphoma,IV,47,0.00E+00,0.00E+00
+lymphoma,IV,48,0.00E+00,0.00E+00
+lymphoma,IV,49,0.00E+00,0.00E+00
+lymphoma,IV,50,0.00E+00,0.00E+00
+lymphoma,IV,51,0.00E+00,0.00E+00
+lymphoma,IV,52,0.00E+00,0.00E+00
+lymphoma,IV,53,0.00E+00,0.00E+00
+lymphoma,IV,54,0.00E+00,0.00E+00
+lymphoma,IV,55,0.00E+00,0.00E+00
+lymphoma,IV,56,0.00E+00,0.00E+00
+lymphoma,IV,57,0.00E+00,0.00E+00
+lymphoma,IV,58,0.00E+00,0.00E+00
+lymphoma,IV,59,0.00E+00,0.00E+00
+lymphoma,IV,60,0.00E+00,0.00E+00
+lymphoma,IV,61,0.00E+00,0.00E+00
+lymphoma,IV,62,0.00E+00,0.00E+00
+lymphoma,IV,63,0.00E+00,0.00E+00
+lymphoma,IV,64,0.00E+00,0.00E+00
+lymphoma,IV,65,0.00E+00,0.00E+00
+lymphoma,IV,66,0.00E+00,0.00E+00
+lymphoma,IV,67,0.00E+00,0.00E+00
+lymphoma,IV,68,0.00E+00,0.00E+00
+lymphoma,IV,69,0.00E+00,0.00E+00
+lymphoma,IV,70,0.00E+00,0.00E+00
+lymphoma,IV,71,0.00E+00,0.00E+00
+lymphoma,IV,72,0.00E+00,0.00E+00
+lymphoma,IV,73,0.00E+00,0.00E+00
+lymphoma,IV,74,0.00E+00,0.00E+00
+lymphoma,IV,75,0.00E+00,0.00E+00
+lymphoma,IV,76,0.00E+00,0.00E+00
+lymphoma,IV,77,0.00E+00,0.00E+00
+lymphoma,IV,78,0.00E+00,0.00E+00
+lymphoma,IV,79,0.00E+00,0.00E+00
+lymphoma,IV,80,0.00E+00,0.00E+00
+lymphoma,IV,81,0.00E+00,0.00E+00
+lymphoma,IV,82,0.00E+00,0.00E+00
+lymphoma,IV,83,0.00E+00,0.00E+00
+lymphoma,IV,84,0.00E+00,0.00E+00
+lymphoma,IV,85,0.00E+00,0.00E+00
+lymphoma,IV,86,0.00E+00,0.00E+00
+lymphoma,IV,87,0.00E+00,0.00E+00
+lymphoma,IV,88,0.00E+00,0.00E+00
+lymphoma,IV,89,0.00E+00,0.00E+00
+lymphoma,IV,90,0.00E+00,0.00E+00
+lymphoma,IV,91,0.00E+00,0.00E+00
+lymphoma,IV,92,0.00E+00,0.00E+00
+lymphoma,IV,93,0.00E+00,0.00E+00
+lymphoma,IV,94,0.00E+00,0.00E+00
+lymphoma,IV,95,0.00E+00,0.00E+00
+lymphoma,IV,96,0.00E+00,0.00E+00
+lymphoma,IV,97,0.00E+00,0.00E+00
+lymphoma,IV,98,0.00E+00,0.00E+00
+lymphoma,IV,99,0.00E+00,0.00E+00
+lymphoma,IV,100,0.00E+00,0.00E+00
+ovarian,I,40,0.00E+00,0.00E+00
+ovarian,I,41,0.00E+00,0.00E+00
+ovarian,I,42,0.00E+00,0.00E+00
+ovarian,I,43,0.00E+00,0.00E+00
+ovarian,I,44,0.00E+00,0.00E+00
+ovarian,I,45,0.00E+00,0.00E+00
+ovarian,I,46,0.00E+00,0.00E+00
+ovarian,I,47,0.00E+00,0.00E+00
+ovarian,I,48,0.00E+00,0.00E+00
+ovarian,I,49,0.00E+00,0.00E+00
+ovarian,I,50,0.00E+00,0.00E+00
+ovarian,I,51,0.00E+00,0.00E+00
+ovarian,I,52,0.00E+00,0.00E+00
+ovarian,I,53,0.00E+00,0.00E+00
+ovarian,I,54,0.00E+00,0.00E+00
+ovarian,I,55,0.00E+00,0.00E+00
+ovarian,I,56,0.00E+00,0.00E+00
+ovarian,I,57,0.00E+00,0.00E+00
+ovarian,I,58,0.00E+00,0.00E+00
+ovarian,I,59,0.00E+00,0.00E+00
+ovarian,I,60,0.00E+00,0.00E+00
+ovarian,I,61,0.00E+00,0.00E+00
+ovarian,I,62,0.00E+00,0.00E+00
+ovarian,I,63,0.00E+00,0.00E+00
+ovarian,I,64,0.00E+00,0.00E+00
+ovarian,I,65,0.00E+00,0.00E+00
+ovarian,I,66,0.00E+00,0.00E+00
+ovarian,I,67,0.00E+00,0.00E+00
+ovarian,I,68,0.00E+00,0.00E+00
+ovarian,I,69,0.00E+00,0.00E+00
+ovarian,I,70,0.00E+00,0.00E+00
+ovarian,I,71,0.00E+00,0.00E+00
+ovarian,I,72,0.00E+00,0.00E+00
+ovarian,I,73,0.00E+00,0.00E+00
+ovarian,I,74,0.00E+00,0.00E+00
+ovarian,I,75,0.00E+00,0.00E+00
+ovarian,I,76,0.00E+00,0.00E+00
+ovarian,I,77,0.00E+00,0.00E+00
+ovarian,I,78,0.00E+00,0.00E+00
+ovarian,I,79,0.00E+00,0.00E+00
+ovarian,I,80,0.00E+00,0.00E+00
+ovarian,I,81,0.00E+00,0.00E+00
+ovarian,I,82,0.00E+00,0.00E+00
+ovarian,I,83,0.00E+00,0.00E+00
+ovarian,I,84,0.00E+00,0.00E+00
+ovarian,I,85,0.00E+00,0.00E+00
+ovarian,I,86,0.00E+00,0.00E+00
+ovarian,I,87,0.00E+00,0.00E+00
+ovarian,I,88,0.00E+00,0.00E+00
+ovarian,I,89,0.00E+00,0.00E+00
+ovarian,I,90,0.00E+00,0.00E+00
+ovarian,I,91,0.00E+00,0.00E+00
+ovarian,I,92,0.00E+00,0.00E+00
+ovarian,I,93,0.00E+00,0.00E+00
+ovarian,I,94,0.00E+00,0.00E+00
+ovarian,I,95,0.00E+00,0.00E+00
+ovarian,I,96,0.00E+00,0.00E+00
+ovarian,I,97,0.00E+00,0.00E+00
+ovarian,I,98,0.00E+00,0.00E+00
+ovarian,I,99,0.00E+00,0.00E+00
+ovarian,I,100,0.00E+00,0.00E+00
+ovarian,II,40,0.00E+00,0.00E+00
+ovarian,II,41,0.00E+00,0.00E+00
+ovarian,II,42,0.00E+00,0.00E+00
+ovarian,II,43,0.00E+00,0.00E+00
+ovarian,II,44,0.00E+00,0.00E+00
+ovarian,II,45,0.00E+00,0.00E+00
+ovarian,II,46,0.00E+00,0.00E+00
+ovarian,II,47,0.00E+00,0.00E+00
+ovarian,II,48,0.00E+00,0.00E+00
+ovarian,II,49,0.00E+00,0.00E+00
+ovarian,II,50,0.00E+00,0.00E+00
+ovarian,II,51,0.00E+00,0.00E+00
+ovarian,II,52,0.00E+00,0.00E+00
+ovarian,II,53,0.00E+00,0.00E+00
+ovarian,II,54,0.00E+00,0.00E+00
+ovarian,II,55,0.00E+00,0.00E+00
+ovarian,II,56,0.00E+00,0.00E+00
+ovarian,II,57,0.00E+00,0.00E+00
+ovarian,II,58,0.00E+00,0.00E+00
+ovarian,II,59,0.00E+00,0.00E+00
+ovarian,II,60,0.00E+00,0.00E+00
+ovarian,II,61,0.00E+00,0.00E+00
+ovarian,II,62,0.00E+00,0.00E+00
+ovarian,II,63,0.00E+00,0.00E+00
+ovarian,II,64,0.00E+00,0.00E+00
+ovarian,II,65,0.00E+00,0.00E+00
+ovarian,II,66,0.00E+00,0.00E+00
+ovarian,II,67,0.00E+00,0.00E+00
+ovarian,II,68,0.00E+00,0.00E+00
+ovarian,II,69,0.00E+00,0.00E+00
+ovarian,II,70,0.00E+00,0.00E+00
+ovarian,II,71,0.00E+00,0.00E+00
+ovarian,II,72,0.00E+00,0.00E+00
+ovarian,II,73,0.00E+00,0.00E+00
+ovarian,II,74,0.00E+00,0.00E+00
+ovarian,II,75,0.00E+00,0.00E+00
+ovarian,II,76,0.00E+00,0.00E+00
+ovarian,II,77,0.00E+00,0.00E+00
+ovarian,II,78,0.00E+00,0.00E+00
+ovarian,II,79,0.00E+00,0.00E+00
+ovarian,II,80,0.00E+00,0.00E+00
+ovarian,II,81,0.00E+00,0.00E+00
+ovarian,II,82,0.00E+00,0.00E+00
+ovarian,II,83,0.00E+00,0.00E+00
+ovarian,II,84,0.00E+00,0.00E+00
+ovarian,II,85,0.00E+00,0.00E+00
+ovarian,II,86,0.00E+00,0.00E+00
+ovarian,II,87,0.00E+00,0.00E+00
+ovarian,II,88,0.00E+00,0.00E+00
+ovarian,II,89,0.00E+00,0.00E+00
+ovarian,II,90,0.00E+00,0.00E+00
+ovarian,II,91,0.00E+00,0.00E+00
+ovarian,II,92,0.00E+00,0.00E+00
+ovarian,II,93,0.00E+00,0.00E+00
+ovarian,II,94,0.00E+00,0.00E+00
+ovarian,II,95,0.00E+00,0.00E+00
+ovarian,II,96,0.00E+00,0.00E+00
+ovarian,II,97,0.00E+00,0.00E+00
+ovarian,II,98,0.00E+00,0.00E+00
+ovarian,II,99,0.00E+00,0.00E+00
+ovarian,II,100,0.00E+00,0.00E+00
+ovarian,III,40,0.00E+00,0.00E+00
+ovarian,III,41,0.00E+00,0.00E+00
+ovarian,III,42,0.00E+00,0.00E+00
+ovarian,III,43,0.00E+00,0.00E+00
+ovarian,III,44,0.00E+00,0.00E+00
+ovarian,III,45,0.00E+00,0.00E+00
+ovarian,III,46,0.00E+00,0.00E+00
+ovarian,III,47,0.00E+00,0.00E+00
+ovarian,III,48,0.00E+00,0.00E+00
+ovarian,III,49,0.00E+00,0.00E+00
+ovarian,III,50,0.00E+00,0.00E+00
+ovarian,III,51,0.00E+00,0.00E+00
+ovarian,III,52,0.00E+00,0.00E+00
+ovarian,III,53,0.00E+00,0.00E+00
+ovarian,III,54,0.00E+00,0.00E+00
+ovarian,III,55,0.00E+00,0.00E+00
+ovarian,III,56,0.00E+00,0.00E+00
+ovarian,III,57,0.00E+00,0.00E+00
+ovarian,III,58,0.00E+00,0.00E+00
+ovarian,III,59,0.00E+00,0.00E+00
+ovarian,III,60,0.00E+00,0.00E+00
+ovarian,III,61,0.00E+00,0.00E+00
+ovarian,III,62,0.00E+00,0.00E+00
+ovarian,III,63,0.00E+00,0.00E+00
+ovarian,III,64,0.00E+00,0.00E+00
+ovarian,III,65,0.00E+00,0.00E+00
+ovarian,III,66,0.00E+00,0.00E+00
+ovarian,III,67,0.00E+00,0.00E+00
+ovarian,III,68,0.00E+00,0.00E+00
+ovarian,III,69,0.00E+00,0.00E+00
+ovarian,III,70,0.00E+00,0.00E+00
+ovarian,III,71,0.00E+00,0.00E+00
+ovarian,III,72,0.00E+00,0.00E+00
+ovarian,III,73,0.00E+00,0.00E+00
+ovarian,III,74,0.00E+00,0.00E+00
+ovarian,III,75,0.00E+00,0.00E+00
+ovarian,III,76,0.00E+00,0.00E+00
+ovarian,III,77,0.00E+00,0.00E+00
+ovarian,III,78,0.00E+00,0.00E+00
+ovarian,III,79,0.00E+00,0.00E+00
+ovarian,III,80,0.00E+00,0.00E+00
+ovarian,III,81,0.00E+00,0.00E+00
+ovarian,III,82,0.00E+00,0.00E+00
+ovarian,III,83,0.00E+00,0.00E+00
+ovarian,III,84,0.00E+00,0.00E+00
+ovarian,III,85,0.00E+00,0.00E+00
+ovarian,III,86,0.00E+00,0.00E+00
+ovarian,III,87,0.00E+00,0.00E+00
+ovarian,III,88,0.00E+00,0.00E+00
+ovarian,III,89,0.00E+00,0.00E+00
+ovarian,III,90,0.00E+00,0.00E+00
+ovarian,III,91,0.00E+00,0.00E+00
+ovarian,III,92,0.00E+00,0.00E+00
+ovarian,III,93,0.00E+00,0.00E+00
+ovarian,III,94,0.00E+00,0.00E+00
+ovarian,III,95,0.00E+00,0.00E+00
+ovarian,III,96,0.00E+00,0.00E+00
+ovarian,III,97,0.00E+00,0.00E+00
+ovarian,III,98,0.00E+00,0.00E+00
+ovarian,III,99,0.00E+00,0.00E+00
+ovarian,III,100,0.00E+00,0.00E+00
+ovarian,IV,40,0.00E+00,0.00E+00
+ovarian,IV,41,0.00E+00,0.00E+00
+ovarian,IV,42,0.00E+00,0.00E+00
+ovarian,IV,43,0.00E+00,0.00E+00
+ovarian,IV,44,0.00E+00,0.00E+00
+ovarian,IV,45,0.00E+00,0.00E+00
+ovarian,IV,46,0.00E+00,0.00E+00
+ovarian,IV,47,0.00E+00,0.00E+00
+ovarian,IV,48,0.00E+00,0.00E+00
+ovarian,IV,49,0.00E+00,0.00E+00
+ovarian,IV,50,0.00E+00,0.00E+00
+ovarian,IV,51,0.00E+00,0.00E+00
+ovarian,IV,52,0.00E+00,0.00E+00
+ovarian,IV,53,0.00E+00,0.00E+00
+ovarian,IV,54,0.00E+00,0.00E+00
+ovarian,IV,55,0.00E+00,0.00E+00
+ovarian,IV,56,0.00E+00,0.00E+00
+ovarian,IV,57,0.00E+00,0.00E+00
+ovarian,IV,58,0.00E+00,0.00E+00
+ovarian,IV,59,0.00E+00,0.00E+00
+ovarian,IV,60,0.00E+00,0.00E+00
+ovarian,IV,61,0.00E+00,0.00E+00
+ovarian,IV,62,0.00E+00,0.00E+00
+ovarian,IV,63,0.00E+00,0.00E+00
+ovarian,IV,64,0.00E+00,0.00E+00
+ovarian,IV,65,0.00E+00,0.00E+00
+ovarian,IV,66,0.00E+00,0.00E+00
+ovarian,IV,67,0.00E+00,0.00E+00
+ovarian,IV,68,0.00E+00,0.00E+00
+ovarian,IV,69,0.00E+00,0.00E+00
+ovarian,IV,70,0.00E+00,0.00E+00
+ovarian,IV,71,0.00E+00,0.00E+00
+ovarian,IV,72,0.00E+00,0.00E+00
+ovarian,IV,73,0.00E+00,0.00E+00
+ovarian,IV,74,0.00E+00,0.00E+00
+ovarian,IV,75,0.00E+00,0.00E+00
+ovarian,IV,76,0.00E+00,0.00E+00
+ovarian,IV,77,0.00E+00,0.00E+00
+ovarian,IV,78,0.00E+00,0.00E+00
+ovarian,IV,79,0.00E+00,0.00E+00
+ovarian,IV,80,0.00E+00,0.00E+00
+ovarian,IV,81,0.00E+00,0.00E+00
+ovarian,IV,82,0.00E+00,0.00E+00
+ovarian,IV,83,0.00E+00,0.00E+00
+ovarian,IV,84,0.00E+00,0.00E+00
+ovarian,IV,85,0.00E+00,0.00E+00
+ovarian,IV,86,0.00E+00,0.00E+00
+ovarian,IV,87,0.00E+00,0.00E+00
+ovarian,IV,88,0.00E+00,0.00E+00
+ovarian,IV,89,0.00E+00,0.00E+00
+ovarian,IV,90,0.00E+00,0.00E+00
+ovarian,IV,91,0.00E+00,0.00E+00
+ovarian,IV,92,0.00E+00,0.00E+00
+ovarian,IV,93,0.00E+00,0.00E+00
+ovarian,IV,94,0.00E+00,0.00E+00
+ovarian,IV,95,0.00E+00,0.00E+00
+ovarian,IV,96,0.00E+00,0.00E+00
+ovarian,IV,97,0.00E+00,0.00E+00
+ovarian,IV,98,0.00E+00,0.00E+00
+ovarian,IV,99,0.00E+00,0.00E+00
+ovarian,IV,100,0.00E+00,0.00E+00
+pancreas,I,40,0.00E+00,0.00E+00
+pancreas,I,41,0.00E+00,0.00E+00
+pancreas,I,42,0.00E+00,0.00E+00
+pancreas,I,43,0.00E+00,0.00E+00
+pancreas,I,44,0.00E+00,0.00E+00
+pancreas,I,45,0.00E+00,0.00E+00
+pancreas,I,46,0.00E+00,0.00E+00
+pancreas,I,47,0.00E+00,0.00E+00
+pancreas,I,48,0.00E+00,0.00E+00
+pancreas,I,49,0.00E+00,0.00E+00
+pancreas,I,50,0.00E+00,0.00E+00
+pancreas,I,51,0.00E+00,0.00E+00
+pancreas,I,52,0.00E+00,0.00E+00
+pancreas,I,53,0.00E+00,0.00E+00
+pancreas,I,54,0.00E+00,0.00E+00
+pancreas,I,55,0.00E+00,0.00E+00
+pancreas,I,56,0.00E+00,0.00E+00
+pancreas,I,57,0.00E+00,0.00E+00
+pancreas,I,58,0.00E+00,0.00E+00
+pancreas,I,59,0.00E+00,0.00E+00
+pancreas,I,60,0.00E+00,0.00E+00
+pancreas,I,61,0.00E+00,0.00E+00
+pancreas,I,62,0.00E+00,0.00E+00
+pancreas,I,63,0.00E+00,0.00E+00
+pancreas,I,64,0.00E+00,0.00E+00
+pancreas,I,65,0.00E+00,0.00E+00
+pancreas,I,66,0.00E+00,0.00E+00
+pancreas,I,67,0.00E+00,0.00E+00
+pancreas,I,68,0.00E+00,0.00E+00
+pancreas,I,69,0.00E+00,0.00E+00
+pancreas,I,70,0.00E+00,0.00E+00
+pancreas,I,71,0.00E+00,0.00E+00
+pancreas,I,72,0.00E+00,0.00E+00
+pancreas,I,73,0.00E+00,0.00E+00
+pancreas,I,74,0.00E+00,0.00E+00
+pancreas,I,75,0.00E+00,0.00E+00
+pancreas,I,76,0.00E+00,0.00E+00
+pancreas,I,77,0.00E+00,0.00E+00
+pancreas,I,78,0.00E+00,0.00E+00
+pancreas,I,79,0.00E+00,0.00E+00
+pancreas,I,80,0.00E+00,0.00E+00
+pancreas,I,81,0.00E+00,0.00E+00
+pancreas,I,82,0.00E+00,0.00E+00
+pancreas,I,83,0.00E+00,0.00E+00
+pancreas,I,84,0.00E+00,0.00E+00
+pancreas,I,85,0.00E+00,0.00E+00
+pancreas,I,86,0.00E+00,0.00E+00
+pancreas,I,87,0.00E+00,0.00E+00
+pancreas,I,88,0.00E+00,0.00E+00
+pancreas,I,89,0.00E+00,0.00E+00
+pancreas,I,90,0.00E+00,0.00E+00
+pancreas,I,91,0.00E+00,0.00E+00
+pancreas,I,92,0.00E+00,0.00E+00
+pancreas,I,93,0.00E+00,0.00E+00
+pancreas,I,94,0.00E+00,0.00E+00
+pancreas,I,95,0.00E+00,0.00E+00
+pancreas,I,96,0.00E+00,0.00E+00
+pancreas,I,97,0.00E+00,0.00E+00
+pancreas,I,98,0.00E+00,0.00E+00
+pancreas,I,99,0.00E+00,0.00E+00
+pancreas,I,100,0.00E+00,0.00E+00
+pancreas,II,40,0.00E+00,0.00E+00
+pancreas,II,41,0.00E+00,0.00E+00
+pancreas,II,42,0.00E+00,0.00E+00
+pancreas,II,43,0.00E+00,0.00E+00
+pancreas,II,44,0.00E+00,0.00E+00
+pancreas,II,45,0.00E+00,0.00E+00
+pancreas,II,46,0.00E+00,0.00E+00
+pancreas,II,47,0.00E+00,0.00E+00
+pancreas,II,48,0.00E+00,0.00E+00
+pancreas,II,49,0.00E+00,0.00E+00
+pancreas,II,50,0.00E+00,0.00E+00
+pancreas,II,51,0.00E+00,0.00E+00
+pancreas,II,52,0.00E+00,0.00E+00
+pancreas,II,53,0.00E+00,0.00E+00
+pancreas,II,54,0.00E+00,0.00E+00
+pancreas,II,55,0.00E+00,0.00E+00
+pancreas,II,56,0.00E+00,0.00E+00
+pancreas,II,57,0.00E+00,0.00E+00
+pancreas,II,58,0.00E+00,0.00E+00
+pancreas,II,59,0.00E+00,0.00E+00
+pancreas,II,60,0.00E+00,0.00E+00
+pancreas,II,61,0.00E+00,0.00E+00
+pancreas,II,62,0.00E+00,0.00E+00
+pancreas,II,63,0.00E+00,0.00E+00
+pancreas,II,64,0.00E+00,0.00E+00
+pancreas,II,65,0.00E+00,0.00E+00
+pancreas,II,66,0.00E+00,0.00E+00
+pancreas,II,67,0.00E+00,0.00E+00
+pancreas,II,68,0.00E+00,0.00E+00
+pancreas,II,69,0.00E+00,0.00E+00
+pancreas,II,70,0.00E+00,0.00E+00
+pancreas,II,71,0.00E+00,0.00E+00
+pancreas,II,72,0.00E+00,0.00E+00
+pancreas,II,73,0.00E+00,0.00E+00
+pancreas,II,74,0.00E+00,0.00E+00
+pancreas,II,75,0.00E+00,0.00E+00
+pancreas,II,76,0.00E+00,0.00E+00
+pancreas,II,77,0.00E+00,0.00E+00
+pancreas,II,78,0.00E+00,0.00E+00
+pancreas,II,79,0.00E+00,0.00E+00
+pancreas,II,80,0.00E+00,0.00E+00
+pancreas,II,81,0.00E+00,0.00E+00
+pancreas,II,82,0.00E+00,0.00E+00
+pancreas,II,83,0.00E+00,0.00E+00
+pancreas,II,84,0.00E+00,0.00E+00
+pancreas,II,85,0.00E+00,0.00E+00
+pancreas,II,86,0.00E+00,0.00E+00
+pancreas,II,87,0.00E+00,0.00E+00
+pancreas,II,88,0.00E+00,0.00E+00
+pancreas,II,89,0.00E+00,0.00E+00
+pancreas,II,90,0.00E+00,0.00E+00
+pancreas,II,91,0.00E+00,0.00E+00
+pancreas,II,92,0.00E+00,0.00E+00
+pancreas,II,93,0.00E+00,0.00E+00
+pancreas,II,94,0.00E+00,0.00E+00
+pancreas,II,95,0.00E+00,0.00E+00
+pancreas,II,96,0.00E+00,0.00E+00
+pancreas,II,97,0.00E+00,0.00E+00
+pancreas,II,98,0.00E+00,0.00E+00
+pancreas,II,99,0.00E+00,0.00E+00
+pancreas,II,100,0.00E+00,0.00E+00
+pancreas,III,40,0.00E+00,0.00E+00
+pancreas,III,41,0.00E+00,0.00E+00
+pancreas,III,42,0.00E+00,0.00E+00
+pancreas,III,43,0.00E+00,0.00E+00
+pancreas,III,44,0.00E+00,0.00E+00
+pancreas,III,45,0.00E+00,0.00E+00
+pancreas,III,46,0.00E+00,0.00E+00
+pancreas,III,47,0.00E+00,0.00E+00
+pancreas,III,48,0.00E+00,0.00E+00
+pancreas,III,49,0.00E+00,0.00E+00
+pancreas,III,50,0.00E+00,0.00E+00
+pancreas,III,51,0.00E+00,0.00E+00
+pancreas,III,52,0.00E+00,0.00E+00
+pancreas,III,53,0.00E+00,0.00E+00
+pancreas,III,54,0.00E+00,0.00E+00
+pancreas,III,55,0.00E+00,0.00E+00
+pancreas,III,56,0.00E+00,0.00E+00
+pancreas,III,57,0.00E+00,0.00E+00
+pancreas,III,58,0.00E+00,0.00E+00
+pancreas,III,59,0.00E+00,0.00E+00
+pancreas,III,60,0.00E+00,0.00E+00
+pancreas,III,61,0.00E+00,0.00E+00
+pancreas,III,62,0.00E+00,0.00E+00
+pancreas,III,63,0.00E+00,0.00E+00
+pancreas,III,64,0.00E+00,0.00E+00
+pancreas,III,65,0.00E+00,0.00E+00
+pancreas,III,66,0.00E+00,0.00E+00
+pancreas,III,67,0.00E+00,0.00E+00
+pancreas,III,68,0.00E+00,0.00E+00
+pancreas,III,69,0.00E+00,0.00E+00
+pancreas,III,70,0.00E+00,0.00E+00
+pancreas,III,71,0.00E+00,0.00E+00
+pancreas,III,72,0.00E+00,0.00E+00
+pancreas,III,73,0.00E+00,0.00E+00
+pancreas,III,74,0.00E+00,0.00E+00
+pancreas,III,75,0.00E+00,0.00E+00
+pancreas,III,76,0.00E+00,0.00E+00
+pancreas,III,77,0.00E+00,0.00E+00
+pancreas,III,78,0.00E+00,0.00E+00
+pancreas,III,79,0.00E+00,0.00E+00
+pancreas,III,80,0.00E+00,0.00E+00
+pancreas,III,81,0.00E+00,0.00E+00
+pancreas,III,82,0.00E+00,0.00E+00
+pancreas,III,83,0.00E+00,0.00E+00
+pancreas,III,84,0.00E+00,0.00E+00
+pancreas,III,85,0.00E+00,0.00E+00
+pancreas,III,86,0.00E+00,0.00E+00
+pancreas,III,87,0.00E+00,0.00E+00
+pancreas,III,88,0.00E+00,0.00E+00
+pancreas,III,89,0.00E+00,0.00E+00
+pancreas,III,90,0.00E+00,0.00E+00
+pancreas,III,91,0.00E+00,0.00E+00
+pancreas,III,92,0.00E+00,0.00E+00
+pancreas,III,93,0.00E+00,0.00E+00
+pancreas,III,94,0.00E+00,0.00E+00
+pancreas,III,95,0.00E+00,0.00E+00
+pancreas,III,96,0.00E+00,0.00E+00
+pancreas,III,97,0.00E+00,0.00E+00
+pancreas,III,98,0.00E+00,0.00E+00
+pancreas,III,99,0.00E+00,0.00E+00
+pancreas,III,100,0.00E+00,0.00E+00
+pancreas,IV,40,0.00E+00,0.00E+00
+pancreas,IV,41,0.00E+00,0.00E+00
+pancreas,IV,42,0.00E+00,0.00E+00
+pancreas,IV,43,0.00E+00,0.00E+00
+pancreas,IV,44,0.00E+00,0.00E+00
+pancreas,IV,45,0.00E+00,0.00E+00
+pancreas,IV,46,0.00E+00,0.00E+00
+pancreas,IV,47,0.00E+00,0.00E+00
+pancreas,IV,48,0.00E+00,0.00E+00
+pancreas,IV,49,0.00E+00,0.00E+00
+pancreas,IV,50,0.00E+00,0.00E+00
+pancreas,IV,51,0.00E+00,0.00E+00
+pancreas,IV,52,0.00E+00,0.00E+00
+pancreas,IV,53,0.00E+00,0.00E+00
+pancreas,IV,54,0.00E+00,0.00E+00
+pancreas,IV,55,0.00E+00,0.00E+00
+pancreas,IV,56,0.00E+00,0.00E+00
+pancreas,IV,57,0.00E+00,0.00E+00
+pancreas,IV,58,0.00E+00,0.00E+00
+pancreas,IV,59,0.00E+00,0.00E+00
+pancreas,IV,60,0.00E+00,0.00E+00
+pancreas,IV,61,0.00E+00,0.00E+00
+pancreas,IV,62,0.00E+00,0.00E+00
+pancreas,IV,63,0.00E+00,0.00E+00
+pancreas,IV,64,0.00E+00,0.00E+00
+pancreas,IV,65,0.00E+00,0.00E+00
+pancreas,IV,66,0.00E+00,0.00E+00
+pancreas,IV,67,0.00E+00,0.00E+00
+pancreas,IV,68,0.00E+00,0.00E+00
+pancreas,IV,69,0.00E+00,0.00E+00
+pancreas,IV,70,0.00E+00,0.00E+00
+pancreas,IV,71,0.00E+00,0.00E+00
+pancreas,IV,72,0.00E+00,0.00E+00
+pancreas,IV,73,0.00E+00,0.00E+00
+pancreas,IV,74,0.00E+00,0.00E+00
+pancreas,IV,75,0.00E+00,0.00E+00
+pancreas,IV,76,0.00E+00,0.00E+00
+pancreas,IV,77,0.00E+00,0.00E+00
+pancreas,IV,78,0.00E+00,0.00E+00
+pancreas,IV,79,0.00E+00,0.00E+00
+pancreas,IV,80,0.00E+00,0.00E+00
+pancreas,IV,81,0.00E+00,0.00E+00
+pancreas,IV,82,0.00E+00,0.00E+00
+pancreas,IV,83,0.00E+00,0.00E+00
+pancreas,IV,84,0.00E+00,0.00E+00
+pancreas,IV,85,0.00E+00,0.00E+00
+pancreas,IV,86,0.00E+00,0.00E+00
+pancreas,IV,87,0.00E+00,0.00E+00
+pancreas,IV,88,0.00E+00,0.00E+00
+pancreas,IV,89,0.00E+00,0.00E+00
+pancreas,IV,90,0.00E+00,0.00E+00
+pancreas,IV,91,0.00E+00,0.00E+00
+pancreas,IV,92,0.00E+00,0.00E+00
+pancreas,IV,93,0.00E+00,0.00E+00
+pancreas,IV,94,0.00E+00,0.00E+00
+pancreas,IV,95,0.00E+00,0.00E+00
+pancreas,IV,96,0.00E+00,0.00E+00
+pancreas,IV,97,0.00E+00,0.00E+00
+pancreas,IV,98,0.00E+00,0.00E+00
+pancreas,IV,99,0.00E+00,0.00E+00
+pancreas,IV,100,0.00E+00,0.00E+00
+prostate,I,40,0.00E+00,0.00E+00
+prostate,I,41,0.00E+00,0.00E+00
+prostate,I,42,0.00E+00,0.00E+00
+prostate,I,43,0.00E+00,0.00E+00
+prostate,I,44,0.00E+00,0.00E+00
+prostate,I,45,0.00E+00,0.00E+00
+prostate,I,46,0.00E+00,0.00E+00
+prostate,I,47,0.00E+00,0.00E+00
+prostate,I,48,0.00E+00,0.00E+00
+prostate,I,49,0.00E+00,0.00E+00
+prostate,I,50,0.00E+00,0.00E+00
+prostate,I,51,0.00E+00,0.00E+00
+prostate,I,52,0.00E+00,0.00E+00
+prostate,I,53,0.00E+00,0.00E+00
+prostate,I,54,0.00E+00,0.00E+00
+prostate,I,55,0.00E+00,0.00E+00
+prostate,I,56,0.00E+00,0.00E+00
+prostate,I,57,0.00E+00,0.00E+00
+prostate,I,58,0.00E+00,0.00E+00
+prostate,I,59,0.00E+00,0.00E+00
+prostate,I,60,0.00E+00,0.00E+00
+prostate,I,61,0.00E+00,0.00E+00
+prostate,I,62,0.00E+00,0.00E+00
+prostate,I,63,0.00E+00,0.00E+00
+prostate,I,64,0.00E+00,0.00E+00
+prostate,I,65,0.00E+00,0.00E+00
+prostate,I,66,0.00E+00,0.00E+00
+prostate,I,67,0.00E+00,0.00E+00
+prostate,I,68,0.00E+00,0.00E+00
+prostate,I,69,0.00E+00,0.00E+00
+prostate,I,70,0.00E+00,0.00E+00
+prostate,I,71,0.00E+00,0.00E+00
+prostate,I,72,0.00E+00,0.00E+00
+prostate,I,73,0.00E+00,0.00E+00
+prostate,I,74,0.00E+00,0.00E+00
+prostate,I,75,0.00E+00,0.00E+00
+prostate,I,76,0.00E+00,0.00E+00
+prostate,I,77,0.00E+00,0.00E+00
+prostate,I,78,0.00E+00,0.00E+00
+prostate,I,79,0.00E+00,0.00E+00
+prostate,I,80,0.00E+00,0.00E+00
+prostate,I,81,0.00E+00,0.00E+00
+prostate,I,82,0.00E+00,0.00E+00
+prostate,I,83,0.00E+00,0.00E+00
+prostate,I,84,0.00E+00,0.00E+00
+prostate,I,85,0.00E+00,0.00E+00
+prostate,I,86,0.00E+00,0.00E+00
+prostate,I,87,0.00E+00,0.00E+00
+prostate,I,88,0.00E+00,0.00E+00
+prostate,I,89,0.00E+00,0.00E+00
+prostate,I,90,0.00E+00,0.00E+00
+prostate,I,91,0.00E+00,0.00E+00
+prostate,I,92,0.00E+00,0.00E+00
+prostate,I,93,0.00E+00,0.00E+00
+prostate,I,94,0.00E+00,0.00E+00
+prostate,I,95,0.00E+00,0.00E+00
+prostate,I,96,0.00E+00,0.00E+00
+prostate,I,97,0.00E+00,0.00E+00
+prostate,I,98,0.00E+00,0.00E+00
+prostate,I,99,0.00E+00,0.00E+00
+prostate,I,100,0.00E+00,0.00E+00
+prostate,II,40,0.00E+00,0.00E+00
+prostate,II,41,0.00E+00,0.00E+00
+prostate,II,42,0.00E+00,0.00E+00
+prostate,II,43,0.00E+00,0.00E+00
+prostate,II,44,0.00E+00,0.00E+00
+prostate,II,45,0.00E+00,0.00E+00
+prostate,II,46,0.00E+00,0.00E+00
+prostate,II,47,0.00E+00,0.00E+00
+prostate,II,48,0.00E+00,0.00E+00
+prostate,II,49,0.00E+00,0.00E+00
+prostate,II,50,0.00E+00,0.00E+00
+prostate,II,51,0.00E+00,0.00E+00
+prostate,II,52,0.00E+00,0.00E+00
+prostate,II,53,0.00E+00,0.00E+00
+prostate,II,54,0.00E+00,0.00E+00
+prostate,II,55,0.00E+00,0.00E+00
+prostate,II,56,0.00E+00,0.00E+00
+prostate,II,57,0.00E+00,0.00E+00
+prostate,II,58,0.00E+00,0.00E+00
+prostate,II,59,0.00E+00,0.00E+00
+prostate,II,60,0.00E+00,0.00E+00
+prostate,II,61,0.00E+00,0.00E+00
+prostate,II,62,0.00E+00,0.00E+00
+prostate,II,63,0.00E+00,0.00E+00
+prostate,II,64,0.00E+00,0.00E+00
+prostate,II,65,0.00E+00,0.00E+00
+prostate,II,66,0.00E+00,0.00E+00
+prostate,II,67,0.00E+00,0.00E+00
+prostate,II,68,0.00E+00,0.00E+00
+prostate,II,69,0.00E+00,0.00E+00
+prostate,II,70,0.00E+00,0.00E+00
+prostate,II,71,0.00E+00,0.00E+00
+prostate,II,72,0.00E+00,0.00E+00
+prostate,II,73,0.00E+00,0.00E+00
+prostate,II,74,0.00E+00,0.00E+00
+prostate,II,75,0.00E+00,0.00E+00
+prostate,II,76,0.00E+00,0.00E+00
+prostate,II,77,0.00E+00,0.00E+00
+prostate,II,78,0.00E+00,0.00E+00
+prostate,II,79,0.00E+00,0.00E+00
+prostate,II,80,0.00E+00,0.00E+00
+prostate,II,81,0.00E+00,0.00E+00
+prostate,II,82,0.00E+00,0.00E+00
+prostate,II,83,0.00E+00,0.00E+00
+prostate,II,84,0.00E+00,0.00E+00
+prostate,II,85,0.00E+00,0.00E+00
+prostate,II,86,0.00E+00,0.00E+00
+prostate,II,87,0.00E+00,0.00E+00
+prostate,II,88,0.00E+00,0.00E+00
+prostate,II,89,0.00E+00,0.00E+00
+prostate,II,90,0.00E+00,0.00E+00
+prostate,II,91,0.00E+00,0.00E+00
+prostate,II,92,0.00E+00,0.00E+00
+prostate,II,93,0.00E+00,0.00E+00
+prostate,II,94,0.00E+00,0.00E+00
+prostate,II,95,0.00E+00,0.00E+00
+prostate,II,96,0.00E+00,0.00E+00
+prostate,II,97,0.00E+00,0.00E+00
+prostate,II,98,0.00E+00,0.00E+00
+prostate,II,99,0.00E+00,0.00E+00
+prostate,II,100,0.00E+00,0.00E+00
+prostate,III,40,0.00E+00,0.00E+00
+prostate,III,41,0.00E+00,0.00E+00
+prostate,III,42,0.00E+00,0.00E+00
+prostate,III,43,0.00E+00,0.00E+00
+prostate,III,44,0.00E+00,0.00E+00
+prostate,III,45,0.00E+00,0.00E+00
+prostate,III,46,0.00E+00,0.00E+00
+prostate,III,47,0.00E+00,0.00E+00
+prostate,III,48,0.00E+00,0.00E+00
+prostate,III,49,0.00E+00,0.00E+00
+prostate,III,50,0.00E+00,0.00E+00
+prostate,III,51,0.00E+00,0.00E+00
+prostate,III,52,0.00E+00,0.00E+00
+prostate,III,53,0.00E+00,0.00E+00
+prostate,III,54,0.00E+00,0.00E+00
+prostate,III,55,0.00E+00,0.00E+00
+prostate,III,56,0.00E+00,0.00E+00
+prostate,III,57,0.00E+00,0.00E+00
+prostate,III,58,0.00E+00,0.00E+00
+prostate,III,59,0.00E+00,0.00E+00
+prostate,III,60,0.00E+00,0.00E+00
+prostate,III,61,0.00E+00,0.00E+00
+prostate,III,62,0.00E+00,0.00E+00
+prostate,III,63,0.00E+00,0.00E+00
+prostate,III,64,0.00E+00,0.00E+00
+prostate,III,65,0.00E+00,0.00E+00
+prostate,III,66,0.00E+00,0.00E+00
+prostate,III,67,0.00E+00,0.00E+00
+prostate,III,68,0.00E+00,0.00E+00
+prostate,III,69,0.00E+00,0.00E+00
+prostate,III,70,0.00E+00,0.00E+00
+prostate,III,71,0.00E+00,0.00E+00
+prostate,III,72,0.00E+00,0.00E+00
+prostate,III,73,0.00E+00,0.00E+00
+prostate,III,74,0.00E+00,0.00E+00
+prostate,III,75,0.00E+00,0.00E+00
+prostate,III,76,0.00E+00,0.00E+00
+prostate,III,77,0.00E+00,0.00E+00
+prostate,III,78,0.00E+00,0.00E+00
+prostate,III,79,0.00E+00,0.00E+00
+prostate,III,80,0.00E+00,0.00E+00
+prostate,III,81,0.00E+00,0.00E+00
+prostate,III,82,0.00E+00,0.00E+00
+prostate,III,83,0.00E+00,0.00E+00
+prostate,III,84,0.00E+00,0.00E+00
+prostate,III,85,0.00E+00,0.00E+00
+prostate,III,86,0.00E+00,0.00E+00
+prostate,III,87,0.00E+00,0.00E+00
+prostate,III,88,0.00E+00,0.00E+00
+prostate,III,89,0.00E+00,0.00E+00
+prostate,III,90,0.00E+00,0.00E+00
+prostate,III,91,0.00E+00,0.00E+00
+prostate,III,92,0.00E+00,0.00E+00
+prostate,III,93,0.00E+00,0.00E+00
+prostate,III,94,0.00E+00,0.00E+00
+prostate,III,95,0.00E+00,0.00E+00
+prostate,III,96,0.00E+00,0.00E+00
+prostate,III,97,0.00E+00,0.00E+00
+prostate,III,98,0.00E+00,0.00E+00
+prostate,III,99,0.00E+00,0.00E+00
+prostate,III,100,0.00E+00,0.00E+00
+prostate,IV,40,0.00E+00,0.00E+00
+prostate,IV,41,0.00E+00,0.00E+00
+prostate,IV,42,0.00E+00,0.00E+00
+prostate,IV,43,0.00E+00,0.00E+00
+prostate,IV,44,0.00E+00,0.00E+00
+prostate,IV,45,0.00E+00,0.00E+00
+prostate,IV,46,0.00E+00,0.00E+00
+prostate,IV,47,0.00E+00,0.00E+00
+prostate,IV,48,0.00E+00,0.00E+00
+prostate,IV,49,0.00E+00,0.00E+00
+prostate,IV,50,0.00E+00,0.00E+00
+prostate,IV,51,0.00E+00,0.00E+00
+prostate,IV,52,0.00E+00,0.00E+00
+prostate,IV,53,0.00E+00,0.00E+00
+prostate,IV,54,0.00E+00,0.00E+00
+prostate,IV,55,0.00E+00,0.00E+00
+prostate,IV,56,0.00E+00,0.00E+00
+prostate,IV,57,0.00E+00,0.00E+00
+prostate,IV,58,0.00E+00,0.00E+00
+prostate,IV,59,0.00E+00,0.00E+00
+prostate,IV,60,0.00E+00,0.00E+00
+prostate,IV,61,0.00E+00,0.00E+00
+prostate,IV,62,0.00E+00,0.00E+00
+prostate,IV,63,0.00E+00,0.00E+00
+prostate,IV,64,0.00E+00,0.00E+00
+prostate,IV,65,0.00E+00,0.00E+00
+prostate,IV,66,0.00E+00,0.00E+00
+prostate,IV,67,0.00E+00,0.00E+00
+prostate,IV,68,0.00E+00,0.00E+00
+prostate,IV,69,0.00E+00,0.00E+00
+prostate,IV,70,0.00E+00,0.00E+00
+prostate,IV,71,0.00E+00,0.00E+00
+prostate,IV,72,0.00E+00,0.00E+00
+prostate,IV,73,0.00E+00,0.00E+00
+prostate,IV,74,0.00E+00,0.00E+00
+prostate,IV,75,0.00E+00,0.00E+00
+prostate,IV,76,0.00E+00,0.00E+00
+prostate,IV,77,0.00E+00,0.00E+00
+prostate,IV,78,0.00E+00,0.00E+00
+prostate,IV,79,0.00E+00,0.00E+00
+prostate,IV,80,0.00E+00,0.00E+00
+prostate,IV,81,0.00E+00,0.00E+00
+prostate,IV,82,0.00E+00,0.00E+00
+prostate,IV,83,0.00E+00,0.00E+00
+prostate,IV,84,0.00E+00,0.00E+00
+prostate,IV,85,0.00E+00,0.00E+00
+prostate,IV,86,0.00E+00,0.00E+00
+prostate,IV,87,0.00E+00,0.00E+00
+prostate,IV,88,0.00E+00,0.00E+00
+prostate,IV,89,0.00E+00,0.00E+00
+prostate,IV,90,0.00E+00,0.00E+00
+prostate,IV,91,0.00E+00,0.00E+00
+prostate,IV,92,0.00E+00,0.00E+00
+prostate,IV,93,0.00E+00,0.00E+00
+prostate,IV,94,0.00E+00,0.00E+00
+prostate,IV,95,0.00E+00,0.00E+00
+prostate,IV,96,0.00E+00,0.00E+00
+prostate,IV,97,0.00E+00,0.00E+00
+prostate,IV,98,0.00E+00,0.00E+00
+prostate,IV,99,0.00E+00,0.00E+00
+prostate,IV,100,0.00E+00,0.00E+00
+stomach,I,40,0.00E+00,0.00E+00
+stomach,I,41,0.00E+00,0.00E+00
+stomach,I,42,0.00E+00,0.00E+00
+stomach,I,43,0.00E+00,0.00E+00
+stomach,I,44,0.00E+00,0.00E+00
+stomach,I,45,0.00E+00,0.00E+00
+stomach,I,46,0.00E+00,0.00E+00
+stomach,I,47,0.00E+00,0.00E+00
+stomach,I,48,0.00E+00,0.00E+00
+stomach,I,49,0.00E+00,0.00E+00
+stomach,I,50,0.00E+00,0.00E+00
+stomach,I,51,0.00E+00,0.00E+00
+stomach,I,52,0.00E+00,0.00E+00
+stomach,I,53,0.00E+00,0.00E+00
+stomach,I,54,0.00E+00,0.00E+00
+stomach,I,55,0.00E+00,0.00E+00
+stomach,I,56,0.00E+00,0.00E+00
+stomach,I,57,0.00E+00,0.00E+00
+stomach,I,58,0.00E+00,0.00E+00
+stomach,I,59,0.00E+00,0.00E+00
+stomach,I,60,0.00E+00,0.00E+00
+stomach,I,61,0.00E+00,0.00E+00
+stomach,I,62,0.00E+00,0.00E+00
+stomach,I,63,0.00E+00,0.00E+00
+stomach,I,64,0.00E+00,0.00E+00
+stomach,I,65,0.00E+00,0.00E+00
+stomach,I,66,0.00E+00,0.00E+00
+stomach,I,67,0.00E+00,0.00E+00
+stomach,I,68,0.00E+00,0.00E+00
+stomach,I,69,0.00E+00,0.00E+00
+stomach,I,70,0.00E+00,0.00E+00
+stomach,I,71,0.00E+00,0.00E+00
+stomach,I,72,0.00E+00,0.00E+00
+stomach,I,73,0.00E+00,0.00E+00
+stomach,I,74,0.00E+00,0.00E+00
+stomach,I,75,0.00E+00,0.00E+00
+stomach,I,76,0.00E+00,0.00E+00
+stomach,I,77,0.00E+00,0.00E+00
+stomach,I,78,0.00E+00,0.00E+00
+stomach,I,79,0.00E+00,0.00E+00
+stomach,I,80,0.00E+00,0.00E+00
+stomach,I,81,0.00E+00,0.00E+00
+stomach,I,82,0.00E+00,0.00E+00
+stomach,I,83,0.00E+00,0.00E+00
+stomach,I,84,0.00E+00,0.00E+00
+stomach,I,85,0.00E+00,0.00E+00
+stomach,I,86,0.00E+00,0.00E+00
+stomach,I,87,0.00E+00,0.00E+00
+stomach,I,88,0.00E+00,0.00E+00
+stomach,I,89,0.00E+00,0.00E+00
+stomach,I,90,0.00E+00,0.00E+00
+stomach,I,91,0.00E+00,0.00E+00
+stomach,I,92,0.00E+00,0.00E+00
+stomach,I,93,0.00E+00,0.00E+00
+stomach,I,94,0.00E+00,0.00E+00
+stomach,I,95,0.00E+00,0.00E+00
+stomach,I,96,0.00E+00,0.00E+00
+stomach,I,97,0.00E+00,0.00E+00
+stomach,I,98,0.00E+00,0.00E+00
+stomach,I,99,0.00E+00,0.00E+00
+stomach,I,100,0.00E+00,0.00E+00
+stomach,II,40,0.00E+00,0.00E+00
+stomach,II,41,0.00E+00,0.00E+00
+stomach,II,42,0.00E+00,0.00E+00
+stomach,II,43,0.00E+00,0.00E+00
+stomach,II,44,0.00E+00,0.00E+00
+stomach,II,45,0.00E+00,0.00E+00
+stomach,II,46,0.00E+00,0.00E+00
+stomach,II,47,0.00E+00,0.00E+00
+stomach,II,48,0.00E+00,0.00E+00
+stomach,II,49,0.00E+00,0.00E+00
+stomach,II,50,0.00E+00,0.00E+00
+stomach,II,51,0.00E+00,0.00E+00
+stomach,II,52,0.00E+00,0.00E+00
+stomach,II,53,0.00E+00,0.00E+00
+stomach,II,54,0.00E+00,0.00E+00
+stomach,II,55,0.00E+00,0.00E+00
+stomach,II,56,0.00E+00,0.00E+00
+stomach,II,57,0.00E+00,0.00E+00
+stomach,II,58,0.00E+00,0.00E+00
+stomach,II,59,0.00E+00,0.00E+00
+stomach,II,60,0.00E+00,0.00E+00
+stomach,II,61,0.00E+00,0.00E+00
+stomach,II,62,0.00E+00,0.00E+00
+stomach,II,63,0.00E+00,0.00E+00
+stomach,II,64,0.00E+00,0.00E+00
+stomach,II,65,0.00E+00,0.00E+00
+stomach,II,66,0.00E+00,0.00E+00
+stomach,II,67,0.00E+00,0.00E+00
+stomach,II,68,0.00E+00,0.00E+00
+stomach,II,69,0.00E+00,0.00E+00
+stomach,II,70,0.00E+00,0.00E+00
+stomach,II,71,0.00E+00,0.00E+00
+stomach,II,72,0.00E+00,0.00E+00
+stomach,II,73,0.00E+00,0.00E+00
+stomach,II,74,0.00E+00,0.00E+00
+stomach,II,75,0.00E+00,0.00E+00
+stomach,II,76,0.00E+00,0.00E+00
+stomach,II,77,0.00E+00,0.00E+00
+stomach,II,78,0.00E+00,0.00E+00
+stomach,II,79,0.00E+00,0.00E+00
+stomach,II,80,0.00E+00,0.00E+00
+stomach,II,81,0.00E+00,0.00E+00
+stomach,II,82,0.00E+00,0.00E+00
+stomach,II,83,0.00E+00,0.00E+00
+stomach,II,84,0.00E+00,0.00E+00
+stomach,II,85,0.00E+00,0.00E+00
+stomach,II,86,0.00E+00,0.00E+00
+stomach,II,87,0.00E+00,0.00E+00
+stomach,II,88,0.00E+00,0.00E+00
+stomach,II,89,0.00E+00,0.00E+00
+stomach,II,90,0.00E+00,0.00E+00
+stomach,II,91,0.00E+00,0.00E+00
+stomach,II,92,0.00E+00,0.00E+00
+stomach,II,93,0.00E+00,0.00E+00
+stomach,II,94,0.00E+00,0.00E+00
+stomach,II,95,0.00E+00,0.00E+00
+stomach,II,96,0.00E+00,0.00E+00
+stomach,II,97,0.00E+00,0.00E+00
+stomach,II,98,0.00E+00,0.00E+00
+stomach,II,99,0.00E+00,0.00E+00
+stomach,II,100,0.00E+00,0.00E+00
+stomach,III,40,0.00E+00,0.00E+00
+stomach,III,41,0.00E+00,0.00E+00
+stomach,III,42,0.00E+00,0.00E+00
+stomach,III,43,0.00E+00,0.00E+00
+stomach,III,44,0.00E+00,0.00E+00
+stomach,III,45,0.00E+00,0.00E+00
+stomach,III,46,0.00E+00,0.00E+00
+stomach,III,47,0.00E+00,0.00E+00
+stomach,III,48,0.00E+00,0.00E+00
+stomach,III,49,0.00E+00,0.00E+00
+stomach,III,50,0.00E+00,0.00E+00
+stomach,III,51,0.00E+00,0.00E+00
+stomach,III,52,0.00E+00,0.00E+00
+stomach,III,53,0.00E+00,0.00E+00
+stomach,III,54,0.00E+00,0.00E+00
+stomach,III,55,0.00E+00,0.00E+00
+stomach,III,56,0.00E+00,0.00E+00
+stomach,III,57,0.00E+00,0.00E+00
+stomach,III,58,0.00E+00,0.00E+00
+stomach,III,59,0.00E+00,0.00E+00
+stomach,III,60,0.00E+00,0.00E+00
+stomach,III,61,0.00E+00,0.00E+00
+stomach,III,62,0.00E+00,0.00E+00
+stomach,III,63,0.00E+00,0.00E+00
+stomach,III,64,0.00E+00,0.00E+00
+stomach,III,65,0.00E+00,0.00E+00
+stomach,III,66,0.00E+00,0.00E+00
+stomach,III,67,0.00E+00,0.00E+00
+stomach,III,68,0.00E+00,0.00E+00
+stomach,III,69,0.00E+00,0.00E+00
+stomach,III,70,0.00E+00,0.00E+00
+stomach,III,71,0.00E+00,0.00E+00
+stomach,III,72,0.00E+00,0.00E+00
+stomach,III,73,0.00E+00,0.00E+00
+stomach,III,74,0.00E+00,0.00E+00
+stomach,III,75,0.00E+00,0.00E+00
+stomach,III,76,0.00E+00,0.00E+00
+stomach,III,77,0.00E+00,0.00E+00
+stomach,III,78,0.00E+00,0.00E+00
+stomach,III,79,0.00E+00,0.00E+00
+stomach,III,80,0.00E+00,0.00E+00
+stomach,III,81,0.00E+00,0.00E+00
+stomach,III,82,0.00E+00,0.00E+00
+stomach,III,83,0.00E+00,0.00E+00
+stomach,III,84,0.00E+00,0.00E+00
+stomach,III,85,0.00E+00,0.00E+00
+stomach,III,86,0.00E+00,0.00E+00
+stomach,III,87,0.00E+00,0.00E+00
+stomach,III,88,0.00E+00,0.00E+00
+stomach,III,89,0.00E+00,0.00E+00
+stomach,III,90,0.00E+00,0.00E+00
+stomach,III,91,0.00E+00,0.00E+00
+stomach,III,92,0.00E+00,0.00E+00
+stomach,III,93,0.00E+00,0.00E+00
+stomach,III,94,0.00E+00,0.00E+00
+stomach,III,95,0.00E+00,0.00E+00
+stomach,III,96,0.00E+00,0.00E+00
+stomach,III,97,0.00E+00,0.00E+00
+stomach,III,98,0.00E+00,0.00E+00
+stomach,III,99,0.00E+00,0.00E+00
+stomach,III,100,0.00E+00,0.00E+00
+stomach,IV,40,0.00E+00,0.00E+00
+stomach,IV,41,0.00E+00,0.00E+00
+stomach,IV,42,0.00E+00,0.00E+00
+stomach,IV,43,0.00E+00,0.00E+00
+stomach,IV,44,0.00E+00,0.00E+00
+stomach,IV,45,0.00E+00,0.00E+00
+stomach,IV,46,0.00E+00,0.00E+00
+stomach,IV,47,0.00E+00,0.00E+00
+stomach,IV,48,0.00E+00,0.00E+00
+stomach,IV,49,0.00E+00,0.00E+00
+stomach,IV,50,0.00E+00,0.00E+00
+stomach,IV,51,0.00E+00,0.00E+00
+stomach,IV,52,0.00E+00,0.00E+00
+stomach,IV,53,0.00E+00,0.00E+00
+stomach,IV,54,0.00E+00,0.00E+00
+stomach,IV,55,0.00E+00,0.00E+00
+stomach,IV,56,0.00E+00,0.00E+00
+stomach,IV,57,0.00E+00,0.00E+00
+stomach,IV,58,0.00E+00,0.00E+00
+stomach,IV,59,0.00E+00,0.00E+00
+stomach,IV,60,0.00E+00,0.00E+00
+stomach,IV,61,0.00E+00,0.00E+00
+stomach,IV,62,0.00E+00,0.00E+00
+stomach,IV,63,0.00E+00,0.00E+00
+stomach,IV,64,0.00E+00,0.00E+00
+stomach,IV,65,0.00E+00,0.00E+00
+stomach,IV,66,0.00E+00,0.00E+00
+stomach,IV,67,0.00E+00,0.00E+00
+stomach,IV,68,0.00E+00,0.00E+00
+stomach,IV,69,0.00E+00,0.00E+00
+stomach,IV,70,0.00E+00,0.00E+00
+stomach,IV,71,0.00E+00,0.00E+00
+stomach,IV,72,0.00E+00,0.00E+00
+stomach,IV,73,0.00E+00,0.00E+00
+stomach,IV,74,0.00E+00,0.00E+00
+stomach,IV,75,0.00E+00,0.00E+00
+stomach,IV,76,0.00E+00,0.00E+00
+stomach,IV,77,0.00E+00,0.00E+00
+stomach,IV,78,0.00E+00,0.00E+00
+stomach,IV,79,0.00E+00,0.00E+00
+stomach,IV,80,0.00E+00,0.00E+00
+stomach,IV,81,0.00E+00,0.00E+00
+stomach,IV,82,0.00E+00,0.00E+00
+stomach,IV,83,0.00E+00,0.00E+00
+stomach,IV,84,0.00E+00,0.00E+00
+stomach,IV,85,0.00E+00,0.00E+00
+stomach,IV,86,0.00E+00,0.00E+00
+stomach,IV,87,0.00E+00,0.00E+00
+stomach,IV,88,0.00E+00,0.00E+00
+stomach,IV,89,0.00E+00,0.00E+00
+stomach,IV,90,0.00E+00,0.00E+00
+stomach,IV,91,0.00E+00,0.00E+00
+stomach,IV,92,0.00E+00,0.00E+00
+stomach,IV,93,0.00E+00,0.00E+00
+stomach,IV,94,0.00E+00,0.00E+00
+stomach,IV,95,0.00E+00,0.00E+00
+stomach,IV,96,0.00E+00,0.00E+00
+stomach,IV,97,0.00E+00,0.00E+00
+stomach,IV,98,0.00E+00,0.00E+00
+stomach,IV,99,0.00E+00,0.00E+00
+stomach,IV,100,0.00E+00,0.00E+00
+uterus,I,40,0.00E+00,0.00E+00
+uterus,I,41,0.00E+00,0.00E+00
+uterus,I,42,0.00E+00,0.00E+00
+uterus,I,43,0.00E+00,0.00E+00
+uterus,I,44,0.00E+00,0.00E+00
+uterus,I,45,0.00E+00,0.00E+00
+uterus,I,46,0.00E+00,0.00E+00
+uterus,I,47,0.00E+00,0.00E+00
+uterus,I,48,0.00E+00,0.00E+00
+uterus,I,49,0.00E+00,0.00E+00
+uterus,I,50,0.00E+00,0.00E+00
+uterus,I,51,0.00E+00,0.00E+00
+uterus,I,52,0.00E+00,0.00E+00
+uterus,I,53,0.00E+00,0.00E+00
+uterus,I,54,0.00E+00,0.00E+00
+uterus,I,55,0.00E+00,0.00E+00
+uterus,I,56,0.00E+00,0.00E+00
+uterus,I,57,0.00E+00,0.00E+00
+uterus,I,58,0.00E+00,0.00E+00
+uterus,I,59,0.00E+00,0.00E+00
+uterus,I,60,0.00E+00,0.00E+00
+uterus,I,61,0.00E+00,0.00E+00
+uterus,I,62,0.00E+00,0.00E+00
+uterus,I,63,0.00E+00,0.00E+00
+uterus,I,64,0.00E+00,0.00E+00
+uterus,I,65,0.00E+00,0.00E+00
+uterus,I,66,0.00E+00,0.00E+00
+uterus,I,67,0.00E+00,0.00E+00
+uterus,I,68,0.00E+00,0.00E+00
+uterus,I,69,0.00E+00,0.00E+00
+uterus,I,70,0.00E+00,0.00E+00
+uterus,I,71,0.00E+00,0.00E+00
+uterus,I,72,0.00E+00,0.00E+00
+uterus,I,73,0.00E+00,0.00E+00
+uterus,I,74,0.00E+00,0.00E+00
+uterus,I,75,0.00E+00,0.00E+00
+uterus,I,76,0.00E+00,0.00E+00
+uterus,I,77,0.00E+00,0.00E+00
+uterus,I,78,0.00E+00,0.00E+00
+uterus,I,79,0.00E+00,0.00E+00
+uterus,I,80,0.00E+00,0.00E+00
+uterus,I,81,0.00E+00,0.00E+00
+uterus,I,82,0.00E+00,0.00E+00
+uterus,I,83,0.00E+00,0.00E+00
+uterus,I,84,0.00E+00,0.00E+00
+uterus,I,85,0.00E+00,0.00E+00
+uterus,I,86,0.00E+00,0.00E+00
+uterus,I,87,0.00E+00,0.00E+00
+uterus,I,88,0.00E+00,0.00E+00
+uterus,I,89,0.00E+00,0.00E+00
+uterus,I,90,0.00E+00,0.00E+00
+uterus,I,91,0.00E+00,0.00E+00
+uterus,I,92,0.00E+00,0.00E+00
+uterus,I,93,0.00E+00,0.00E+00
+uterus,I,94,0.00E+00,0.00E+00
+uterus,I,95,0.00E+00,0.00E+00
+uterus,I,96,0.00E+00,0.00E+00
+uterus,I,97,0.00E+00,0.00E+00
+uterus,I,98,0.00E+00,0.00E+00
+uterus,I,99,0.00E+00,0.00E+00
+uterus,I,100,0.00E+00,0.00E+00
+uterus,II,40,0.00E+00,0.00E+00
+uterus,II,41,0.00E+00,0.00E+00
+uterus,II,42,0.00E+00,0.00E+00
+uterus,II,43,0.00E+00,0.00E+00
+uterus,II,44,0.00E+00,0.00E+00
+uterus,II,45,0.00E+00,0.00E+00
+uterus,II,46,0.00E+00,0.00E+00
+uterus,II,47,0.00E+00,0.00E+00
+uterus,II,48,0.00E+00,0.00E+00
+uterus,II,49,0.00E+00,0.00E+00
+uterus,II,50,0.00E+00,0.00E+00
+uterus,II,51,0.00E+00,0.00E+00
+uterus,II,52,0.00E+00,0.00E+00
+uterus,II,53,0.00E+00,0.00E+00
+uterus,II,54,0.00E+00,0.00E+00
+uterus,II,55,0.00E+00,0.00E+00
+uterus,II,56,0.00E+00,0.00E+00
+uterus,II,57,0.00E+00,0.00E+00
+uterus,II,58,0.00E+00,0.00E+00
+uterus,II,59,0.00E+00,0.00E+00
+uterus,II,60,0.00E+00,0.00E+00
+uterus,II,61,0.00E+00,0.00E+00
+uterus,II,62,0.00E+00,0.00E+00
+uterus,II,63,0.00E+00,0.00E+00
+uterus,II,64,0.00E+00,0.00E+00
+uterus,II,65,0.00E+00,0.00E+00
+uterus,II,66,0.00E+00,0.00E+00
+uterus,II,67,0.00E+00,0.00E+00
+uterus,II,68,0.00E+00,0.00E+00
+uterus,II,69,0.00E+00,0.00E+00
+uterus,II,70,0.00E+00,0.00E+00
+uterus,II,71,0.00E+00,0.00E+00
+uterus,II,72,0.00E+00,0.00E+00
+uterus,II,73,0.00E+00,0.00E+00
+uterus,II,74,0.00E+00,0.00E+00
+uterus,II,75,0.00E+00,0.00E+00
+uterus,II,76,0.00E+00,0.00E+00
+uterus,II,77,0.00E+00,0.00E+00
+uterus,II,78,0.00E+00,0.00E+00
+uterus,II,79,0.00E+00,0.00E+00
+uterus,II,80,0.00E+00,0.00E+00
+uterus,II,81,0.00E+00,0.00E+00
+uterus,II,82,0.00E+00,0.00E+00
+uterus,II,83,0.00E+00,0.00E+00
+uterus,II,84,0.00E+00,0.00E+00
+uterus,II,85,0.00E+00,0.00E+00
+uterus,II,86,0.00E+00,0.00E+00
+uterus,II,87,0.00E+00,0.00E+00
+uterus,II,88,0.00E+00,0.00E+00
+uterus,II,89,0.00E+00,0.00E+00
+uterus,II,90,0.00E+00,0.00E+00
+uterus,II,91,0.00E+00,0.00E+00
+uterus,II,92,0.00E+00,0.00E+00
+uterus,II,93,0.00E+00,0.00E+00
+uterus,II,94,0.00E+00,0.00E+00
+uterus,II,95,0.00E+00,0.00E+00
+uterus,II,96,0.00E+00,0.00E+00
+uterus,II,97,0.00E+00,0.00E+00
+uterus,II,98,0.00E+00,0.00E+00
+uterus,II,99,0.00E+00,0.00E+00
+uterus,II,100,0.00E+00,0.00E+00
+uterus,III,40,0.00E+00,0.00E+00
+uterus,III,41,0.00E+00,0.00E+00
+uterus,III,42,0.00E+00,0.00E+00
+uterus,III,43,0.00E+00,0.00E+00
+uterus,III,44,0.00E+00,0.00E+00
+uterus,III,45,0.00E+00,0.00E+00
+uterus,III,46,0.00E+00,0.00E+00
+uterus,III,47,0.00E+00,0.00E+00
+uterus,III,48,0.00E+00,0.00E+00
+uterus,III,49,0.00E+00,0.00E+00
+uterus,III,50,0.00E+00,0.00E+00
+uterus,III,51,0.00E+00,0.00E+00
+uterus,III,52,0.00E+00,0.00E+00
+uterus,III,53,0.00E+00,0.00E+00
+uterus,III,54,0.00E+00,0.00E+00
+uterus,III,55,0.00E+00,0.00E+00
+uterus,III,56,0.00E+00,0.00E+00
+uterus,III,57,0.00E+00,0.00E+00
+uterus,III,58,0.00E+00,0.00E+00
+uterus,III,59,0.00E+00,0.00E+00
+uterus,III,60,0.00E+00,0.00E+00
+uterus,III,61,0.00E+00,0.00E+00
+uterus,III,62,0.00E+00,0.00E+00
+uterus,III,63,0.00E+00,0.00E+00
+uterus,III,64,0.00E+00,0.00E+00
+uterus,III,65,0.00E+00,0.00E+00
+uterus,III,66,0.00E+00,0.00E+00
+uterus,III,67,0.00E+00,0.00E+00
+uterus,III,68,0.00E+00,0.00E+00
+uterus,III,69,0.00E+00,0.00E+00
+uterus,III,70,0.00E+00,0.00E+00
+uterus,III,71,0.00E+00,0.00E+00
+uterus,III,72,0.00E+00,0.00E+00
+uterus,III,73,0.00E+00,0.00E+00
+uterus,III,74,0.00E+00,0.00E+00
+uterus,III,75,0.00E+00,0.00E+00
+uterus,III,76,0.00E+00,0.00E+00
+uterus,III,77,0.00E+00,0.00E+00
+uterus,III,78,0.00E+00,0.00E+00
+uterus,III,79,0.00E+00,0.00E+00
+uterus,III,80,0.00E+00,0.00E+00
+uterus,III,81,0.00E+00,0.00E+00
+uterus,III,82,0.00E+00,0.00E+00
+uterus,III,83,0.00E+00,0.00E+00
+uterus,III,84,0.00E+00,0.00E+00
+uterus,III,85,0.00E+00,0.00E+00
+uterus,III,86,0.00E+00,0.00E+00
+uterus,III,87,0.00E+00,0.00E+00
+uterus,III,88,0.00E+00,0.00E+00
+uterus,III,89,0.00E+00,0.00E+00
+uterus,III,90,0.00E+00,0.00E+00
+uterus,III,91,0.00E+00,0.00E+00
+uterus,III,92,0.00E+00,0.00E+00
+uterus,III,93,0.00E+00,0.00E+00
+uterus,III,94,0.00E+00,0.00E+00
+uterus,III,95,0.00E+00,0.00E+00
+uterus,III,96,0.00E+00,0.00E+00
+uterus,III,97,0.00E+00,0.00E+00
+uterus,III,98,0.00E+00,0.00E+00
+uterus,III,99,0.00E+00,0.00E+00
+uterus,III,100,0.00E+00,0.00E+00
+uterus,IV,40,0.00E+00,0.00E+00
+uterus,IV,41,0.00E+00,0.00E+00
+uterus,IV,42,0.00E+00,0.00E+00
+uterus,IV,43,0.00E+00,0.00E+00
+uterus,IV,44,0.00E+00,0.00E+00
+uterus,IV,45,0.00E+00,0.00E+00
+uterus,IV,46,0.00E+00,0.00E+00
+uterus,IV,47,0.00E+00,0.00E+00
+uterus,IV,48,0.00E+00,0.00E+00
+uterus,IV,49,0.00E+00,0.00E+00
+uterus,IV,50,0.00E+00,0.00E+00
+uterus,IV,51,0.00E+00,0.00E+00
+uterus,IV,52,0.00E+00,0.00E+00
+uterus,IV,53,0.00E+00,0.00E+00
+uterus,IV,54,0.00E+00,0.00E+00
+uterus,IV,55,0.00E+00,0.00E+00
+uterus,IV,56,0.00E+00,0.00E+00
+uterus,IV,57,0.00E+00,0.00E+00
+uterus,IV,58,0.00E+00,0.00E+00
+uterus,IV,59,0.00E+00,0.00E+00
+uterus,IV,60,0.00E+00,0.00E+00
+uterus,IV,61,0.00E+00,0.00E+00
+uterus,IV,62,0.00E+00,0.00E+00
+uterus,IV,63,0.00E+00,0.00E+00
+uterus,IV,64,0.00E+00,0.00E+00
+uterus,IV,65,0.00E+00,0.00E+00
+uterus,IV,66,0.00E+00,0.00E+00
+uterus,IV,67,0.00E+00,0.00E+00
+uterus,IV,68,0.00E+00,0.00E+00
+uterus,IV,69,0.00E+00,0.00E+00
+uterus,IV,70,0.00E+00,0.00E+00
+uterus,IV,71,0.00E+00,0.00E+00
+uterus,IV,72,0.00E+00,0.00E+00
+uterus,IV,73,0.00E+00,0.00E+00
+uterus,IV,74,0.00E+00,0.00E+00
+uterus,IV,75,0.00E+00,0.00E+00
+uterus,IV,76,0.00E+00,0.00E+00
+uterus,IV,77,0.00E+00,0.00E+00
+uterus,IV,78,0.00E+00,0.00E+00
+uterus,IV,79,0.00E+00,0.00E+00
+uterus,IV,80,0.00E+00,0.00E+00
+uterus,IV,81,0.00E+00,0.00E+00
+uterus,IV,82,0.00E+00,0.00E+00
+uterus,IV,83,0.00E+00,0.00E+00
+uterus,IV,84,0.00E+00,0.00E+00
+uterus,IV,85,0.00E+00,0.00E+00
+uterus,IV,86,0.00E+00,0.00E+00
+uterus,IV,87,0.00E+00,0.00E+00
+uterus,IV,88,0.00E+00,0.00E+00
+uterus,IV,89,0.00E+00,0.00E+00
+uterus,IV,90,0.00E+00,0.00E+00
+uterus,IV,91,0.00E+00,0.00E+00
+uterus,IV,92,0.00E+00,0.00E+00
+uterus,IV,93,0.00E+00,0.00E+00
+uterus,IV,94,0.00E+00,0.00E+00
+uterus,IV,95,0.00E+00,0.00E+00
+uterus,IV,96,0.00E+00,0.00E+00
+uterus,IV,97,0.00E+00,0.00E+00
+uterus,IV,98,0.00E+00,0.00E+00
+uterus,IV,99,0.00E+00,0.00E+00
+uterus,IV,100,0.00E+00,0.00E+00

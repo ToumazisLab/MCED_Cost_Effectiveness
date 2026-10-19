@@ -1,0 +1,26 @@
+{
+    "id": "31071FDC",
+    "path": "~/Documents/MCED_testing/MCED_Cost_Effectiveness_1/Functions/Run_Univariate_Model.R",
+    "project_path": "Functions/Run_Univariate_Model.R",
+    "type": "r_source",
+    "hash": "2849925683",
+    "contents": "",
+    "dirty": false,
+    "created": 1783028103250.0,
+    "source_on_save": false,
+    "relative_order": 8,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "41,6",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1749182569,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1749182569,
+    "read_only": false,
+    "read_only_alternatives": []
+}

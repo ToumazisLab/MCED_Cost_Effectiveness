@@ -1,0 +1,26 @@
+{
+    "id": "04029DBB",
+    "path": "~/Documents/MCED_testing/PSA_plots.R",
+    "project_path": null,
+    "type": "r_source",
+    "hash": "4141279006",
+    "contents": "",
+    "dirty": false,
+    "created": 1750234174571.0,
+    "source_on_save": false,
+    "relative_order": 15,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "349,31",
+        "scrollLine": "0"
+    },
+    "folds": "237|45|245|0|\n",
+    "lastKnownWriteTime": 1786123125,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1786123125147,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,54 @@
+library(dplyr)
+library(purrr)
+
+# Helper to extract ICER-related values from one scenario result
+extract_icer_values <- function(scenario_obj) {
+  df <- scenario_obj$final_result_list$Overall$final_icer_result
+  
+  incr_cost <- df %>%
+    filter(
+      Arm == "summary",
+      Type == "cost",
+      Variable == "Incremental_Cost"
+    ) %>%
+    pull(Value)
+  
+  incr_utility <- df %>%
+    filter(
+      Arm == "summary",
+      Type == "utility",
+      Variable == "Incremental_Utility"
+    ) %>%
+    pull(Value)
+  
+  icer <- df %>%
+    filter(
+      Arm == "summary",
+      Type == "ICER",
+      Variable == "ICER"
+    ) %>%
+    pull(Value)
+  
+  tibble(
+    Incremental_Cost    = incr_cost,
+    Incremental_Utility = incr_utility,
+    ICER                = icer
+  )
+}
+
+# Apply to all scenarios in `scenario_results`
+icer_summary_all <- imap_dfr(
+  scenario_results,
+  ~ extract_icer_values(.x) %>% mutate(scenario = .y)
+) %>%
+  relocate(scenario)
+
+icer_summary_all
+
+
+scenario_results[["scr_0.97_nonscr_0.98_cost_100"]]$final_result_list$Overall$final_icer_result %>%
+  filter(
+    (Arm == "summary" & Type == "cost"    & Variable == "Incremental_Cost") |
+      (Arm == "summary" & Type == "utility" & Variable == "Incremental_Utility") |
+      (Arm == "summary" & Type == "ICER"    & Variable == "ICER")
+  )

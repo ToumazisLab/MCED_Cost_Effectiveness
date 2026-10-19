@@ -1,0 +1,26 @@
+{
+    "id": "77B860BF",
+    "path": "~/Documents/MCED_testing/MCED_Cost_Effectiveness_1/Functions/Shift_backward.R",
+    "project_path": "Functions/Shift_backward.R",
+    "type": "r_source",
+    "hash": "1833393175",
+    "contents": "",
+    "dirty": false,
+    "created": 1783349228493.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "275,17",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1781293402,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1781293402,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,164 @@
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+df <- df_all
+
+# Formatting helpers
+fmt_num  <- function(x) format(round(x), big.mark = ",", scientific = FALSE)
+fmt_icer <- function(x) paste0("$", fmt_num(x), " per QALY")
+
+# -------------------------------------------------------------------------
+# DATA PREP
+# -------------------------------------------------------------------------
+
+# Base case
+base_run <- df %>% 
+  filter(run_name == "spec_0.98_cost_500") %>%
+  mutate(
+    label      = paste0("($", fmt_num(inc_cost_M), "M, ", fmt_num(inc_qalys), ")\n"),
+    cancer_set = paste0("Base Case (All Cancers)\n(ICER = ", fmt_icer(icer), ")\n")
+  )
+
+# MCD performance line (blue)
+mcd_runs <- df %>%
+  filter(run_name %in% c("spec_0.95_cost_500",
+                         "spec_0.98_cost_500",
+                         "spec_0.9999_cost_500")) %>%
+  arrange(inc_qalys) %>%
+  mutate(series = "Specificity scenarios (0.95-0.9999)")
+
+# Cost scenarios (green)
+cost_runs <- df %>%
+  filter(run_name %in% c("spec_0.98_cost_50",
+                         "spec_0.98_cost_500",
+                         "spec_0.98_cost_1000"))
+
+cost_ci <- cost_runs %>%
+  summarise(
+    x    = unique(inc_qalys),
+    ymin = min(inc_cost_M),
+    ymax = max(inc_cost_M)
+  ) %>%
+  mutate(series = "MCD Test Cost scenarios ($50-1000)")
+
+# Screening vs Non-screening points
+screen_runs <- df %>%
+  filter(run_name %in% c("screening_only", "nonscreening_only")) %>%
+  mutate(
+    cancer_set = if_else(
+      run_name == "screening_only",
+      paste0("Screening cancers only\n(ICER = ", fmt_icer(icer), ")\n"),
+      paste0("Non-screening cancers only\n(ICER = ", fmt_icer(icer), ")\n")
+    ),
+    label = paste0("($", fmt_num(inc_cost_M), "M, ", fmt_num(inc_qalys), ")")
+  )
+
+# Get the actual cancer_set labels for the scale
+screening_label <- screen_runs %>% filter(run_name == "screening_only") %>% pull(cancer_set) %>% unique()
+nonscreening_label <- screen_runs %>% filter(run_name == "nonscreening_only") %>% pull(cancer_set) %>% unique()
+base_label <- base_run %>% pull(cancer_set) %>% unique()
+
+# WTP line
+x_max <- max(df$inc_qalys)
+wtp_df <- data.frame(
+  inc_qalys = c(0, x_max),
+  inc_cost_M = 0.1 * c(0, x_max),
+  series = "WTP $100,000 per QALY"
+)
+
+# -------------------------------------------------------------------------
+# PLOT
+# -------------------------------------------------------------------------
+
+ggplot() +
+  geom_hline(yintercept = 0, color = "black") +
+  geom_vline(xintercept = 0, color = "black") +
+  
+  # MCD performance line
+  geom_path(data = mcd_runs,
+            aes(inc_qalys, inc_cost_M, color = series),
+            linewidth = 1.1) +
+  geom_point(data = mcd_runs,
+             aes(inc_qalys, inc_cost_M, color = series),
+             size = 3) +
+  
+  # Cost scenario vertical CI
+  geom_linerange(data = cost_ci,
+                 aes(x = x, ymin = ymin, ymax = ymax, color = series),
+                 linewidth = 1.1) +
+  
+  geom_point(data = cost_ci,
+             aes(x, ymin, color = series),
+             size = 3) +
+  geom_point(data = cost_ci,
+             aes(x, ymax, color = series),
+             size = 3) +
+  
+  # WTP line
+  geom_line(data = wtp_df,
+            aes(inc_qalys, inc_cost_M, color = series),
+            linetype = "dashed", linewidth = 1.0) +
+  
+  # Rays to screening / non-screening points
+  geom_segment(data = screen_runs,
+               aes(x = 0, y = 0, xend = inc_qalys, yend = inc_cost_M),
+               linetype = "dotted", color = "grey50") +
+  
+  # DISTINCT COLORED DIAMONDS
+  geom_point(data = screen_runs,
+             aes(inc_qalys, inc_cost_M, shape = cancer_set, fill = cancer_set),
+             size = 3, stroke = 1, color = "black") +
+  
+  # Labels for diamonds
+  geom_text(data = screen_runs,
+            aes(inc_qalys, inc_cost_M, label = label),
+            nudge_y = -450, size = 4) +
+  
+  # Base-case circle
+  geom_point(data = base_run,
+             aes(inc_qalys, inc_cost_M, shape = cancer_set, fill = cancer_set),
+             size = 4, color = "black") +
+  
+  geom_text(data = base_run,
+            aes(inc_qalys, inc_cost_M, label = label),
+            nudge_y = 200, nudge_x = 15000, fontface = "bold", size = 4) +
+  
+  # COLOR scales for scenario types (lines only)
+  scale_color_manual(
+    name = "Scenario type",
+    values = c(
+      "Specificity scenarios (0.95-0.9999)" = "#2c3aaa",
+      "MCD Test Cost scenarios ($50-1000)"            = "#2ca25f",
+      "WTP $100,000 per QALY"     = "black"
+    )
+  ) +
+  
+  # FILL scale for cancer sets (points only) - using named vector with actual labels
+  scale_fill_manual(
+    name = "Model Runs\n(Specificity = 0.98,\nMCD Test Cost = $500)",
+    values = setNames(
+      c("#1f78b4", "#e31a1c", "black"),
+      c(screening_label, nonscreening_label, base_label)
+    )
+  ) +
+  
+  # Shape legend for cancer sets
+  scale_shape_manual(
+    name = "Model Runs\n(Specificity = 0.98,\nMCD Test Cost = $500)",
+    values = setNames(
+      c(23, 23, 21),
+      c(screening_label, nonscreening_label, base_label)
+    )
+  ) +
+  scale_x_continuous(labels = label_comma()) +
+  labs(
+    x = "Incremental QALYs",
+    y = "Incremental cost (Millions USD)"
+  ) +
+  
+  theme_classic(base_size = 18) +
+  theme(
+    legend.position = "right",
+    legend.box = "vertical"
+  )

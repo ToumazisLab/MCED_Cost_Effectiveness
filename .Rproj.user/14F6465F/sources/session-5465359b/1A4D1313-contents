@@ -1,0 +1,381 @@
+## ---------- Helpers (unchanged/trimmed) -------------------------------------
+
+get_stage_distribution <- function(matrix) {
+  stage_counts <- colSums(matrix)
+  stage_labels <- sub("_.*", "", names(stage_counts))
+  total <- sum(stage_counts)
+  tapply(stage_counts, stage_labels, sum) / total
+}
+
+get_stage_distribution_by_cancer <- function(matrix) {
+  stage_counts <- colSums(matrix)
+  tibble(
+    Stage  = sub("_.*", "", names(stage_counts)),
+    Cancer = sub(".*_", "", names(stage_counts)),
+    Count  = stage_counts
+  ) %>%
+    group_by(Cancer, Stage) %>%
+    summarise(Proportion = Count / sum(Count), .groups = "drop")
+}
+
+safe_sum <- function(x) if (is.null(x)) 0 else sum(x, na.rm = TRUE)
+
+pull_icer <- function(icer_df, var) {
+  v <- icer_df$Value[icer_df$Variable == var]
+  if (length(v)) v[1] else 0
+}
+
+## ---------- Core extractor reused by both summaries --------------------------
+
+.extract_metrics <- function(run_obj, arm = c("m", "uc")) {
+  arm <- match.arg(arm)
+  icer_df    <- run_obj[["final_result_list"]][["Overall"]][["final_icer_result"]]
+  summary_df <- run_obj[["overall_summary"]]
+  
+  if (arm == "uc") {
+    list(
+      cost          = pull_icer(icer_df, "usual_cost"),
+      qalys         = pull_icer(icer_df, "usual_utility"),
+      inc_cost      = 0,
+      inc_qalys     = 0,
+      icer          = 0,
+      stage_dist    = get_stage_distribution(run_obj[["incident_matrix_trimmed"]]),
+      stage_by_cx   = get_stage_distribution_by_cancer(run_obj[["incident_matrix_trimmed"]]),
+      deaths_avert  = 0,
+      overdx        = 0,
+      tp            = 0,
+      fn            = 0,
+      screen_dx     = safe_sum(summary_df %>% filter(Arm == "uc", Variable %in% "screen_dx") %>% pull(Value)),
+      incidental_dx = safe_sum(summary_df %>% filter(Arm == "uc", Variable == "incidental_dx") %>% pull(Value)),
+      imaging_cost  = safe_sum(summary_df %>% filter(Arm == "uc", Variable %in% c("h_Imaging_cost","c_Imaging_cost")) %>% pull(Value)),
+      diagnostic_cost = safe_sum(summary_df %>% filter(Arm == "uc", Variable %in% c("h_Diagnostic_cost","c_Diagnostic_cost")) %>% pull(Value)),
+      invasive_cost = safe_sum(summary_df %>% filter(Arm == "uc", Variable %in% c("h_Invasive_cost","c_Invasive_cost")) %>% pull(Value)),
+      fp_count      = safe_sum(summary_df %>% filter(Arm == "uc", Variable == "UC_FPx1") %>% pull(Value)),
+      fp_procedures = safe_sum(summary_df %>% filter(Arm == "uc", Variable %in% c("UC_FPx1","UC_FPx2")) %>% pull(Value)),
+      true_TN       = 0,
+      fp_percent    = 0
+    )
+  } else {
+    downstream_procedures <- safe_sum(summary_df %>% filter(Arm == "m", Variable %in% c("FPx2","FPx3","UC_FPx1","UC_FPx2")) %>% pull(Value))
+    fp_counts_list <- run_obj[["final_result_list"]][["Overall"]][["mced_TN_FP"]]
+    
+    fp_count   <- safe_sum(fp_counts_list[["fp_counts"]])
+    total_fp_fu <- safe_sum(fp_counts_list[["Total_FP_fu"]]) + downstream_procedures
+    true_TN    <- safe_sum(fp_counts_list[["True_TN"]])
+    denom      <- fp_count + true_TN
+    fp_percent <- if (denom > 0) 100 * fp_count / denom else 0
+    
+    list(
+      cost          = pull_icer(icer_df, "mced_cost"),
+      qalys         = pull_icer(icer_df, "mced_utility"),
+      inc_cost      = pull_icer(icer_df, "Incremental_Cost"),
+      inc_qalys     = pull_icer(icer_df, "Incremental_Utility"),
+      icer          = pull_icer(icer_df, "ICER"),
+      stage_dist    = get_stage_distribution(run_obj[["mced_incident_matrix"]]),
+      stage_by_cx   = get_stage_distribution_by_cancer(run_obj[["mced_incident_matrix"]]),
+      deaths_avert  = safe_sum(summary_df %>% filter(Arm == "m_v_uc", Variable == "Cancer_deaths_averted") %>% mutate(Value = pmax(Value, 0)) %>% pull(Value)),
+      overdx        = safe_sum(summary_df %>% filter(Arm == "m", Variable == "overdx_Total") %>% pull(Value)),
+      tp            = safe_sum(summary_df %>% filter(Arm == "m", Variable == "s_cases_TP") %>% pull(Value)),
+      fn            = safe_sum(summary_df %>% filter(Arm == "m", Variable %in% c("s_cases_FN","i_cases_FN")) %>% pull(Value)),
+      screen_dx     = safe_sum(summary_df %>% filter(Arm == "m", Variable %in% c("screen_dx","mced_dx")) %>% pull(Value)),
+      incidental_dx = safe_sum(summary_df %>% filter(Arm == "m", Variable == "incidental_dx") %>% pull(Value)),
+      imaging_cost  = safe_sum(summary_df %>% filter(Arm == "m", Variable %in% c("h_Imaging_cost","c_Imaging_cost")) %>% pull(Value)),
+      diagnostic_cost = safe_sum(summary_df %>% filter(Arm == "m", Variable %in% c("h_Diagnostic_cost","c_Diagnostic_cost")) %>% pull(Value)),
+      invasive_cost = safe_sum(summary_df %>% filter(Arm == "m", Variable %in% c("h_Invasive_cost","c_Invasive_cost")) %>% pull(Value)),
+      fp_count      = fp_count,
+      fp_procedures = total_fp_fu,
+      true_TN       = true_TN,
+      fp_percent    = fp_percent
+    )
+  }
+}
+
+## ---------- Summarizers (now thin wrappers around .extract_metrics) ----------
+
+secondary_summarize_run <- function(run_obj, run_name, is_usual = FALSE) {
+  arm <- if (is_usual) "uc" else "m"
+  M <- .extract_metrics(run_obj, arm)
+  
+  tibble(
+    Run = run_name,
+    `True Positives`              = round(M$tp),
+    `False Negatives`             = round(M$fn),
+    `Screen-diagnosed cases`      = round(M$screen_dx),
+    `Incidentally diagnosed cases`= round(M$incidental_dx),
+    `Cancer Deaths Averted`       = round(M$deaths_avert, 0),
+    `Cases Overdiagnosed`         = round(M$overdx, 0)
+  )
+}
+
+main_summarize_run <- function(run_obj, run_name, is_usual = FALSE) {
+  arm <- if (is_usual) "uc" else "m"
+  M <- .extract_metrics(run_obj, arm)
+  
+  tibble(
+    Run                          = run_name,
+    `Cost (M, $USD)`             = round(M$cost/1e6, 0),
+    `QALYs (Th)`                 = round(M$qalys/1e3, 0),
+    `Incremental Cost (M, $USD)` = round(M$inc_cost/1e6, 0),
+    `Incremental Utility`        = round(M$inc_qalys, 0),
+    ICER                         = round(M$icer, 0),
+    `Imaging cost (M, $USD)`     = round(M$imaging_cost/1e6),
+    `Diagnostic cost (M, $USD)`  = round(M$diagnostic_cost/1e6),
+    `Invasive cost (M, $USD)`    = round(M$invasive_cost/1e6),
+    `FPs (MCD exams resulting in at least 1 MCD FP, Th)` = round(M$fp_count/1e3, 0),
+    `Downstream FP Procedures (count)`                    = round(M$fp_procedures/1e3, 0),
+    `TN (Count, Th)`             = round(M$true_TN/1e3, 0),
+    `FP (%)`                     = round(M$fp_percent, 0)
+  )
+}
+
+## ---------- Build summaries for *all* runs in baseline_list ------------------
+
+# Expectation: baseline_list already contains:
+#   - "baseline*" (base case) and parameter sweeps
+#   - "Screening_cancers_only" and "Non_screening_cancers_only"
+# (names come from the earlier baseline creation you asked for)
+
+# Names in baseline_list that should also get a Usual care row
+uc_allowed <- c("baseline*", "Screening_cancers_only", "Non_screening_cancers_only")
+
+mk_run_name <- function(base, arm) {
+  paste0(base, " — ", if (arm == "m") "MCED" else "Usual care")
+}
+
+main_summary_all <- purrr::imap_dfr(baseline_list, function(obj, nm) {
+  out <- main_summarize_run(obj, mk_run_name(nm, "m"), is_usual = FALSE)
+  if (nm %in% uc_allowed) {
+    out <- bind_rows(out, main_summarize_run(obj, mk_run_name(nm, "uc"), is_usual = TRUE))
+  }
+  out
+})
+
+secondary_summary_all <- purrr::imap_dfr(baseline_list, function(obj, nm) {
+  out <- secondary_summarize_run(obj, mk_run_name(nm, "m"), is_usual = FALSE)
+  if (nm %in% uc_allowed) {
+    out <- bind_rows(out, secondary_summarize_run(obj, mk_run_name(nm, "uc"), is_usual = TRUE))
+  }
+  out
+})
+
+# Write out if desired
+write_csv(main_summary_all, "../summary_main_all_runs_10_12_2025.csv")
+write_csv(secondary_summary_all, "../summary_secondary_all_runs_10_12_2025.csv")
+
+#### ####
+library(dplyr)
+library(purrr)
+library(stringr)
+library(tibble)
+library(ggplot2)
+library(scales)
+
+# --- helpers you already have ---
+pull_icer <- function(icer_df, var) {
+  v <- icer_df$Value[icer_df$Variable == var]
+  if (length(v)) v[1] else 0
+}
+
+# Extract one row per run from baseline_list
+extract_icer_summary <- function(run_obj, run_name) {
+  icer_df <- run_obj[["final_result_list"]][["Overall"]][["final_icer_result"]]
+  tibble(
+    run_name = run_name,
+    inc_cost  = pull_icer(icer_df, "Incremental_Cost"),
+    inc_qalys = pull_icer(icer_df, "Incremental_Utility"),
+    icer      = pull_icer(icer_df, "ICER")
+  )
+}
+
+# 1) Build df from your runs
+df_all <- imap_dfr(baseline_list, extract_icer_summary) %>%
+  mutate(inc_cost_M = inc_cost / 1e6)  # plot in Millions
+
+# 2) Keep only the 6 items you want
+keep_runs <- c(
+  "Specificity_0.95", "Specificity_0.9999",
+  "mced_test_cost_100", "mced_test_cost_1000",
+  "baseline*",
+  "Screening_cancers_only", "Non_screening_cancers_only"
+)
+
+df <- df_all %>%
+  filter(run_name %in% keep_runs) %>%
+  # classify type and numeric values for gradients
+  mutate(
+    type = case_when(
+      str_starts(run_name, "Specificity_")        ~ "specificity",
+      str_starts(run_name, "mced_test_cost_")     ~ "cost",
+      run_name == "baseline*"                     ~ "base",
+      run_name == "Screening_cancers_only"        ~ "screen",
+      run_name == "Non_screening_cancers_only"    ~ "non_screen",
+      TRUE ~ "other"
+    ),
+    spec_val = ifelse(type == "specificity", as.numeric(str_remove(run_name, "Specificity_")), NA_real_),
+    cost_val = ifelse(type == "cost", as.numeric(str_remove(run_name, "mced_test_cost_")), NA_real_),
+    pretty_name = case_when(
+      run_name == "baseline*" ~ "Base Case",
+      run_name == "Specificity_0.95"   ~ "Specificity = 0.95",
+      run_name == "Specificity_0.9999" ~ "Specificity = 0.9999",
+      run_name == "mced_test_cost_100"  ~ "Test Cost = $100",
+      run_name == "mced_test_cost_1000" ~ "Test Cost = $1000",
+      run_name == "Screening_cancers_only"      ~ "Screening Only",
+      run_name == "Non_screening_cancers_only"  ~ "Non-screening Only",
+      TRUE ~ run_name
+    ),
+    legend_lbl = paste0(pretty_name, " (ICER: $", formatC(icer, format = "f", digits = 0, big.mark = ","), ")")
+  )
+
+# 3) Colors & shapes
+color1 <- "#d32f2f"  # Color 1 base (red family) for specificity
+color2 <- "#1b9e77"  # Color 2 base (green family) for cost
+color4 <- "#6a1b9a"  # Color 4 for both screening points
+base_purple <- "#877979"  # blend of red+green; you can tweak
+
+# Build continuous gradients for the two sweeps
+spec_fn <- scales::col_numeric(
+  palette = c("#FDE0E0", color1),  # light -> dark red
+  domain  = c(0.95, 0.9999)
+)
+cost_fn <- scales::col_numeric(
+  palette = c("#CDEFE6", color2),  # light -> dark green
+  domain  = c(100, 1000)
+)
+
+df <- df %>%
+  mutate(
+    color_hex = case_when(
+      type == "specificity" ~ spec_fn(spec_val),
+      type == "cost"        ~ cost_fn(cost_val),
+      type == "base"        ~ base_purple,
+      type %in% c("screen", "non_screen") ~ color4,
+      TRUE ~ "#444444"
+    ),
+    # Clean type labels without shape names in parentheses
+    shape_key = case_when(
+      type == "specificity" ~ "Specificity",
+      type == "cost"        ~ "Cost",
+      type == "base"        ~ "Base Case",
+      type == "screen"      ~ "Screening Only",
+      type == "non_screen"  ~ "Non-screening Only"
+    ),
+    shape_val = case_when(
+      type == "specificity" ~ 16L,  # circle
+      type == "cost"        ~ 15L,  # square
+      type == "base"        ~ 17L,  # triangle up
+      type %in% c("screen","non_screen") ~ 18L # diamond
+    )
+  )
+
+# Keep legend order tidy
+df$pretty_name <- factor(df$pretty_name,
+                         levels = c("Base Case",
+                                    "Specificity = 0.95","Specificity = 0.9999",
+                                    "Test Cost = $100","Test Cost = $1000",
+                                    "Screening Only","Non-screening Only")
+)
+df$legend_lbl <- factor(df$legend_lbl, levels = df$legend_lbl[order(df$pretty_name)])
+
+# 4) Plot color and shape mappings
+color_map <- df %>%
+  distinct(legend_lbl, color_hex) %>%
+  arrange(legend_lbl)
+
+shape_map <- df %>%
+  distinct(shape_key, shape_val) %>%
+  arrange(shape_key)
+
+# Nudge labels so they don't sit on top of the axes
+df_lab <- df %>%
+  mutate(
+    label_x = ifelse(abs(inc_qalys) < 5000,
+                     inc_qalys + ifelse(inc_qalys >= 0, 5000, -5000),
+                     inc_qalys),
+    label_y = inc_cost_M + 300,   # small push upward so they clear the rays
+    label_text = paste0(
+      "(",
+      format(round(inc_cost_M, 0), big.mark = ",", scientific = FALSE), "M, ",
+      format(round(inc_qalys, 0), big.mark = ",", scientific = FALSE),
+      ")"
+    )
+  )
+
+wtp_slope <- 0.1   # 100k / QALY with cost in Millions
+
+p <- ggplot(df, aes(x = inc_qalys, y = inc_cost_M)) +
+  # axis lines at 0
+  geom_hline(yintercept = 0, colour = "black", linewidth = 0.8) +
+  geom_vline(xintercept = 0, colour = "black", linewidth = 0.8) +
+  
+  # WTP line - fixed to avoid warning
+  geom_abline(
+    slope = wtp_slope, intercept = 0,
+    colour = "grey35", linewidth = 0.9, linetype = "dashed"
+  ) +
+  
+  # rays from origin
+  geom_segment(
+    aes(x = 0, y = 0, xend = inc_qalys, yend = inc_cost_M, colour = legend_lbl),
+    linewidth = 1, show.legend = FALSE
+  ) +
+  
+  # points - base case with larger size and black outline
+  geom_point(
+    data = df %>% filter(type != "base"),
+    aes(colour = legend_lbl, shape = shape_key),
+    size = 4.2, stroke = 0.7
+  ) +
+  geom_point(
+    data = df %>% filter(type == "base"),
+    aes(colour = legend_lbl, shape = shape_key),
+    size = 5.5, stroke = 1.2, fill = base_purple
+  ) +
+  
+  # labels: (Cost M, QALYs) with commas, nudged off the axes
+  geom_text(
+    data = df_lab,
+    aes(x = label_x, y = label_y, label = label_text),
+    inherit.aes = FALSE,
+    size = 3.6, colour = "black"
+  ) +
+  
+  # COLOR legend: scenario + ICER using legend_lbl
+  scale_color_manual(
+    values = setNames(color_map$color_hex, color_map$legend_lbl),
+    breaks = color_map$legend_lbl,
+    name   = "Scenario (ICER)"
+  ) +
+  
+  # SHAPE legend: type (cleaned up)
+  scale_shape_manual(
+    values = setNames(shape_map$shape_val, shape_map$shape_key),
+    breaks = shape_map$shape_key,
+    name   = "Type"
+  ) +
+  
+  # axes
+  scale_x_continuous(
+    "Incremental QALYs",
+    labels = label_number(accuracy = 1, big.mark = ",")
+  ) +
+  scale_y_continuous(
+    "Incremental Cost (Millions USD)",
+    labels = label_number(accuracy = 1, big.mark = ",")
+  ) +
+  
+  # Add WTP annotation manually
+  annotate("text", x = max(df$inc_qalys) * 0.6, y = max(df$inc_cost_M) * 0.5,
+           label = "WTP = $100,000/QALY", hjust = 0, size = 4, colour = "grey35") +
+  
+  theme_classic(base_size = 16) +
+  theme(
+    legend.position = "right",
+    legend.text  = element_text(size = 11),
+    legend.title = element_text(size = 13, face = "bold"),
+    axis.title   = element_text(size = 18),
+    axis.text    = element_text(size = 13)
+  )
+
+p
+# Wider export helps separate close points
+ggsave("ce_plane_six_points_fixed.png", p, width = 10, height = 7, dpi = 300, bg = "white")

@@ -1,0 +1,269 @@
+library(randomForest)
+library(fastshap)
+library(yardstick)
+library(broom)
+
+# Binding and creating cloud and CE Acceptability Curve
+design_1 <- read_csv("Sensitivity_analysis/Multivar_data_2025-07-06_2/psa_design_batch_1.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_2 <- read_csv("../Multivar_data_2025-07-06_2/psa_design_batch_2.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_3 <- read_csv("../Multivar_data_2025-07-06_2/psa_design_batch_3.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_4 <- read_csv("../Multivar_data_2025-07-06_2/psa_design_batch_4.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_5 <- read_csv("../Multivar_data_2025-07-06_2/psa_design_batch_5.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+
+out_1 <- read_csv("../Multivar_data_2025-07-06_2/psa_out_batch_1.csv", show_col_types = FALSE)
+out_2 <- read_csv("../Multivar_data_2025-07-06_2/psa_out_batch_2.csv", show_col_types = FALSE)
+out_3 <- read_csv("../Multivar_data_2025-07-06_2/psa_out_batch_3.csv", show_col_types = FALSE)
+out_4 <- read_csv("../Multivar_data_2025-07-06_2/psa_out_batch_4.csv", show_col_types = FALSE)
+out_5 <- read_csv("../Multivar_data_2025-07-06_2/psa_out_batch_5.csv", show_col_types = FALSE)
+
+## ── 1. Combine PSA outputs ─────────────────────────────────────────────
+psa_design_final <- bind_rows(design_1, design_2, design_3, design_4, design_5) %>% 
+  mutate(run_id = row_number()) 
+
+psa_out_final <- bind_rows(out_1, out_2, out_3, out_4, out_5) %>% 
+  mutate(run_id = row_number())
+
+psa_merged <- psa_design_final %>% 
+  merge(psa_out_final, by = "run_id")
+
+
+
+
+wtp <- 100000
+psa_merged$NMB <- with(psa_merged, Incremental_Utility * wtp - Incremental_Cost)
+psa_merged$CE_flag <- psa_merged$NMB > 0
+
+set.seed(2025)
+n <- nrow(psa_merged)
+train_idx <- sample(seq_len(n), size = 0.7 * n)
+
+X <- psa_merged[, 2:35]
+y <- psa_merged$CE_flag
+
+X_train <- X[train_idx, ]
+y_train <- y[train_idx]
+X_test  <- X[-train_idx, ]
+y_test  <- y[-train_idx]
+
+X_train_clean <- X_train %>% janitor::clean_names()
+X_test_clean <- X_test %>% janitor::clean_names()
+colnames(X_train_clean)
+
+# XGBOOST
+library(xgboost)
+library(SHAPforxgboost)
+
+X_mat_train <- as.matrix(X_train_clean)
+xgb_mod <- xgboost(data = X_mat_train, label = as.numeric(y_train), 
+                   objective = "binary:logistic", nrounds = 100, verbose = 0)
+
+shap_vals_xgb <- shap.values(xgb_model = xgb_mod, X_train = X_mat_train)
+shap_long_xgb <- shap.prep(shap_contrib = shap_vals_xgb$shap_score, X_train = X_mat_train)
+
+shap_long_xgb_plot <- shap_long_xgb %>%   
+  mutate(variable = ifelse(
+  variable %in% names(clean_param_labels),
+  clean_param_labels[variable],
+  variable  # leave unchanged if no match
+))
+
+shap.plot.summary(shap_long_xgb)
+
+# Save top 10 mean absolute SHAP
+shap_global_xgb <- shap_vals_xgb$mean_shap_score %>%
+  tibble::enframe(name = "variable", value = "mean_shap") %>%
+  arrange(desc(mean_shap)) %>%
+  dplyr::slice(1:10)
+
+# Random Forest
+library(randomForest)
+
+rf_mod <- randomForest(x = X_train_clean, y = as.factor(y_train), ntree = 100)
+imp_rf <- rf_mod[["importance"]]  # Mean decrease in accuracy
+
+# Convert to tidy
+shap_global_rf <- imp_rf %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "variable") %>%
+  rename(mean_shap = MeanDecreaseGini) %>%
+  arrange(desc(mean_shap)) %>%
+  dplyr::slice(1:10)
+
+library(ranger)
+library(shapper)
+rf_mod_ranger <- ranger(
+  dependent.variable.name = "CE_flag",
+  data = cbind(X_train_clean, CE_flag = y_train),
+  num.trees = 500,
+  probability = TRUE,
+  importance = "impurity"
+)
+
+explainer <- explain(rf_mod_ranger, data = X_test_clean, y = y_test)
+shap_values <- shap(explainer, new_observation = y_test)
+
+
+
+# LOGISTIC REGRESSION
+library(glmnet)
+
+X_mat <- model.matrix(CE_flag ~ ., data = cbind(CE_flag = y_train, X_train_clean))[, -1]
+cv_ridge <- cv.glmnet(X_mat, y_train, family = "binomial", alpha = 0)
+
+coef_df <- coef(cv_ridge, s = "lambda.min") %>%
+  as.matrix() %>%
+  as.data.frame() %>%
+  tibble::rownames_to_column("variable") %>%
+  rename(coef = `s0`) %>%
+  filter(variable != "(Intercept)") %>%
+  mutate(mean_shap = abs(coef)) %>%
+  arrange(desc(mean_shap)) %>%
+  dplyr::slice(1:10)
+
+glm_contrib <- X_test_clean %>%
+  mutate(pred = predict(glm_mod, newdata = X_test_clean, type = "link")) %>%
+  pivot_longer(cols = everything(), names_to = "variable", values_to = "value") %>%
+  left_join(tibble(variable = names(glm_mod$coefficients)[-1],
+                   coef = glm_mod$coefficients[-1]), by = "variable") %>%
+  mutate(contribution = coef * value)
+
+
+ggplot(glm_contrib, aes(x = contribution, y = variable, color = value)) +
+  gghalves::geom_half_point(side = "l", alpha = 0.5) +
+  scale_color_viridis_c() +
+  labs(title = "GLM: Variable Contributions", x = "Coef × Feature Value") +
+  theme_minimal()
+
+
+# SVM
+library(e1071)
+library(DALEX)
+
+svm_mod <- svm(x = X_train_clean, y = as.factor(y_train), probability = TRUE)
+
+explainer_svm <- explain(model = svm_mod, 
+                         data = X_test_clean, 
+                         y = y_test, 
+                         label = "SVM")
+
+vip_svm <- model_parts(explainer_svm, type = "difference", B = 10)
+
+shap_global_svm <- vip_svm %>%
+  filter(!(variable %in% c("_full_model_", "_baseline_"))) %>%
+  group_by(variable) %>%
+  summarise(mean_shap = mean(dropout_loss), .groups = "drop") %>%
+  arrange(desc(mean_shap)) %>%
+  dplyr::slice(1:10)
+
+
+# Compare
+shap_global_xgb$model <- "XGBoost"
+shap_global_rf$model  <- "Random Forest"
+coef_df$model          <- "Ridge Logistic"
+shap_global_svm$model <- "SVM"
+
+all_importances <- bind_rows(
+  shap_global_xgb,
+  shap_global_rf,
+  coef_df,
+  shap_global_svm
+)
+
+all_importances <- all_importances %>%
+  mutate(variable = ifelse(
+    variable %in% names(clean_param_labels),
+    clean_param_labels[variable],
+    variable  # keep unchanged if no match
+  ))
+
+
+ggplot(all_importances, aes(x = reorder(variable, mean_shap), y = mean_shap, fill = model)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  labs(title = "Top 10 Feature Importances by Model", x = "Variable", y = "Importance (SHAP or Coef)") +
+  theme_minimal()
+
+all_importances_scaled <- all_importances %>%
+  group_by(model) %>%
+  mutate(scaled_importance = mean_shap / sum(mean_shap)) %>%
+  ungroup()
+
+ggplot(all_importances_scaled, aes(x = reorder(variable, scaled_importance), 
+                                   y = scaled_importance, fill = model)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  labs(
+    title = "Top 10 Feature Importances by Model (Normalized)",
+    x = "Variable",
+    y = "Relative Importance (0–1 within model)"
+  ) +
+  theme_minimal()
+
+
+# Reorder each variable within its facet
+all_importances_plot <- all_importances_scaled %>%
+  group_by(model) %>%
+  mutate(variable = reorder_within(variable, scaled_importance, model)) %>%
+  ungroup()
+
+# Use reorder_within() to fix ordering inside facet
+library(tidytext)  # for reorder_within and scale_x_reordered
+
+ggplot(all_importances_plot, aes(x = variable, y = scaled_importance, fill = model)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ model, scales = "free_y") +
+  scale_x_reordered() +
+  coord_flip() +
+  labs(
+    x = "Variable",
+    y = "Relative Importance (0-1 within each model)"
+  ) +
+  theme_minimal(base_size = 14)
+
+
+library(yardstick)
+library(tibble)
+
+evaluate_model <- function(truth, prob, pred_label, model_name) {
+  tibble(
+    model = model_name,
+    accuracy  = accuracy_vec(truth, pred_label),
+    precision = precision_vec(truth, pred_label),
+    recall    = recall_vec(truth, pred_label),
+    f1        = f_meas_vec(truth, pred_label),
+  )
+}
+
+y_test_factor <- factor(y_test)
+
+probs_xgb <- predict(xgb_mod, newdata = as.matrix(X_test_clean))
+preds_xgb <- as.factor(probs_xgb > 0.5)
+eval_xgb <- evaluate_model(y_test_factor, probs_xgb, preds_xgb, "XGBoost")
+
+probs_rf <- predict(rf_mod, newdata = X_test_clean, type = "prob")[, 2]
+preds_rf <- predict(rf_mod, newdata = X_test_clean)
+eval_rf <- evaluate_model(y_test_factor, probs_rf, preds_rf, "Random Forest")
+
+probs_glm <- predict(cv_ridge, newx = as.matrix(X_test_clean), s = "lambda.min", type = "response")[, 1]
+preds_glm <- as.factor(probs_glm > 0.5)
+eval_glm <- evaluate_model(y_test_factor, probs_glm, preds_glm, "Ridge Logistic")
+
+probs_svm <- attr(predict(svm_mod, newdata = X_test_clean, probability = TRUE), "probabilities")[, 2]
+preds_svm <- predict(svm_mod, newdata = X_test_clean)
+eval_svm <- evaluate_model(y_test_factor, probs_svm, preds_svm, "SVM")
+
+model_performance <- bind_rows(
+  eval_xgb,
+  eval_rf,
+  eval_glm,
+  eval_svm
+)
+
+model_performance
+
+write_csv(model_performance, "../ML_model_summary.csv")

@@ -1,0 +1,26 @@
+{
+    "id": "CC83556E",
+    "path": "~/Documents/MCED_testing/MCED_Cost_Effectiveness_1/Functions/Shiny/run_model.R",
+    "project_path": "Functions/Shiny/run_model.R",
+    "type": "r_source",
+    "hash": "1159164906",
+    "contents": "",
+    "dirty": true,
+    "created": 1783346406749.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "301,35",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1781291653,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1783349181508,
+    "read_only": false,
+    "read_only_alternatives": []
+}

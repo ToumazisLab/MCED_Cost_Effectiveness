@@ -1,0 +1,309 @@
+spec_thresholds <- c(0.95, 0.96, 0.97, 0.98, 0.99, 0.995)
+
+psa_ce_thresholds <- map_df(spec_thresholds, function(thresh) {
+  filtered <- psa_design_final %>%
+    filter(all_spec > thresh) %>%
+    select(run_id)
+  
+  joined <- psa_out_final %>%
+    semi_join(filtered, by = "run_id") %>%
+    mutate(
+      NMB = Incremental_Utility * wtp - Incremental_Cost,
+      CE = NMB > 0
+    )
+  
+  tibble(
+    spec_thresh = thresh,
+    label = paste0("MCD Test Specificity > ", formatC(thresh, format = "f", digits = 3)),
+    pct_CE = mean(joined$CE) * 100
+  )
+})
+
+psa_cloud <- psa_out_final %>%
+  left_join(select(psa_design_final, run_id, all_spec), by = "run_id") %>%
+  mutate(spec_thresh = cut(
+    all_spec,
+    breaks = c(spec_thresholds, Inf),
+    labels = spec_thresholds,
+    right = FALSE
+  )) %>%
+  mutate(spec_thresh = as.numeric(as.character(spec_thresh))) %>%
+  left_join(psa_ce_thresholds, by = "spec_thresh") %>%
+  mutate(label_ce = paste0(label, " (", round(pct_CE, 1), "% CE)"))
+
+bucket_colors <- c(
+  "MCD Test Specificity > 0.950"  = "#D9D9D9",
+  "MCD Test Specificity > 0.960"  = "#BFBFBF",
+  "MCD Test Specificity > 0.970"  = "#A6A6A6",
+  "MCD Test Specificity > 0.980"  = "#737373",
+  "MCD Test Specificity > 0.990"  = "#595959",
+  "MCD Test Specificity > 0.995" = "#404040"
+)
+
+ggplot() +
+  geom_point(
+    data  = psa_cloud,
+    aes(x = Incremental_Utility,
+        y = Incremental_Cost / 1e6,
+        color = label_ce),
+    size  = 2,
+    alpha = 0.5
+  ) +
+  geom_hline(yintercept = 0, colour = "grey50") +
+  geom_vline(xintercept = 0, colour = "grey50") +
+  geom_abline(
+    intercept = 0,
+    slope     = wtp / 1e6,
+    linetype  = "dashed",
+    colour    = "black"
+  ) +
+  annotate("text",
+           x = max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+           y = (wtp / 1e6) * max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+           label = paste0("WTP = $100,000/QALY"),
+           hjust = 1.1,
+           vjust = 0.5,
+           size = 5,
+           fontface = "italic") +
+  scale_color_manual(
+    values = setNames(bucket_colors[psa_ce_thresholds$label], psa_ce_thresholds %>%
+                        mutate(label_ce = paste0(label, " (", round(pct_CE, 1), "% CE)")) %>%
+                        pull(label_ce)),
+    name = "Sampled Specificity Range (% Runs Cost Effective)"
+  ) +
+  scale_y_continuous(
+    name = "Incremental Cost (millions USD)",
+    labels = scales::dollar_format(prefix = "$", suffix = " M")
+  ) +
+  scale_x_continuous(
+    name = "Incremental Utility (QALYs)",
+    labels = scales::comma_format()
+  ) +
+  theme_classic() +
+  theme(
+    legend.position   = "right",
+    panel.grid.major  = element_blank(),
+    panel.grid.minor  = element_blank(),
+    axis.title.x      = element_text(size = 18),
+    axis.title.y      = element_text(size = 18),
+    axis.text         = element_text(size = 14),
+    legend.title      = element_text(size = 16),
+    legend.text       = element_text(size = 14)
+  )
+
+#### 
+spec_thresholds <- sort(c(0.95, 0.96, 0.97, 0.98, 0.99, 0.995))
+
+bucket_colors <- c(
+  "0.95"  = "#D9D9D9",
+  "0.96"  = "#BFBFBF",
+  "0.97"  = "#A6A6A6",
+  "0.98"  = "#737373",
+  "0.99"  = "#595959",
+  "0.995" = "#404040"
+)
+
+
+psa_ce_thresholds <- map_df(spec_thresholds, function(thresh) {
+  filtered <- psa_design_final %>%
+    filter(all_spec > thresh) %>%
+    select(run_id)
+  
+  joined <- psa_out_final %>%
+    semi_join(filtered, by = "run_id") %>%
+    mutate(
+      NMB = Incremental_Utility * wtp - Incremental_Cost,
+      CE = NMB > 0
+    )
+  
+  tibble(
+    spec_thresh = thresh,
+    label = paste0("$", thresh),
+    pct_CE = mean(joined$CE) * 100
+  )
+})
+
+psa_cloud <- psa_out_final %>%
+  left_join(select(psa_design_final, run_id, all_spec), by = "run_id") %>%
+  mutate(spec_thresh = cut(
+    all_spec,
+    breaks = c(spec_thresholds, Inf),
+    labels = spec_thresholds,
+    right = FALSE
+  )) %>%
+  mutate(spec_thresh = as.numeric(as.character(spec_thresh))) %>%
+  left_join(psa_ce_thresholds, by = "spec_thresh") %>%
+  mutate(label_ce = paste0(label, " (", round(pct_CE, 1), "%)"))
+
+grey_steps <- c(
+  "#D9D9D9",  # for 0.950
+  "#BFBFBF",  # for 0.960
+  "#A6A6A6",  # for 0.970
+  "#737373",  # for 0.980
+  "#595959",  # for 0.990
+  "#404040"   # for 0.995
+)
+
+ordered_labels <- psa_ce_thresholds %>%
+  arrange(spec_thresh) %>%
+  mutate(
+    full_label = paste0(
+      formatC(spec_thresh, format = "f", digits = 3),
+      "\n (", round(pct_CE, 1), "%)"
+    )
+  ) %>%
+  pull(full_label)
+
+
+ggplot(psa_cloud, aes(
+  x     = Incremental_Utility,
+  y     = Incremental_Cost / 1e6,
+  color = all_spec            # continuous mapping
+)) +
+  geom_point(size = 2, alpha = 0.5) +
+  geom_hline(yintercept = 0, colour = "grey50") +
+  geom_vline(xintercept = 0, colour = "grey50") +
+  geom_abline(
+    intercept = 0,
+    slope     = wtp / 1e6,
+    linetype  = "dashed",
+    colour    = "black"
+  ) +
+  annotate(
+    "text",
+    x     = max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+    y     = (wtp / 1e6) * max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+    label = "WTP = $100,000/QALY",
+    hjust = 1.1, vjust = 0.5,
+    size  = 5, fontface = "italic"
+  ) +
+  scale_color_gradientn(
+    name    = "MCD Test Specificity Threshold (% CE)",
+    colours = grey_steps,
+    breaks  = spec_thresholds,    # place ticks at exactly these values
+    labels  = ordered_labels,     # your “>0.98 (X% CE)” text
+    limits  = range(spec_thresholds),
+    expand  = c(0, 0)
+  ) +
+  guides(color = guide_colorbar(
+    title.position = "top",
+    label.position = "bottom",
+    barwidth       = unit(18, "cm"),
+    barheight      = unit(0.4, "cm")
+  )) +
+  scale_y_continuous(
+    name   = "Incremental Cost (millions USD)",
+    labels = scales::dollar_format(prefix = "$", suffix = " M")
+  ) +
+  scale_x_continuous(
+    name   = "Incremental Utility (QALYs)",
+    labels = scales::comma_format()
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position   = "bottom",
+    panel.grid.major  = element_blank(),
+    panel.grid.minor  = element_blank(),
+    axis.title.x      = element_text(size = 18),
+    axis.title.y      = element_text(size = 18),
+    axis.text = element_text(size = 14)
+  )
+
+
+
+### TEST COST
+test_thresholds <- sort(c(1000, 850, 700, 550, 400, 250, 50))
+
+psa_ce_thresholds <- map_df(test_thresholds, function(thresh) {
+  filtered <- psa_design_final %>%
+    filter(mced_test_cost > thresh) %>%
+    select(run_id)
+  
+  joined <- psa_out_final %>%
+    semi_join(filtered, by = "run_id") %>%
+    mutate(
+      NMB = Incremental_Utility * wtp - Incremental_Cost,
+      CE = NMB > 0
+    )
+  
+  tibble(
+    test_thresh = thresh,
+    label = paste0("$", thresh),
+    pct_CE = mean(joined$CE) * 100
+  )
+})
+
+psa_cloud <- psa_out_final %>%
+  left_join(select(psa_design_final, run_id, mced_test_cost), by = "run_id") %>%
+  mutate(test_thresh = cut(
+    mced_test_cost,
+    breaks = c(test_thresholds, Inf),
+    labels = test_thresholds,
+    right = FALSE
+  )) %>%
+  mutate(test_thresh = as.numeric(as.character(test_thresh))) %>%
+  left_join(psa_ce_thresholds, by = "test_thresh") %>%
+  mutate(label_ce = paste0(label, "\n (", round(pct_CE, 1), "%)"))
+
+bucket_colors <- c(
+  "$850"  = "#D9D9D9",
+  "$700"  = "#BFBFBF",
+  "$550"  = "#A6A6A6",
+  "$400"  = "#737373",
+  "$250"  = "#595959",
+  "$50" = "#404040"
+)
+
+ordered_labels <- psa_ce_thresholds %>%
+  arrange(desc(test_thresh)) %>%                               # or desc(test_thresh) for reverse order
+  mutate(full_label = paste0(label, " (", round(pct_CE,1), "% CE)")) %>%
+  pull(full_label)
+
+# make the named vector of colours in exactly that same order
+my_cols <- setNames(
+  bucket_colors[ psa_ce_thresholds$label ],              # un-percentaged labels
+  ordered_labels                                        # percentaged labels
+)
+
+
+ggplot() +
+  geom_point(
+    data  = psa_cloud,
+    aes(x = Incremental_Utility,
+        y = Incremental_Cost / 1e6,
+        color = label_ce),
+    size  = 2,
+    alpha = 0.5
+  ) +
+  geom_hline(yintercept = 0, colour = "grey50") +
+  geom_vline(xintercept = 0, colour = "grey50") +
+  geom_abline(
+    intercept = 0,
+    slope     = wtp / 1e6,
+    linetype  = "dashed",
+    colour    = "black"
+  ) +
+  annotate("text",
+           x = max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+           y = (wtp / 1e6) * max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+           label = paste0("WTP = $100,000/QALY"),
+           hjust = 1.1,
+           vjust = 0.5,
+           size = 5,
+           fontface = "italic") +
+  scale_color_manual(
+    name   = "MCD Test Cost Threshold",
+    limits = ordered_labels,   # <— forces legend keys to appear in this order
+    values = my_cols
+  ) +
+  scale_y_continuous(
+    name = "Incremental Cost (millions USD)",
+    labels = scales::dollar_format(prefix = "$", suffix = " M")
+  ) +
+  scale_x_continuous(
+    name = "Incremental Utility (QALYs)",
+    labels = scales::comma_format()
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "right")
+

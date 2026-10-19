@@ -1,0 +1,65 @@
+Cancer,Stage,Sensitivity
+lung and bronchus,I,0.22
+lung and bronchus,II,0.8
+lung and bronchus,III,0.91
+lung and bronchus,IV,0.95
+colon and rectum,I,0.43
+colon and rectum,II,0.85
+colon and rectum,III,0.88
+colon and rectum,IV,0.95
+pancreas,I,0.61
+pancreas,II,0.61
+pancreas,III,0.86
+pancreas,IV,0.96
+liver and intrahepatic bile duct,I,0.81
+liver and intrahepatic bile duct,II,0.81
+liver and intrahepatic bile duct,III,1
+liver and intrahepatic bile duct,IV,1
+breast,I,0.03
+breast,II,0.48
+breast,III,0.85
+breast,IV,0.91
+esophagus,I,0.13
+esophagus,II,0.65
+esophagus,III,0.94
+esophagus,IV,1
+head and neck,I,0.63
+head and neck,II,0.82
+head and neck,III,0.84
+head and neck,IV,0.96
+stomach,I,0.17
+stomach,II,0.5
+stomach,III,0.8
+stomach,IV,1
+ovarian,I,0.5
+ovarian,II,0.8
+ovarian,III,0.87
+ovarian,IV,0.95
+kidney and renal pelvis,I,0.05
+kidney and renal pelvis,II,0.19
+kidney and renal pelvis,III,0.19
+kidney and renal pelvis,IV,0.55
+prostate,I,0.03
+prostate,II,0.05
+prostate,III,0.14
+prostate,IV,0.83
+lymphoma,I,0.27
+lymphoma,II,0.58
+lymphoma,III,0.66
+lymphoma,IV,0.66
+anus,I,0.25
+anus,II,0.75
+anus,III,1
+anus,IV,1
+uterus,I,0.17
+uterus,II,0.3
+uterus,III,0.74
+uterus,IV,1
+bladder,I,0.18
+bladder,II,0.18
+bladder,III,0.75
+bladder,IV,1
+cervix,I,0.58
+cervix,II,1
+cervix,III,1
+cervix,IV,1

@@ -1,0 +1,205 @@
+# =============================================================================
+# Model vs. input incidence validation plot
+#
+# Objects used (the only three required):
+#   baseline_list[["baseline*"]][["incident_matrix_trimmed"]]
+#       rows = cycles (cycle 1 = age 40), cols = "<stage>_<cancer>",
+#       cells = incident counts out of a 1,000,000 cohort
+#   baseline_list[["baseline*"]][["final_result_list"]][["Overall"]][[
+#       "FP_TN_Screening_Summary"]][["H"]]
+#       = alive and never diagnosed, by cycle
+#   data_loaded[["incidence_final"]]  (Cancer, Stage, Age, rate_smooth, Rate)
+#
+# UNITS: both series are put on cases per 1,000,000 person-years at risk.
+# =============================================================================
+
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(ggplot2)
+
+# ---------------------------------------------------------------------------
+# 1. Inputs and settings
+# ---------------------------------------------------------------------------
+
+bl <- baseline_list[["baseline*"]]
+
+inc_mat <- bl[["incident_matrix_trimmed"]]
+H       <- bl[["final_result_list"]][["Overall"]][[
+  "FP_TN_Screening_Summary"]][["H"]]
+seer    <- data_loaded[["incidence_final"]]
+
+start_age  <- 40      # age at cycle 1
+common_per <- 1e6     # report per 1,000,000 person-years
+n_drop     <- 5L      # drop final cycles (horizon truncation; plots to ~age 95)
+
+# Denominator definition:
+#   "alive"       = H + everyone diagnosed to date (all survivors of the cycle)
+#   "cancer_free" = H only (the pool actually eligible for a first primary)
+denom_mode <- "alive"
+
+# SEER scale: 1 if Rate is already per 1,000,000; 1e6 if Rate is a per-person
+# probability; 10 if per 100,000. Confirm with the diagnostics below.
+seer_scale <- 1e6
+
+cat("\n--- SEER Rate magnitude ---\n")
+print(summary(as.numeric(seer$Rate)))
+cat("max < 1  -> proportion, seer_scale = 1e6\n")
+cat("max ~1e3-1e4 -> already per 1e6, seer_scale = 1\n\n")
+
+# ---------------------------------------------------------------------------
+# 2. At-risk denominator, reconstructed from the incident matrix
+# ---------------------------------------------------------------------------
+
+stopifnot(nrow(inc_mat) == length(H))
+
+# Everyone diagnosed up to and including the previous cycle. Lagged so a case
+# counts toward the denominator only from the cycle after diagnosis.
+cum_cancer <- dplyr::lag(cumsum(rowSums(inc_mat)), default = 0)
+
+alive <- switch(
+  denom_mode,
+  alive       = H + cum_cancer,
+  cancer_free = H,
+  stop("denom_mode must be 'alive' or 'cancer_free'")
+)
+
+if (denom_mode == "alive") {
+  message(
+    "denom_mode = 'alive': the cancer pool is cumulative incidence and cannot ",
+    "subtract deaths among the diagnosed, so the denominator is an upper bound ",
+    "and drifts high with age (most for pancreas, lung, esophagus). Rerun with ",
+    "denom_mode = 'cancer_free' to bracket the true value."
+  )
+}
+
+# Mid-cycle person-years. Leads are taken before trimming so the last retained
+# cycle gets a real midpoint instead of a fabricated one.
+py_full <- (alive + dplyr::lead(alive)) / 2
+
+n_keep     <- length(H) - n_drop
+py_at_risk <- py_full[seq_len(n_keep)]
+inc_mat    <- inc_mat[seq_len(n_keep), , drop = FALSE]
+
+stopifnot(length(py_at_risk) == nrow(inc_mat), all(py_at_risk > 0))
+
+# ---------------------------------------------------------------------------
+# 3. Model output -> long, as a rate
+# ---------------------------------------------------------------------------
+
+model_long <- as.data.frame(inc_mat) |>
+  mutate(cycle = row_number(),
+         age   = start_age + cycle - 1,
+         py    = py_at_risk) |>
+  pivot_longer(cols = -c(cycle, age, py),
+               names_to = "col", values_to = "n_cases") |>
+  # split on the FIRST underscore: cancer names contain spaces, not "_"
+  mutate(
+    Stage  = str_extract(col, "^[IV]+"),
+    Cancer = str_remove(col, "^[IV]+_"),
+    rate   = n_cases / py * common_per,
+    source = "Model"
+  ) |>
+  select(Cancer, Stage, Age = age, rate, source)
+
+# ---------------------------------------------------------------------------
+# 4. SEER input -> matching format and units
+# ---------------------------------------------------------------------------
+
+seer_long <- seer |>
+  transmute(
+    Cancer = as.character(Cancer),
+    Stage  = as.character(Stage),
+    Age    = as.numeric(Age),
+    rate   = as.numeric(Rate) * seer_scale,
+    source = "SEER input"
+  ) |>
+  filter(Age >= start_age, Age <= max(model_long$Age))
+
+# ---- run these before trusting the figure ---------------------------------
+cat("--- Unmatched cancer names ---\n")
+print(setdiff(unique(model_long$Cancer), unique(seer_long$Cancer)))
+cat("--- Unmatched stage labels ---\n")
+print(setdiff(unique(model_long$Stage), unique(seer_long$Stage)))
+
+# Should be near 1. If it prints ~10, ~100 or ~1e6, seer_scale is off by that
+# factor; divide it out and rerun.
+scale_check <- inner_join(
+  model_long |> select(-source) |> rename(model = rate),
+  seer_long  |> select(-source) |> rename(seer  = rate),
+  by = c("Cancer", "Stage", "Age")
+) |>
+  filter(seer > 0, model > 0) |>
+  summarise(median_model_over_seer = median(model / seer))
+
+cat("--- Scale check (target ~1) ---\n")
+print(scale_check)
+
+plot_df <- bind_rows(model_long, seer_long) |>
+  mutate(Stage = factor(Stage, levels = c("I", "II", "III", "IV")))
+
+# ---------------------------------------------------------------------------
+# 5a. All-stage totals by cancer — supplement figure
+# ---------------------------------------------------------------------------
+
+p_total <- plot_df |>
+  group_by(Cancer, Age, source) |>
+  summarise(rate = sum(rate), .groups = "drop") |>
+  ggplot(aes(Age, rate, colour = source, linetype = source)) +
+  geom_line(linewidth = 0.7) +
+  facet_wrap(~ Cancer, scales = "free_y", ncol = 4) +
+  scale_colour_manual(values = c("Model" = "#1f77b4", "SEER input" = "#333333")) +
+  scale_linetype_manual(values = c("Model" = "solid", "SEER input" = "22")) +
+  labs(x = "Age (years)",
+       y = "All-stage incidence per 1,000,000 person-years at risk",
+       colour = NULL, linetype = NULL,
+       title = "Modeled vs. input cancer incidence, all stages combined") +
+  theme_bw(base_size = 10) +
+  theme(legend.position = "top",
+        strip.background = element_rect(fill = "grey95", colour = NA),
+        panel.grid.minor = element_blank())
+
+ggsave("incidence_validation_all_stage.png", p_total,
+       width = 12, height = 9, dpi = 300)
+
+# ---------------------------------------------------------------------------
+# 5b. Cancer x stage detail
+# ---------------------------------------------------------------------------
+
+p_detail <- ggplot(plot_df, aes(Age, rate, colour = source, linetype = source)) +
+  geom_line(linewidth = 0.6) +
+  facet_grid(Stage ~ Cancer, scales = "free_y", switch = "y",
+             labeller = label_wrap_gen(width = 12)) +
+  scale_colour_manual(values = c("Model" = "#1f77b4", "SEER input" = "#333333")) +
+  scale_linetype_manual(values = c("Model" = "solid", "SEER input" = "22")) +
+  labs(x = "Age (years)",
+       y = "Incidence per 1,000,000 person-years at risk",
+       colour = NULL, linetype = NULL) +
+  theme_bw(base_size = 9) +
+  theme(legend.position = "top",
+        strip.background = element_rect(fill = "grey95", colour = NA),
+        strip.text.x = element_text(size = 7),
+        panel.grid.minor = element_blank())
+
+ggsave("incidence_validation_by_stage.png", p_detail,
+       width = 20, height = 7, dpi = 300)
+
+# ---------------------------------------------------------------------------
+# 6. Quantitative agreement — the number for the text
+# ---------------------------------------------------------------------------
+
+agreement <- plot_df |>
+  pivot_wider(names_from = source, values_from = rate) |>
+  rename(model = Model, seer = `SEER input`) |>
+  filter(!is.na(model), !is.na(seer), seer > 0) |>
+  group_by(Cancer, Stage) |>
+  summarise(
+    mean_abs_diff = mean(abs(model - seer)),
+    mean_pct_diff = mean((model - seer) / seer) * 100,
+    max_pct_diff  = max(abs((model - seer) / seer)) * 100,
+    .groups = "drop"
+  ) |>
+  arrange(desc(abs(mean_pct_diff)))
+
+print(agreement, n = Inf)
+# write.csv(agreement, "incidence_validation_agreement.csv", row.names = FALSE)

@@ -1,0 +1,15 @@
+,Package,License,
+dplyr,dplyr,MIT + file LICENSE,https://cran.r-project.org/package=dplyr
+ggplot2,ggplot2,MIT + file LICENSE,GPL-3
+glue,glue,MIT + file LICENSE,https://cran.r-project.org/package=glue
+grid,grid,Part of R 4.4.1,SameÊasÊRÊ(GPL-2
+gridExtra,gridExtra,GPL (>= 2),https://cran.r-project.org/package=gridExtra
+Iso,Iso,GPL (>= 2),https://cran.r-project.org/package=Iso
+knitr,knitr,GPL,https://cran.r-project.org/package=knitr
+lubridate,lubridate,GPL (>= 2),https://cran.r-project.org/package=lubridate
+patchwork,patchwork,MIT + file LICENSE,https://cran.r-project.org/package=patchwork
+purrr,purrr,MIT + file LICENSE,https://cran.r-project.org/package=purrr
+RColorBrewer,RColorBrewer,Apache License 2.0,https://cran.r-project.org/package=RColorBrewer
+readr,readr,MIT + file LICENSE,https://cran.r-project.org/package=readr
+scales,scales,MIT + file LICENSE,https://cran.r-project.org/package=scales
+tidyr,tidyr,MIT + file LICENSE,https://cran.r-project.org/package=tidyr

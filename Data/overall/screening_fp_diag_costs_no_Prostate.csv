@@ -1,0 +1,17 @@
+Cancer,Screening_cost,gender,Comply_overall,Compliance_frequency,Specificity,Eligibility,Invasive_procedure,Frequency,Start_age,end_age,Screening CPT code,FP_cost,FP CPT code,incidental_cost,invasive_cost,incidental_CPT_Code,Notes
+lung and bronchus,168.44,0,,0.18,0.87,0.12,0.03,1,50,80,71271; G0296,140.81,71271,201.06,838.18,71270,https://www.nccn.org/professionals/physician_gls/pdf/lung_screening.pdf
+colon and rectum,339.53,0,0.694,0.069,0.86,1,0,1,50,75,G0121,92.87,45380–G0121,348.85,444.06,74178,NA
+pancreas,0,0,,0,1,0,0.1,0,0,0,NA,268.63,74170,268.63,257.65,74170,NA
+liver and intrahepatic bile duct,0,0,,0,1,0,0.1,0,0,0,NA,268.63,74170,268.63,297.26,74170,NA
+breast,127.82,1,0.777,0.3885,0.89,1,0.033,1,40,74,77067,158.45,77066,201.06,149.13,71270,invasive: https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2790521
+esophagus,0,0,,0,1,0,0,0,0,0,NA,287.27,43235,287.27,0,43235,NA
+head and neck,0,0,,0,1,0,0.1,0,0,0,NA,129.16,31575,129.16,267.63,31575,NA
+stomach,0,0,,0,1,0,0,0,0,0,NA,287.27,43235,287.27,0,43235,NA
+ovarian,0,1,,0,1,0,0.1,0,0,0,NA,119.17,76830,119.17,441.06,76830,NA
+kidney and renal pelvis,0,0,,0,1,0,0,0,0,0,NA,348.85,74178,348.85,0,74178,NA
+prostate,0,2,,0,0,0,0.1,1,0,0,G0102,345.86,72197,348.85,240.67,74178,invasive: https://www.aafp.org/pubs/afp/issues/2015/0501/od3.html
+lymphoma,0,0,,0,1,0,0.1,0,0,0,NA,136.15,71250,136.15,444.06,71250,NA
+anus,0,0,,0,1,0,0,0,0,0,NA,339.53,G0121,339.53,0,G0121,NA
+uterus,0,1,,0,1,0,0.1,0,0,0,NA,119.17,76830,119.17,111.38,76830,NA
+bladder,0,0,,0,1,0,0.1,0,0,0,NA,268.63,74170,268.63,411.31,74170,NA
+cervix,44.27,1,0.789,0.263,0.85,1,0.03,1,30,65,Q0091,133.82,57420,105.19,0,76856,invasive: https://jamanetwork.com/journals/jama/fullarticle/2697703

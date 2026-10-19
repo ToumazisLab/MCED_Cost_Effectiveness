@@ -1,0 +1,341 @@
+Cancer_Stage,Year,Cost
+I_lung and bronchus,Year 1,144286
+I_lung and bronchus,Year 2,52209
+I_lung and bronchus,Year 3,42380
+I_lung and bronchus,Year 4,37309
+I_lung and bronchus,Year 5,31779
+II_lung and bronchus,Year 1,224908
+II_lung and bronchus,Year 2,87693
+II_lung and bronchus,Year 3,76059
+II_lung and bronchus,Year 4,56125
+II_lung and bronchus,Year 5,54159
+III_lung and bronchus,Year 1,292807
+III_lung and bronchus,Year 2,141416
+III_lung and bronchus,Year 3,109796
+III_lung and bronchus,Year 4,89976
+III_lung and bronchus,Year 5,72888
+IV_lung and bronchus,Year 1,392187
+IV_lung and bronchus,Year 2,215570
+IV_lung and bronchus,Year 3,180855
+IV_lung and bronchus,Year 4,151787
+IV_lung and bronchus,Year 5,122125
+I_colon and rectum,Year 1,121300
+I_colon and rectum,Year 2,18427
+I_colon and rectum,Year 3,15727
+I_colon and rectum,Year 4,15220
+I_colon and rectum,Year 5,14036
+II_colon and rectum,Year 1,177912
+II_colon and rectum,Year 2,30754
+II_colon and rectum,Year 3,26864
+II_colon and rectum,Year 4,22293
+II_colon and rectum,Year 5,21252
+III_colon and rectum,Year 1,230967
+III_colon and rectum,Year 2,54812
+III_colon and rectum,Year 3,49253
+III_colon and rectum,Year 4,45910
+III_colon and rectum,Year 5,38036
+IV_colon and rectum,Year 1,386755
+IV_colon and rectum,Year 2,202345
+IV_colon and rectum,Year 3,195298
+IV_colon and rectum,Year 4,163493
+IV_colon and rectum,Year 5,127301
+I_pancreas,Year 1,250057
+I_pancreas,Year 2,85518
+I_pancreas,Year 3,63598
+I_pancreas,Year 4,35616
+I_pancreas,Year 5,29705
+II_pancreas,Year 1,342549
+II_pancreas,Year 2,145766
+II_pancreas,Year 3,119887
+II_pancreas,Year 4,102308
+II_pancreas,Year 5,76833
+III_pancreas,Year 1,319954
+III_pancreas,Year 2,196567
+III_pancreas,Year 3,191245
+III_pancreas,Year 4,173338
+III_pancreas,Year 5,122513
+IV_pancreas,Year 1,394906
+IV_pancreas,Year 2,245291
+IV_pancreas,Year 3,212941
+IV_pancreas,Year 4,173914
+IV_pancreas,Year 5,169774
+I_liver and intrahepatic bile duct,Year 1,195045
+I_liver and intrahepatic bile duct,Year 2,119749
+I_liver and intrahepatic bile duct,Year 3,87505
+I_liver and intrahepatic bile duct,Year 4,63555
+I_liver and intrahepatic bile duct,Year 5,52410
+II_liver and intrahepatic bile duct,Year 1,210407
+II_liver and intrahepatic bile duct,Year 2,132285
+II_liver and intrahepatic bile duct,Year 3,106548
+II_liver and intrahepatic bile duct,Year 4,74703
+II_liver and intrahepatic bile duct,Year 5,54685
+III_liver and intrahepatic bile duct,Year 1,325012
+III_liver and intrahepatic bile duct,Year 2,185596
+III_liver and intrahepatic bile duct,Year 3,133629
+III_liver and intrahepatic bile duct,Year 4,124437
+III_liver and intrahepatic bile duct,Year 5,98180
+IV_liver and intrahepatic bile duct,Year 1,410919
+IV_liver and intrahepatic bile duct,Year 2,199090
+IV_liver and intrahepatic bile duct,Year 3,172101
+IV_liver and intrahepatic bile duct,Year 4,177399
+IV_liver and intrahepatic bile duct,Year 5,144244
+I_breast,Year 1,104128
+I_breast,Year 2,21667
+I_breast,Year 3,15859
+I_breast,Year 4,12384
+I_breast,Year 5,12300
+II_breast,Year 1,148220
+II_breast,Year 2,43323
+II_breast,Year 3,29076
+II_breast,Year 4,25583
+II_breast,Year 5,21881
+III_breast,Year 1,195903
+III_breast,Year 2,86200
+III_breast,Year 3,68166
+III_breast,Year 4,78648
+III_breast,Year 5,44790
+IV_breast,Year 1,291085
+IV_breast,Year 2,216981
+IV_breast,Year 3,202641
+IV_breast,Year 4,190994
+IV_breast,Year 5,157408
+I_esophagus,Year 1,194461
+I_esophagus,Year 2,58916
+I_esophagus,Year 3,41265
+I_esophagus,Year 4,27681
+I_esophagus,Year 5,23139
+II_esophagus,Year 1,264466
+II_esophagus,Year 2,100170
+II_esophagus,Year 3,75367
+II_esophagus,Year 4,47540
+II_esophagus,Year 5,31599
+III_esophagus,Year 1,327755
+III_esophagus,Year 2,142410
+III_esophagus,Year 3,90967
+III_esophagus,Year 4,97966
+III_esophagus,Year 5,35671
+IV_esophagus,Year 1,380543
+IV_esophagus,Year 2,245386
+IV_esophagus,Year 3,172239
+IV_esophagus,Year 4,130541
+IV_esophagus,Year 5,76764
+I_head and neck,Year 1,85376
+I_head and neck,Year 2,32696
+I_head and neck,Year 3,21059
+I_head and neck,Year 4,17207
+I_head and neck,Year 5,13642
+II_head and neck,Year 1,166236
+II_head and neck,Year 2,49131
+II_head and neck,Year 3,36731
+II_head and neck,Year 4,23099
+II_head and neck,Year 5,17801
+III_head and neck,Year 1,225571
+III_head and neck,Year 2,61973
+III_head and neck,Year 3,38274
+III_head and neck,Year 4,28904
+III_head and neck,Year 5,22174
+IV_head and neck,Year 1,273405
+IV_head and neck,Year 2,85804
+IV_head and neck,Year 3,52746
+IV_head and neck,Year 4,36115
+IV_head and neck,Year 5,29216
+I_stomach,Year 1,215774
+I_stomach,Year 2,48492
+I_stomach,Year 3,30622
+I_stomach,Year 4,23400
+I_stomach,Year 5,15553
+II_stomach,Year 1,269050
+II_stomach,Year 2,101008
+II_stomach,Year 3,69664
+II_stomach,Year 4,50082
+II_stomach,Year 5,34913
+III_stomach,Year 1,360633
+III_stomach,Year 2,110961
+III_stomach,Year 3,107640
+III_stomach,Year 4,73974
+III_stomach,Year 5,55330
+IV_stomach,Year 1,414795
+IV_stomach,Year 2,232816
+IV_stomach,Year 3,171092
+IV_stomach,Year 4,133947
+IV_stomach,Year 5,88676
+I_ovarian,Year 1,124167
+I_ovarian,Year 2,22153
+I_ovarian,Year 3,19318
+I_ovarian,Year 4,21080
+I_ovarian,Year 5,18166
+II_ovarian,Year 1,175254
+II_ovarian,Year 2,43868
+II_ovarian,Year 3,53002
+II_ovarian,Year 4,53686
+II_ovarian,Year 5,48182
+III_ovarian,Year 1,251696
+III_ovarian,Year 2,113691
+III_ovarian,Year 3,121100
+III_ovarian,Year 4,121271
+III_ovarian,Year 5,111785
+IV_ovarian,Year 1,323759
+IV_ovarian,Year 2,147721
+IV_ovarian,Year 3,156216
+IV_ovarian,Year 4,141134
+IV_ovarian,Year 5,143300
+I_kidney and renal pelvis,Year 1,79637
+I_kidney and renal pelvis,Year 2,17397
+I_kidney and renal pelvis,Year 3,17236
+I_kidney and renal pelvis,Year 4,14694
+I_kidney and renal pelvis,Year 5,13745
+II_kidney and renal pelvis,Year 1,111431
+II_kidney and renal pelvis,Year 2,35853
+II_kidney and renal pelvis,Year 3,33948
+II_kidney and renal pelvis,Year 4,34305
+II_kidney and renal pelvis,Year 5,29821
+III_kidney and renal pelvis,Year 1,132898
+III_kidney and renal pelvis,Year 2,55272
+III_kidney and renal pelvis,Year 3,52130
+III_kidney and renal pelvis,Year 4,47094
+III_kidney and renal pelvis,Year 5,39368
+IV_kidney and renal pelvis,Year 1,354508
+IV_kidney and renal pelvis,Year 2,210814
+IV_kidney and renal pelvis,Year 3,178411
+IV_kidney and renal pelvis,Year 4,165572
+IV_kidney and renal pelvis,Year 5,131709
+I_prostate,Year 1,20187
+I_prostate,Year 2,6238
+I_prostate,Year 3,7422
+I_prostate,Year 4,2840
+I_prostate,Year 5,6701
+II_prostate,Year 1,58099
+II_prostate,Year 2,14773
+II_prostate,Year 3,11629
+II_prostate,Year 4,11016
+II_prostate,Year 5,10302
+III_prostate,Year 1,66840
+III_prostate,Year 2,18663
+III_prostate,Year 3,16319
+III_prostate,Year 4,16879
+III_prostate,Year 5,16501
+IV_prostate,Year 1,155323
+IV_prostate,Year 2,123023
+IV_prostate,Year 3,124474
+IV_prostate,Year 4,119324
+IV_prostate,Year 5,95852
+I_breast: hormone receptor-positive,Year 1,62242
+I_breast: hormone receptor-positive,Year 2,12403
+I_breast: hormone receptor-positive,Year 3,9549
+I_breast: hormone receptor-positive,Year 4,9417
+I_breast: hormone receptor-positive,Year 5,8714
+II_breast: hormone receptor-positive,Year 1,94402
+II_breast: hormone receptor-positive,Year 2,21788
+II_breast: hormone receptor-positive,Year 3,16739
+II_breast: hormone receptor-positive,Year 4,18145
+II_breast: hormone receptor-positive,Year 5,17981
+III_breast: hormone receptor-positive,Year 1,147354
+III_breast: hormone receptor-positive,Year 2,44935
+III_breast: hormone receptor-positive,Year 3,38390
+III_breast: hormone receptor-positive,Year 4,46534
+III_breast: hormone receptor-positive,Year 5,47628
+IV_breast: hormone receptor-positive,Year 1,219436
+IV_breast: hormone receptor-positive,Year 2,164145
+IV_breast: hormone receptor-positive,Year 3,172892
+IV_breast: hormone receptor-positive,Year 4,193887
+IV_breast: hormone receptor-positive,Year 5,170997
+I_lymphoma,Year 1,216130
+I_lymphoma,Year 2,55481
+I_lymphoma,Year 3,41590
+I_lymphoma,Year 4,34205
+I_lymphoma,Year 5,33515
+II_lymphoma,Year 1,288479
+II_lymphoma,Year 2,88343
+II_lymphoma,Year 3,61994
+II_lymphoma,Year 4,51448
+II_lymphoma,Year 5,40171
+III_lymphoma,Year 1,315595
+III_lymphoma,Year 2,107423
+III_lymphoma,Year 3,75401
+III_lymphoma,Year 4,59011
+III_lymphoma,Year 5,53261
+IV_lymphoma,Year 1,371416
+IV_lymphoma,Year 2,105460
+IV_lymphoma,Year 3,79124
+IV_lymphoma,Year 4,67382
+IV_lymphoma,Year 5,55827
+I_anus,Year 1,112280
+I_anus,Year 2,16702
+I_anus,Year 3,15574
+I_anus,Year 4,12958
+I_anus,Year 5,15920
+II_anus,Year 1,154136
+II_anus,Year 2,43204
+II_anus,Year 3,24753
+II_anus,Year 4,24917
+II_anus,Year 5,17450
+III_anus,Year 1,190278
+III_anus,Year 2,61978
+III_anus,Year 3,63960
+III_anus,Year 4,32426
+III_anus,Year 5,17925
+IV_anus,Year 1,254470
+IV_anus,Year 2,133318
+IV_anus,Year 3,106533
+IV_anus,Year 4,122574
+IV_anus,Year 5,62123
+I_uterus,Year 1,59946
+I_uterus,Year 2,13745
+I_uterus,Year 3,12157
+I_uterus,Year 4,11592
+I_uterus,Year 5,8078
+II_uterus,Year 1,91786
+II_uterus,Year 2,24468
+II_uterus,Year 3,27670
+II_uterus,Year 4,19315
+II_uterus,Year 5,15315
+III_uterus,Year 1,157437
+III_uterus,Year 2,59246
+III_uterus,Year 3,48859
+III_uterus,Year 4,31922
+III_uterus,Year 5,28555
+IV_uterus,Year 1,285887
+IV_uterus,Year 2,145071
+IV_uterus,Year 3,143562
+IV_uterus,Year 4,86657
+IV_uterus,Year 5,82440
+I_bladder,Year 1,84953
+I_bladder,Year 2,39661
+I_bladder,Year 3,28957
+I_bladder,Year 4,24079
+I_bladder,Year 5,21334
+II_bladder,Year 1,196131
+II_bladder,Year 2,76450
+II_bladder,Year 3,49160
+II_bladder,Year 4,34300
+II_bladder,Year 5,28238
+III_bladder,Year 1,229577
+III_bladder,Year 2,80654
+III_bladder,Year 3,72243
+III_bladder,Year 4,36474
+III_bladder,Year 5,19886
+IV_bladder,Year 1,356471
+IV_bladder,Year 2,164677
+IV_bladder,Year 3,124014
+IV_bladder,Year 4,73279
+IV_bladder,Year 5,45075
+I_cervix,Year 1,97107
+I_cervix,Year 2,21112
+I_cervix,Year 3,18610
+I_cervix,Year 4,16086
+I_cervix,Year 5,13706
+II_cervix,Year 1,139960
+II_cervix,Year 2,45752
+II_cervix,Year 3,24658
+II_cervix,Year 4,19191
+II_cervix,Year 5,22549
+III_cervix,Year 1,202797
+III_cervix,Year 2,83365
+III_cervix,Year 3,74000
+III_cervix,Year 4,42813
+III_cervix,Year 5,27031
+IV_cervix,Year 1,307758
+IV_cervix,Year 2,147282
+IV_cervix,Year 3,90034
+IV_cervix,Year 4,89373
+IV_cervix,Year 5,56989

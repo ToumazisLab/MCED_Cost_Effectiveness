@@ -1,0 +1,2200 @@
+source("Global.R")
+# source("Functions/Preparation_Scripts/Source_file.R", echo=TRUE)
+source("Functions/Preparation_Scripts/Def_params.R", echo=FALSE)
+source("Functions/Preparation_Scripts/Input_Params.R", echo=FALSE)
+source("Functions/Preparation_Scripts/Source_file.R", echo=FALSE)
+source("Functions/Shiny/run_model.R", echo=FALSE)
+source("Functions/Shiny/Shiny_plots.R", echo=FALSE)
+# source("Functions/Preparation_Scripts/Input_file.R", echo=TRUE)
+
+
+cancer_types_overall <- c(
+  "anus",
+  "bladder",
+  "breast",
+  "cervix",
+  "colon and rectum",
+  "esophagus",
+  "head and neck",
+  "kidney and renal pelvis",
+  "liver and intrahepatic bile duct",
+  "lung and bronchus",
+  "lymphoma",
+  "ovarian",
+  "pancreas",
+  "prostate",
+  "stomach",
+  "uterus"
+)
+
+ss_choices <- c(
+  "Slow"        = "1",
+  "Medium"      = "3",
+  "Medium fast" = "5",
+  "Fast"        = "7"
+)
+
+survival_labels <- c(
+  floor_max   = "Lead-time corrected",
+  add_shift   = "Full stage-shift benefit",
+  max_new_old = "Crossover-guarded",
+  naive       = "No correction"
+)
+
+display_names <- str_to_title(cancer_types_overall)
+# Fix small words (so “Colon and Rectum” instead of “Colon And Rectum”):
+display_names <- str_replace_all(display_names,
+                                 c("\\bAnd\\b" = "and", "\\bOf\\b" = "of", "\\bIn\\b" = "in")
+)
+
+# 3) Build a named vector: names = “Colon and Rectum” → value = “colon and rectum”
+cancer_choices <- setNames(cancer_types_overall, display_names)
+display_for <- setNames(names(cancer_choices), as.character(cancer_choices))
+
+
+new_cancer_palettes <- list(
+  "colon and rectum" = c("#A8E4A0", "#BCB88A", "#4F7942", "#4A5D23"),
+  "pancreas" = c("#D0F0C0", "#20B2AA", "#2E8B57", "#004B49"),
+  "liver and intrahepatic bile duct" = c("#98FB98", "#00FF7F", "#00FA9A", "#177245"),
+  "esophagus" = c("#74C365", "#3B7A57", "#29AB87", "#1C3029"),
+  "stomach" = c("#66DDAA", "#48BF91", "#01796F", "#317873"),
+  "anus" = c("#8A9A5B", "#556B2F", "#355E3B", "#123524"),
+  
+  "breast" = c("#F7D2CC", "#FBAEB4", "#FE80A2", "#AD0E50"),
+  "cervix" = c("#ECE9F0", "#F7EEF3", "#D7C7BC", "#B36B6E"),
+  "ovarian" = c("#F7D2CC", "#FBAEAA", "#EF9A9C", "#FD8C91"),
+  "uterus" = c("#F3B3C1", "#E195A9", "#DAA6A7", "#EC71A1"),
+  
+  "prostate" = c("#95C8D8", "#89CFF0", "#57A0D3", "#111E6C"),
+  "kidney and renal pelvis" = c("#8FBED5", "#4390B6", "#265268", "#132934"),
+  "bladder" = c("#6F9FF5", "#2C72F0", "#0B42A7", "#041A42"),
+  
+  "lung and bronchus" = c("#FEBA4F", "#E89611", "#CD722D", "#9F5400"),
+  "lymphoma" = c("#EDCDAF", "#cfb595", "#A9846A", "#412920"),
+  "head and neck" = c("#EAD5FB", "#DBABFF", "#B063E0", "#5F2993"),
+  
+  "All Cancers" = c("#FFB9AA", "#D47C6A", "#802815", "#550F00")
+)
+
+badge <- function(text, cls) tags$span(class = paste("badge", cls), text)
+
+state_label <- function(state) {
+  switch(state,
+         ok      = badge("Edited",     "badge-ok"),
+         default = badge("Default",    "badge-default"),
+         missing = badge("Missing",    "badge-missing"),
+         invalid = badge("Invalid",    "badge-invalid")
+  )
+}
+
+cancer_colors <- c(
+  "colon and rectum"                   = new_cancer_palettes[["colon and rectum"]][3],
+  "pancreas"                           = new_cancer_palettes[["pancreas"]][3],
+  "liver and intrahepatic bile duct"   = new_cancer_palettes[["liver and intrahepatic bile duct"]][3],
+  "esophagus"                          = new_cancer_palettes[["esophagus"]][3],
+  "stomach"                            = new_cancer_palettes[["stomach"]][3],
+  "anus"                               = new_cancer_palettes[["anus"]][3],
+  
+  "breast"                             = new_cancer_palettes[["breast"]][3],
+  "cervix"                             = new_cancer_palettes[["cervix"]][3],
+  "ovarian"                            = new_cancer_palettes[["ovarian"]][3],
+  "uterus"                             = new_cancer_palettes[["uterus"]][3],
+  
+  "prostate"                           = new_cancer_palettes[["prostate"]][3],
+  "kidney and renal pelvis"            = new_cancer_palettes[["kidney and renal pelvis"]][3],
+  "bladder"                            = new_cancer_palettes[["bladder"]][3],
+  
+  "lung and bronchus"                  = new_cancer_palettes[["lung and bronchus"]][3],
+  "lymphoma"                           = new_cancer_palettes[["lymphoma"]][3],
+  "head and neck"                      = new_cancer_palettes[["head and neck"]][3],
+  "All Cancers"                        = new_cancer_palettes[["All Cancers"]][3]
+)
+
+
+plot_colors <- c(cancer_colors, Healthy = "#999999")
+
+cancer_order <- cancer_types_overall
+
+specificity_data <- data.frame(
+  Cancer = cancer_types,
+  # Default starting value for specificity
+  Specificity = rep(0.98, 16)
+)
+
+
+server <- function(input, output, session) {
+  observeEvent(TRUE, {
+    showModal(modalDialog(
+      title = "Multi-Cancer Detection Tests: A Cost-Effectiveness Analysis",
+      size = "l",
+      easyClose = FALSE,
+      footer = NULL,
+      
+      tagList(
+        p("The output of these analyses should be interpreted with caution. A basic understanding of the approach,
+         the model, its limitations, and assumptions is required before any conclusions are derived.
+          More information about the model is available below. User agreement is required to proceed."),
+        
+        accordion(
+          id = "landing_accordion",
+          accordionItem(
+            title = "Model Overview",
+            collapsed = TRUE,
+            p("This tool implements a simulation model to assess and compare the expected health benefits and potential harms associated with two cancer screening strategies: Usual Care supplemented by a hypothetical multi-cancer detection test (MCD) vs. Usual Care alone."),
+            p("A synthetic cohort of one million 40-year-old U.S. adults is followed annually until death or age 100. At any given year individuals may be diagnosed with cancer based on observed rates from nationally represented datasets, die from any cause based on U.S. life tables, or remain in the healthy state.
+              The tool offers the opportunity to screen individuals with the MCD test which can be customized in terms of its sensitivity (by cancer type and stage), specificity (by cancer type), and cost, among others."),
+            p("Up to 16 cancer types can be screened, with different test performance and downstream management.")
+          ),
+          accordionItem(
+            title = "Outcomes Tracked",
+            collapsed = TRUE,
+            tags$ul(
+              tags$li("Screening, diagnostic, invasive procedure, and treatment costs"),
+              tags$li("Quality-adjusted life-years (QALYs) and disutilities based on screening result"),
+              tags$li("Cancer deaths averted, overdiagnosis harms"),
+              tags$li("Number of false-positive results by screening modality, stage shift of cancer cases by cancer site")
+            )
+          ),
+          accordionItem(
+            title = "Intended Use",
+            collapsed = TRUE,
+            tags$ul(
+              tags$li("Compare cancer screening strategies that supplement usual care with an MCD test against usual care alone"),
+              tags$li("Perform scenario analysis and sensitivity analysis"),
+              tags$li("Inform payer decisions and reimbursement evaluations")
+            )
+          )
+        ),
+        
+        br(),
+        
+        actionButton("consent_checkbox", "I have read and agree",
+                     style = "color:white; background-color:#8B0000; font-weight:bold;")
+      )
+    ))
+  })
+  
+  
+  consented <- reactiveVal(FALSE)
+  
+  observeEvent(input$consent_checkbox, {
+    consented(TRUE)
+    removeModal()
+    updateTabItems(session, "main_menu", "model_params")
+  })
+  
+  output$userConsented <- reactive({ consented() })
+  outputOptions(output, "userConsented", suspendWhenHidden = FALSE)
+  
+  # --- TAB VISIT TRACKING (place here, right after consent block) ---
+  sens_tab_visited <- reactiveVal(FALSE)
+  
+  # Your UI has: tabsetPanel(id = "acc_tabs", ...)
+  # This handler flips the flags based on which tab the user clicked.
+  observeEvent(input$acc_tabs, {
+    if (identical(input$acc_tabs, "Sensitivity")) sens_tab_visited(TRUE)
+  }, ignoreInit = TRUE)
+  
+  # Optional: when someone consents, preselect "all" for specificity mode so users have a sane default
+  observeEvent(consented(), {
+    updateSelectInput(session, "spec_mode", selected = "all")
+  }, ignoreInit = TRUE)
+  
+  observeEvent(input$selected_cancers, {
+    if (is.null(input$spec_mode) || identical(input$spec_mode, "")) {
+      updateSelectInput(session, "spec_mode", selected = "all")
+    }
+  }, ignoreInit = TRUE)
+  
+  sensitivity_data <- readr::read_csv("Data/overall/sensitivity_long_overall.csv", show_col_types = FALSE)
+  
+  sub_df <- reactive({
+    req(input$selected_cancers)  # must have selected some
+    subset(sensitivity_data, Cancer %in% input$selected_cancers)
+  })
+  
+  observeEvent(input$select_all, {
+    updateAwesomeCheckboxGroup(
+      session, "selected_cancers",
+      selected = cancer_choices
+    )
+  })
+  
+  # observeEvent(input$reset_all, {
+  #   # Clear selected cancers
+  #   updateAwesomeCheckboxGroup(session, "selected_cancers", selected = character(0))
+  #  
+  #   # Reset sensitivity sliders to original values
+  #   req(input$selected_cancers)
+  #   sub_data <- sub_df()
+  #   grouped  <- split(sub_data, sub_data$Cancer)
+  #   for (cancer_name in names(grouped)) {
+  #     default_vals <- grouped[[cancer_name]]$Sensitivity
+  #     updateNoUiSliderInput(
+  #       session,
+  #       inputId = paste0("sens_", make.names(cancer_name)),
+  #       value   = default_vals
+  #     )
+  #   }
+  #  
+  #   # Reset specificity sliders
+  #   for (cancer_name in cancer_types_overall) {
+  #     updateNoUiSliderInput(
+  #       session,
+  #       inputId = paste0("spec_", make.names(cancer_name)),
+  #       value   = 0.98  # default
+  #     )
+  #   }
+  #  
+  #   # Reset numeric inputs
+  #   updateNumericInput(session, "mced_test_cost", value = 500)
+  #  
+  #   # Reset sliders
+  #   updateSliderInput(session, "mced_compliance_percent", value = 75)
+  #   updateSliderInput(session, "mced_age_range", value = c(45, 80))
+  #   updateSliderInput(session, "u_mced_fp_compliance", value = 100)
+  #   updateSliderInput(session, "u_invasive_multi", value = 10)
+  # })
+  
+  observeEvent(input$reset_all, {
+    # Capture current selection (so we can target the right input IDs) BEFORE clearing
+    sel <- isolate(input$selected_cancers) %||% character(0)
+    
+    # Clear selected cancers in the UI
+    updateAwesomeCheckboxGroup(session, "selected_cancers", selected = character(0))
+    
+    # Reset Sensitivity numericInputs back to CSV defaults for the prior selection (if any)
+    if (length(sel) > 0) {
+      sub_data <- isolate(subset(sensitivity_data, Cancer %in% sel))
+      grouped  <- split(sub_data, sub_data$Cancer)
+      stages   <- c("I","II","III","IV")
+      for (cn in names(grouped)) {
+        df <- grouped[[cn]]
+        df$Stage <- factor(df$Stage, levels = stages)
+        df <- df[order(df$Stage), ]
+        vals <- df$Sensitivity
+        for (i in seq_along(stages)) {
+          updateNumericInput(session,
+                             inputId = paste0("sens_", make.names(cn), "_stage_", stages[i]),
+                             value   = round(vals[i], 2)
+          )
+        }
+      }
+    }
+    
+    # Reset Specificity numericInputs (per-cancer controls)
+    for (cn in cancer_types_overall) {
+      updateNumericInput(session, paste0("spec_", make.names(cn)), value = 0.98)
+    }
+    
+    # Reset "all cancers" specificity control (if present)
+    updateSelectInput(session, "spec_mode", selected = "all")
+    updateNumericInput(session, "spec_all_value", value = 0.98)
+    
+    # Reset numeric/sliders
+    updateNumericInput(session, "mced_test_cost", value = 500)
+    updateSliderInput(session, "mced_compliance_percent", value = 75)
+    updateSliderInput(session, "mced_age_range", value = c(45, 80))
+    updateSliderInput(session, "u_mced_fp_compliance", value = 100)
+    updateSliderInput(session, "u_invasive_multi", value = 10)
+  })
+  
+  observeEvent(input$trigger_clear_runs, {
+    confirmSweetAlert(
+      session = session,
+      inputId = "confirm_clear_runs",
+      title = "Are you sure?",
+      text = "This will erase all stored model runs and clear the CE and bubble plots.",
+      type = "warning",
+      btn_labels = c("Cancel", "Yes, clear all"),
+      danger_mode = TRUE
+    )
+  })
+  
+  observeEvent(input$confirm_clear_runs, {
+    if (isTRUE(input$confirm_clear_runs)) {
+      model_runs$all_runs <- list()
+      runs_df(tibble::tibble(
+        run_id      = integer(),
+        run_label = character(),
+        inc_cost    = numeric(),
+        inc_utility = numeric(),
+        ICER        = numeric(),
+        TP          = numeric(),
+        FP          = numeric(),
+        FN          = numeric(),
+        TN          = numeric(),
+        mced_cost   = numeric(),
+        Deaths_averted = numeric(),
+        col         = character()
+      ))
+      
+      updateSelectInput(session, "spec_mode", selected = "all")
+      updateNumericInput(session, "spec_all_value", value = 0.98)
+    }
+  })
+  
+  observeEvent(input$add_new_run, {
+    updateTabItems(session, "main_menu", "model_params")  # assuming "model_params" is the tab ID
+  })
+  
+  #### sens #### 
+  # 2a) Render the noUiSliderInputs: one slider per cancer
+  output$sensitivity_ui <- renderUI({
+    req(input$selected_cancers)
+    sub_data <- sub_df()
+    grouped <- split(sub_data, sub_data$Cancer)
+    
+    stage_levels <- c("I", "II", "III", "IV")
+    stage_labels <- paste("Stage", stage_levels)
+    
+    # Build the header row
+    header_row <- fluidRow(
+      column(4, tags$b("")),
+      lapply(stage_labels, function(stage_label) {
+        column(2, tags$b(stage_label))
+      })
+    )
+    
+    # Build one row per cancer with 4 numericInputs
+    input_rows <- lapply(input$selected_cancers, function(cancer_name) {
+      df_cancer <- grouped[[cancer_name]]
+      if (is.null(df_cancer) || nrow(df_cancer) < length(stage_levels)) {
+        default_values <- rep(NA, length(stage_levels))  # or rep(0.7, 4)
+      } else {
+        df_cancer$Stage <- factor(df_cancer$Stage, levels = stage_levels)
+        df_cancer <- df_cancer[order(df_cancer$Stage), ]
+        default_values <- df_cancer$Sensitivity
+      }
+      
+      fluidRow(
+        column(4, tags$b(display_for[[cancer_name]] %||% cancer_name)),
+        lapply(seq_along(stage_levels), function(i) {
+          stage <- stage_levels[i]
+          value <- default_values[i]
+          column(
+            2,
+            numericInput(
+              inputId = paste0("sens_", make.names(cancer_name), "_stage_", stage),
+              label = NULL,
+              value = round(value, 2),
+              min   = 0,
+              max   = 1,
+              step  = 0.05,
+              width = "100%"
+            )
+          )
+        })
+      )
+    })
+    
+    tagList(
+      # tags$strong("Adjust Sensitivity by Stage"),
+      # tags$p("Each row represents a selected cancer type. Enter the test sensitivity for each stage."),
+      header_row,
+      tagList(input_rows),
+      uiOutput("sens_validation_msg")  # ← ADD THIS HERE
+    )
+  })
+  
+  output$sensitivity_or_placeholder <- renderUI({
+    div(
+      style = "height: 395px; overflow-y: auto; padding-right: 10px;",
+      if (is.null(input$selected_cancers) || length(input$selected_cancers) == 0) {
+        div(
+          style = "height: 100%; display: flex; align-items: center; justify-content: center; color: grey;",
+          h4("Select cancer types to begin adjusting sensitivity.")
+        )
+      } else {
+        uiOutput("sensitivity_ui")
+      }
+    )
+  })
+  
+  
+  # 2b) A reactive that collects the user’s slider values
+  
+  reactive_sens_values <- reactive({
+    req(input$selected_cancers)
+    
+    stage_levels <- c("I","II","III","IV")
+    sub <- sub_df()  # CSV defaults for selected cancers
+    
+    out_list <- lapply(input$selected_cancers, function(cn) {
+      df_cancer <- sub %>%
+        dplyr::filter(Cancer == cn) %>%
+        dplyr::mutate(Stage = factor(Stage, levels = stage_levels)) %>%
+        dplyr::arrange(Stage)
+      
+      stage_rows <- lapply(stage_levels, function(stage) {
+        input_id <- paste0("sens_", make.names(cn), "_stage_", stage)
+        v <- input[[input_id]]
+        
+        # Fallback to CSV default if control not mounted yet (NULL) or unparsable
+        if (is.null(v)) {
+          def <- df_cancer$Sensitivity[as.character(df_cancer$Stage) == stage]
+          if (length(def) == 0) def <- NA_real_
+          v <- def
+        }
+        
+        data.frame(
+          Cancer = cn,
+          Stage = stage,
+          Sensitivity = as.numeric(v),
+          stringsAsFactors = FALSE
+        )
+      })
+      
+      do.call(rbind, stage_rows)
+    })
+    
+    do.call(rbind, out_list)
+  })
+  
+  #####
+  
+  # validate_sens_order <- reactive({
+  #   df <- reactive_sens_values()
+  #   req(nrow(df) > 0)
+  #   
+  #   wide_df <- df %>%
+  #     tidyr::pivot_wider(names_from = Stage, values_from = Sensitivity)
+  #   
+  #   # Find which pair(s) violate monotonicity per cancer
+  #   pair_label <- function(r) {
+  #     fails <- character(0)
+  #     if (r[["I"]]   > r[["II"]])  fails <- c(fails, "I>II")
+  #     if (r[["II"]]  > r[["III"]]) fails <- c(fails, "II>III")
+  #     if (r[["III"]] > r[["IV"]])  fails <- c(fails, "III>IV")
+  #     paste(fails, collapse = " & ")
+  #   }
+  #   
+  #   # Build labels like "Breast (II>III)" for violators
+  #   labels <- apply(wide_df, 1, pair_label)
+  #   invalid_idx <- labels != ""
+  #   invalid_labels <- paste0(wide_df$Cancer[invalid_idx], " (", labels[invalid_idx], ")")
+  #   
+  #   if (length(invalid_labels) > 0) {
+  #     msg <- paste(
+  #       "Sensitivity must not decrease across stages. Check:",
+  #       paste(invalid_labels, collapse = ", ")
+  #     )
+  #     return(msg)
+  #   }
+  #   
+  #   NULL
+  # })
+  
+  validate_sens_order <- reactive({
+    df <- reactive_sens_values()
+    req(nrow(df) > 0)
+    
+    stage_levels <- c("I","II","III","IV")
+    
+    violations <- df %>%
+      dplyr::mutate(Stage = factor(Stage, levels = stage_levels)) %>%
+      dplyr::group_by(Cancer) %>%
+      dplyr::arrange(Stage, .by_group = TRUE) %>%
+      dplyr::mutate(next_val   = dplyr::lead(Sensitivity),
+                    next_stage = dplyr::lead(as.character(Stage))) %>%
+      dplyr::filter(!is.na(next_val) & Sensitivity > next_val) %>%
+      dplyr::summarise(issues = paste0(Stage, " > ", next_stage, collapse = ", "),
+                       .groups = "drop")
+    
+    if (nrow(violations) == 0) return(NULL)
+    
+    paste0(
+      "Sensitivity must not decrease across stages. Check: ",
+      paste0(violations$Cancer, " [", violations$issues, "]", collapse = "; ")
+    )
+  })
+  
+  
+  
+  output$sens_validation_msg <- renderUI({
+    msg <- validate_sens_order()
+    if (!is.null(msg)) {
+      div(style = "color: red; font-weight: bold;", msg)
+    }
+  })
+  
+  
+  # 2c) Display the table (wide or long) that changes as user adjusts sliders
+  output$sensitivity_table <- renderTable({
+    # get your long data
+    df_long <- reactive_sens_values() %>%
+      mutate(Stage = factor(
+        Stage,
+        levels = c("I","II","III","IV"),
+        labels = c("Stage I","Stage II","Stage III","Stage IV")
+      ))
+    
+    # pivot to wide
+    tidyr::pivot_wider(
+      df_long,
+      id_cols     = "Cancer",
+      names_from  = "Stage",
+      values_from = "Sensitivity"
+    )
+  })
+  
+  
+  
+  ### ------------------------------------------------------------
+  ### 1. Reactive data frame for just the selected cancers
+  ### ------------------------------------------------------------
+  spec_df <- reactive({
+    req(input$selected_cancers)
+    subset(specificity_data, Cancer %in% input$selected_cancers)
+  })
+  
+  output$specificity_ui <- renderUI({
+    df <- spec_df()
+    if (nrow(df) == 0) return(NULL)
+    
+    mode <- input$spec_mode
+    if (is.null(mode) || mode == "") {
+      return(tags$em("Please select how you want to set specificity."))
+    }
+    
+    if (mode == "all") {
+      # Render one input for all cancers
+      tagList(
+        tags$h5("Set a single specificity value for all selected cancers. Enter a value between 0 and 1."),
+        div(
+          numericInput(
+            inputId = "spec_all_value",
+            label = "Specificity for all selected cancers",
+            value = round(mean(df$Specificity, na.rm = TRUE), 3),
+            min = 0, max = 1, step = 0.005,
+            width = "100%"
+          ),
+          style = "height: 380px; display: flex; align-items; color: grey;"
+        )
+      )
+      
+    } else {
+      # Render table of inputs (existing behavior)
+      df$Cancer <- factor(df$Cancer, levels = input$selected_cancers)
+      df <- df[order(df$Cancer), ]
+      
+      tagList(
+        # tags$h5("Adjust Specificity by Cancer"),
+        tags$p("Each row represents a selected cancer type. Enter a value between 0 and 1."),
+        fluidRow(
+          column(7, tags$b("")),
+          column(5, tags$b("Specificity"))
+        ),
+        lapply(seq_len(nrow(df)), function(i) {
+          cancer_name <- df$Cancer[i]
+          init_val    <- df$Specificity[i]
+          fluidRow(
+            column(7, tags$b(display_for[[as.character(cancer_name)]] %||% as.character(cancer_name))),
+            column(5,
+                   numericInput(
+                     inputId = paste0("spec_", make.names(cancer_name)),
+                     label   = NULL,
+                     value   = round(init_val, 3),
+                     min     = 0,
+                     max     = 1,
+                     step    = 0.005,
+                     width   = "100%"
+                   )
+            )
+          )
+        })
+      )
+    }
+  })
+  
+  output$specificity_or_placeholder <- renderUI({
+    div(
+      style = "height: 380px; overflow-y: auto; padding-right: 10px;",
+      if (is.null(input$selected_cancers) || length(input$selected_cancers) == 0) {
+        div(
+          style = "height: 100%; display: flex; align-items: center; justify-content: center; color: grey;",
+          h4("Select cancer types to begin adjusting specificity.")
+        )
+      } else {
+        uiOutput("specificity_ui")
+      }
+    )
+  })
+  
+  
+  EPS <- 1e-6
+  SPEC_DEFAULT <- 0.98
+  
+  reactive_spec_values <- reactive({
+    sel <- input$selected_cancers
+    if (is.null(sel) || length(sel) == 0) return(NULL)
+    
+    mode <- input$spec_mode
+    if (is.null(mode) || mode == "") mode <- "all"
+    
+    if (mode == "all") {
+      v <- input$spec_all_value
+      if (is.null(v)) v <- SPEC_DEFAULT
+      v <- suppressWarnings(as.numeric(v))
+      if (is.na(v)) v <- SPEC_DEFAULT
+      v <- min(max(v, EPS), 1.0)
+      data.frame(Cancer = sel, Specificity = rep(v, length(sel)), stringsAsFactors = FALSE)
+    } else {
+      vals <- vapply(sel, function(cn) {
+        id  <- paste0("spec_", make.names(cn))
+        val <- input[[id]]
+        if (is.null(val)) val <- SPEC_DEFAULT
+        val <- suppressWarnings(as.numeric(val))
+        if (is.na(val)) val <- SPEC_DEFAULT
+        min(max(val, EPS), 1.0)
+      }, numeric(1))
+      data.frame(Cancer = sel, Specificity = vals, stringsAsFactors = FALSE)
+    }
+  })
+  
+  # 4) Render a real-time table of the slider values
+  output$specificity_table <- renderTable({
+    vals <- reactive_spec_values()
+    if (is.null(vals) || nrow(vals) == 0) return(NULL)
+    vals
+  })
+  
+  output$fp_track_slider_ui <- renderUI({
+    req(input$selected_cancers)
+    
+    max_k <- length(input$selected_cancers)
+    
+    # Set a sensible default (e.g., min of 2 or max_k)
+    default_val <- min(3, max_k)
+    
+    sliderInput(
+      "fp_track_num", 
+      HTML("Max FPs to follow up per person (k)<br/><small style='color:#666;'>Limited by number of selected cancers</small>"),
+      min = 0, 
+      max = max_k, 
+      value = default_val, 
+      step = 1
+    )
+  })
+  
+  
+  # 1) Reactive for updated user parameters
+  
+  updated_params <- reactive({
+    params <- input_params
+    
+    params$len_cancer_list <- length(input$selected_cancers)
+    params$mced_start_cycle <- input$mced_age_range[1] - 39
+    params$mced_end_cycle   <- input$mced_age_range[2] - 39
+    params$mced_compliance_rate <- input$mced_compliance_percent / 100
+    params$mced_test_cost <- input$mced_test_cost
+    params$mced_secondary_test_cost <- input$mced_secondary_test_cost
+    params$mced_fp_compliance <- input$u_mced_fp_compliance / 100
+    params$invasive_multi <- input$u_invasive_multi / 100
+    
+    # Add fp_track_num with a safe default if not yet available
+    params$fp_track_num <- if (!is.null(input$fp_track_num)) {
+      input$fp_track_num
+    } else {
+      min(1, params$len_cancer_list)  # default fallback
+    }
+    
+    params$two_step <- FALSE
+    params$overall_sens <- NULL
+    params$overall_specificity <- NULL
+    params$ss_scenario     <- as.integer(input$ss_scenario %||% "3")
+    params$survival_method <- input$survival_method %||% "floor_max"
+    
+    params
+  })
+  
+  data_loaded <- load_data(updated_params, def_param_list, run_type = "shiny")
+  
+  # Reactive value to store the final ICER result
+  final_icer_reactive <- reactiveVal(NULL)
+  final_results_reactive <- reactiveVal(NULL)
+  model_runs <- reactiveValues(all_runs = list())
+  mced_matrix_reactive <- reactiveVal(NULL)
+  usual_matrix_reactive <- reactiveVal(NULL)
+  sankey_df_reactive <- reactiveVal(NULL)
+  overall_summary <- reactiveVal(NULL)
+  
+  RUN_PALETTE  <- scales::hue_pal()(10)
+  get_run_col  <- function(id) RUN_PALETTE[(id-1) %% length(RUN_PALETTE) + 1]
+  
+  
+  runs_df <- reactiveVal(
+    tibble::tibble(
+      run_id      = integer(),
+      run_label = character(),
+      inc_cost    = numeric(),
+      inc_utility = numeric(),
+      ICER        = numeric(),
+      TP          = numeric(),
+      FP          = numeric(),
+      FN          = numeric(),
+      TN          = numeric(),
+      mced_cost   = numeric(),
+      Deaths_averted = numeric(),
+      col         = character()
+    )
+  )
+  
+  # 1. Cancers selected
+  cancers_selected <- reactive({
+    !is.null(input$selected_cancers) && length(input$selected_cancers) > 0
+  })
+  
+  
+  # ---- STATE MACHINES ----
+  cancers_selected <- reactive({
+    !is.null(input$selected_cancers) && length(input$selected_cancers) > 0
+  })
+  
+  cancers_state <- reactive({
+    if (!cancers_selected()) return("missing")
+    "ok"
+  })
+  
+  COST_DEFAULT <- 500
+  
+  cost_state <- reactive({
+    if (!cancers_selected()) return("missing")
+    
+    # numericInput should be numeric, but be defensive:
+    v <- input$mced_test_cost
+    if (is.null(v)) return("default")           # control not mounted yet → treat as default
+    v_num <- suppressWarnings(as.numeric(v))    # coerce if something odd happens
+    if (is.na(v_num)) return("default")         # bad parse → treat as default
+    
+    if (isTRUE(all.equal(v_num, COST_DEFAULT))) "default" else "ok"
+  })
+  
+  sens_state <- reactive({
+    if (!cancers_selected()) return("missing")
+    visited <- identical(input$acc_tabs, "Sensitivity") || sens_tab_visited()
+    if (!visited) return("default")
+    if (!is.null(validate_sens_order())) return("invalid")
+    
+    cur <- reactive_sens_values()
+    base <- sub_df() |>
+      dplyr::mutate(Stage = factor(Stage, levels = c("I","II","III","IV"))) |>
+      dplyr::arrange(Cancer, Stage) |>
+      dplyr::pull(Sensitivity)
+    curv <- cur |>
+      dplyr::mutate(Stage = factor(Stage, levels = c("I","II","III","IV"))) |>
+      dplyr::arrange(Cancer, Stage) |>
+      dplyr::pull(Sensitivity)
+    
+    if (length(base) == length(curv) && isTRUE(all.equal(base, curv))) "default" else "ok"
+  })
+  
+  spec_state <- reactive({
+    sel <- input$selected_cancers
+    if (is.null(sel) || length(sel) == 0) return("missing")
+    
+    df <- reactive_spec_values()
+    if (is.null(df)) return("default")
+    if (any(is.na(df$Specificity))) return("missing")
+    if (any(df$Specificity <= EPS | df$Specificity > 1)) return("invalid")
+    if (any(abs(df$Specificity - SPEC_DEFAULT) > 1e-9)) "ok" else "default"
+  })
+  
+  
+  
+  output$checklist_ui <- renderUI({
+    req(cancers_selected())
+    div(
+      p(tags$b("Model Checklist")),
+      tags$ul(style="padding-left:16px;",
+              tags$li(HTML(paste0("Cancer types ", state_label(cancers_state())))),
+              tags$li(HTML(paste0("Test cost ",   state_label(cost_state()))),
+                      if (cost_state()=="default") div(class="helper","Using default $500 (change in 2a: Cost).")),
+              tags$li(HTML(paste0("Sensitivity ", state_label(sens_state()))),
+                      if (sens_state()=="default") div(class="helper","Using CSV defaults (edit under Accuracy ▸ Sensitivity)."),
+                      if (sens_state()=="invalid") div(class="helper","Must be non-decreasing from Stage I to IV.")),
+              tags$li(HTML(paste0("Specificity ", state_label(spec_state()))),
+                      if (spec_state()=="default") div(class="helper","Using 0.98 for all cancers (edit under Accuracy ▸ Specificity)."))
+      )
+    )
+  })
+  
+  
+  
+  output$run_model_ui <- renderUI({
+    req(cancers_selected())
+    box(
+      title = "Run the model",
+      width = NULL,
+      textInput("run_label", "Optional: Name this run",
+                value = "", placeholder = "e.g. low_sensitivity"),
+      actionButton("run_model", "Run the model",
+                   icon = icon("wand-sparkles"), class = "btn-success"),
+      br(), br(),
+      actionButton("trigger_clear_runs", "Clear All Runs",
+                   icon = icon("trash-alt"),
+                   style = "color:white; background-color:#8B0000")
+    )
+  })
+  
+  validate_before_run <- function() {
+    errs <- character(0)
+    
+    # 1) Must have at least one cancer
+    if (!cancers_selected()) {
+      errs <- c(errs, "Select at least one cancer.")
+    }
+    
+    # 2) Sensitivity monotonic & within [0,1]
+    sens_msg <- validate_sens_order()
+    if (!is.null(sens_msg)) errs <- c(errs, sens_msg)
+    
+    sens_df <- tryCatch(reactive_sens_values(), error = function(e) NULL)
+    if (is.null(sens_df) || any(is.na(sens_df$Sensitivity))) {
+      errs <- c(errs, "Sensitivity has missing values.")
+    } else {
+      if (any(sens_df$Sensitivity < 0 | sens_df$Sensitivity > 1, na.rm = TRUE)) {
+        errs <- c(errs, "Sensitivity must be between 0 and 1.")
+      }
+    }
+    
+    # 3) Specificity present and in (EPS, 1]
+    spec_df_now <- reactive_spec_values()
+    if (is.null(spec_df_now) || any(is.na(spec_df_now$Specificity))) {
+      errs <- c(errs, "Specificity has missing values.")
+    } else if (any(spec_df_now$Specificity <= EPS | spec_df_now$Specificity > 1)) {
+      errs <- c(errs, sprintf("Specificity must be > %.6f and ≤ 1.0.", EPS))
+    }
+    
+    # 4) Cost sanity
+    cost <- suppressWarnings(as.numeric(input$mced_test_cost))
+    if (is.na(cost) || cost < 0) {
+      errs <- c(errs, "MCD test cost must be a number ≥ 0.")
+    }
+    
+    k <- input$fp_track_num
+    max_k <- length(input$selected_cancers)
+    if (is.null(k) || is.na(k) || k < 0 || k > max_k) {
+      errs <- c(errs, sprintf("Max FPs to follow up must be between 0 and %d (number of selected cancers).", max_k))
+    }
+    
+    errs
+  }
+  
+  
+  observeEvent(input$run_model, {
+    
+    errs <- validate_before_run()
+    if (length(errs) > 0) {
+      showModal(modalDialog(
+        title = "Please fix these before running",
+        tags$ul(lapply(errs, tags$li)),
+        easyClose = TRUE
+      ))
+      return()
+    }
+    
+    # if (!is.null(validate_sens_order())) {
+    #   showModal(modalDialog(
+    #     title = "Validation Error",
+    #     paste(validate_sens_order()),
+    #     easyClose = TRUE
+    #   ))
+    #   return()              # no spinner yet, safe to exit
+    # }
+    
+    # 2. Everything is OK → show spinner ----
+    shinybusy::show_modal_spinner(
+      text = "Calculating results...",
+      color = "#8B0000",
+      spin  = "fading-circle"
+    )
+    
+    # -- All your existing code that runs the model --
+    sensitivity_results <- process_sensitivity(
+      cancer_list      = input$selected_cancers,
+      sensitivity_long = reactive_sens_values(),
+      seer_draw        = data_loaded$seer_draw,
+      xStage           = def_param_list$xStage,
+      active_slip      = updated_params()$active_slip,
+      dwell_model_df   = data_loaded$dwell_model_all_cancers
+    )
+    sensitivity_matrix <- sensitivity_results$Values
+    
+    all_results <- run_usual_model(
+      cancer_list       = input$selected_cancers,
+      data_list         = data_loaded,
+      def_param_list    = def_param_list,
+      input_params      = updated_params(),
+      sensitivity_long  = reactive_sens_values(),
+      specificity_data  = reactive_spec_values(),
+      Values            = sensitivity_matrix,
+      cancer_types_overall = cancer_types_overall
+    )
+    
+    final_result_list     <- all_results$final_result_list
+    mced_incident_matrix  <- all_results$mced_incident_matrix
+    usual_incident_matrix <- all_results$incident_matrix_trimmed
+    overall_summary <- all_results$overall_summary
+    sankey_data <- all_results$sankey_df_all
+    final_screen_df_stage <- all_results$final_screen_df_stage
+    
+    # Keep only the last 10 runs
+    if (length(model_runs$all_runs) >= 10) {
+      model_runs$all_runs[[1]] <- NULL
+    }
+    
+    
+    
+    run_no <- length(model_runs$all_runs) + 1
+    
+    entered_label <- trimws(input$run_label)
+    
+    run_label <- if (!is.null(entered_label) && entered_label != "") {
+      paste0(run_no, "_", entered_label)
+    } else {
+      paste0("Run_", run_no)
+    }
+    
+    # Create a run info object
+    run_info <- list(
+      final_result_list     = final_result_list,
+      mced_incident_matrix  = mced_incident_matrix,
+      usual_incident_matrix = usual_incident_matrix,
+      run_selected_cancers  = input$selected_cancers,
+      sankey_data           = sankey_data,
+      overall_summary       = overall_summary,
+      final_screen_df_stage = final_screen_df_stage,
+      run_label             = run_label,
+      mced_test_cost        = updated_params()$mced_test_cost,
+      sensitivity_df        = reactive_sens_values(),
+      specificity_df        = reactive_spec_values(),
+      ss_scenario           = updated_params()$ss_scenario,                                   # 1/3/5/7
+      ss_scenario_label     = names(ss_choices)[match(input$ss_scenario %||% "1", ss_choices)],
+      survival_method       = input$survival_method %||% "floor_max",                         # "floor_max" etc.
+      survival_method_label = unname(survival_labels[input$survival_method %||% "floor_max"])
+    )
+    
+    
+    # Store it
+    model_runs$all_runs[[length(model_runs$all_runs) + 1]] <- run_info
+    
+    # Extract the new point’s cost/utility/ICER from this run
+    icer_df     <- final_result_list$Overall$final_icer_result
+    inc_cost    <- icer_df$Value[icer_df$Variable == "Incremental_Cost"]
+    inc_utility <- icer_df$Value[icer_df$Variable == "Incremental_Utility"]
+    icer_value  <- icer_df$Value[icer_df$Variable == "ICER"]
+    
+    # Example: store it in your reactive, if needed
+    Final_icer <- final_result_list$Overall$final_icer_result
+    final_icer_reactive(Final_icer)
+    final_results_reactive(final_result_list)
+    sankey_df_reactive(sankey_data)
+    overall_summary(overall_summary)
+    
+    
+    
+    # Build text for the tooltip
+    hover_text <- paste0(
+      "Run: ", length(model_runs$all_runs),
+      "<br>Incremental Cost: ", round(inc_cost, digits = 0),
+      "<br>Incremental Utility: ", round(inc_utility, digits = 0),
+      "<br>ICER: ", round(icer_value, digits = 0)
+    )
+    
+    # Pull TP / FP / MCD cost the same way you already do
+    df_mced <- collect_overall_summaries(final_result_list) |>
+      dplyr::filter(Arm == "MCED")
+    get_val <- function(m) sum(df_mced$Value[df_mced$Metric %in% m], na.rm = TRUE)
+    
+    TP <- get_val(c("TP", "Total_overdiagnosed"))
+    FP <- get_val("fp_counts")
+    TN <- get_val("True_TN")
+    FN <- get_val("FN")
+    Deaths_averted <- sum(overall_summary$Value[overall_summary$Variable == "Cancer_deaths_averted"], na.rm = TRUE)
+    
+    mced_cost <- icer_df$Value[icer_df$Variable == "mced_cost"]
+    
+    # Append
+    runs_df(
+      dplyr::bind_rows(
+        runs_df(),
+        tibble::tibble(
+          run_id      = run_no,
+          run_label   = run_label,
+          inc_cost    = inc_cost,
+          inc_utility = inc_utility,
+          ICER  = icer_value,
+          icer_value = icer_value,
+          TP          = TP,
+          FP          = FP,
+          FN          = FN,
+          TN          = TN,
+          mced_cost   = mced_cost,
+          Deaths_averted = Deaths_averted,
+          col         = get_run_col(run_no)
+        )
+      )
+    )
+    shinybusy::remove_modal_spinner()
+    
+    # Switch to Results tab
+    updateTabItems(session, "main_menu", selected = "results")
+    
+    # Switch to the latest run tab inside run_tabbox
+    run_no <- length(model_runs$all_runs)
+    run_tab_id <- paste0("run_tabbox-tab-", run_no)
+    session$sendCustomMessage(type = "activateTab", message = list(id = run_tab_id))
+  })
+  
+  
+  # ------------------------------------------------------------------
+  # 4.  Render the CE plane (all runs every time)
+  # ------------------------------------------------------------------
+  
+  output$ce_plotly <- renderPlotly({
+    df <- runs_df()
+    if (nrow(df) == 0) return(plotly_empty(type = "scatter", mode = "markers"))
+    wtp_input <- input$wtp_threshold
+    wtp <- as.numeric(input$wtp_threshold)
+    df <- df %>%
+      mutate(inc_cost_millions = inc_cost / 1e6)
+    
+    # Determine the x range to draw the WTP line
+    x_max <- max(df$inc_utility, na.rm = TRUE) * 1.1
+    x_vals <- c(-x_max, x_max)
+    y_vals <- (x_vals * (wtp) / 1e6)  # convert to millions for y-axis
+    
+    plot_ly(df) %>%
+      add_trace(
+        x = ~inc_utility,
+        y = ~inc_cost_millions,
+        type = "scatter",
+        mode = "markers",
+        split = ~run_label,
+        color = ~I(col),
+        marker = list(size = 10, opacity = 0.8),
+        text   = ~paste0(
+          "Label: ", run_label,
+          "<br>ΔCost: ", scales::comma(round(inc_cost_millions,2)), "M",
+          "<br>ΔQALY: ", scales::comma(round(inc_utility)),
+          "<br>ICER: ", scales::comma(round(inc_cost/inc_utility))
+        ),
+        hoverinfo = "text"
+      ) %>%
+      add_trace(
+        x = x_vals,
+        y = y_vals,
+        type = "scatter",
+        mode = "lines",
+        line = list(dash = "dash", width = 2, color = "black"),
+        name = paste0("WTP Line ($", format(as.numeric(wtp_input), scientific = FALSE, big.mark = ","), "/QALY)")
+      ) %>%
+      layout(
+        title = "Cost-Effectiveness Plane",
+        xaxis = list(title = "Incremental Utility (QALYs)", tickformat = ".0f"),
+        yaxis = list(title = "Incremental Cost (Millions, $USD)", tickformat = "$,.0f"),
+        legend = list(
+          orientation = "h",
+          x = 0.5,
+          y = -0.4,
+          xanchor = "center"
+        )
+      )
+  })
+  
+  
+  
+  # ------------------------------------------------------------------
+  # 5.  Render the bubble plot (same colours)
+  # ------------------------------------------------------------------
+  output$bubble_plotly <- renderPlotly({
+    df <- runs_df(); if (nrow(df) == 0) return(plotly_empty(type = "scatter", mode = "markers"))
+    
+    # Scale MCD cost to billions
+    df <- df %>%
+      dplyr::mutate(mced_cost_billions = mced_cost / 1e9)
+    
+    # Calculate sizeref for consistent bubble sizing
+    desired_max_px  <- 40                    # e.g. let the **largest** cost get 40 px
+    sizeref_static <- 2 * (max(df$mced_cost_billions)*1.5) / desired_max_px^2
+    
+    # Base plot with actual data
+    p <- plot_ly(
+      data   = df,
+      x      = ~FP,
+      y      = ~TP,
+      type   = "scatter",
+      mode   = "markers",
+      split  = ~run_label,
+      color  = ~I(col),
+      marker = list(
+        size     = ~mced_cost_billions,
+        sizemode = "area",
+        sizeref  = sizeref_static,
+        sizemax  = 40,
+        sizemin  = 4,
+        opacity  = 0.6
+      ),
+      text = ~paste0(
+        "Run ", run_label,
+        "<br>TP: ", scales::comma(round(TP)),
+        "<br>FP: ", scales::comma(round(FP)),
+        "<br>MCD cost: $", scales::comma(round(mced_cost_billions, 0)), "B"
+      ),
+      hoverinfo = "text"
+    )
+    
+    # Add manual size reference "legend" bubbles off to the side
+    
+    
+    # Add manual size reference "legend" bubbles off to the side
+    size_labels <- c(500, 1000, 2500)
+    
+    
+    
+    # Invisible dummy point to avoid warnings
+    p <- add_trace(p,
+                   x = 0, y = 0,
+                   type = "scatter", mode = "markers",
+                   marker = list(size = 0, color = "rgba(0,0,0,0)"),
+                   showlegend = FALSE, hoverinfo = "none"
+    )
+    
+    # Layout
+    p %>% layout(
+      title = "True Positives vs. False Positives",
+      xaxis = list(title = "Number of False Positives", tickformat = ".0f"),
+      yaxis = list(title = "Number of True Positives", tickformat = ".0f"),
+      legend = list(title = list(text = "Run ID and Cost Scale"))
+    )
+  })
+  
+  
+  output$dynamic_runs_tabbox_ui <- renderUI({
+    # If no runs, you could display a message or return NULL
+    if (length(model_runs$all_runs) == 0) {
+      return(
+        tags$p("No model runs yet. Click 'Run Model' to generate results.")
+      )
+    }
+    
+    
+    
+    
+    # 1) Generate a list of tabPanels, one per run
+    tabs <- lapply(seq_along(model_runs$all_runs), function(i) {
+      # run_name <- paste("Run", i)
+      run_info <- model_runs$all_runs[[i]]
+      
+      params_id <- paste0("param_params_table_", i)
+      
+      tabPanel(
+        title = run_info$run_label,
+        div(
+          style = "height: calc(100vh - 20px); overflow-y: auto; padding-right: 10px;",
+          
+          shinydashboard::box(
+            title = "MCD Parameter Log",
+            width = 12, collapsible = TRUE, collapsed = TRUE,
+            h4(paste("Parameters —", run_info$run_label)),
+            DT::DTOutput(params_id),  # ← single merged table
+            p(strong("MCD Test Cost:"), paste0(" $", format(run_info$mced_test_cost, big.mark = ","))),
+            p(strong("Dwell-time scenario:"), run_info$ss_scenario_label),
+            p(strong("Survival handling:"),   run_info$survival_method_label)
+          ),
+          
+          fluidRow(
+            shinydashboard::box(
+              width = 12,
+              uiOutput(paste0("run_plot_stage_shift_", i)),
+              uiOutput(paste0("run_sankey_ui_", i))),
+            shinydashboard::box(
+              width = 12,
+              title = tagList(
+                "Cancer Cases Stage Distribution",
+                tags$span(
+                  icon("info-circle"),
+                  `data-toggle` = "tooltip",
+                  title = "Shows cancer stage distributions at diagnosis under MCD and usual care arms."
+                )
+              ),
+              plotlyOutput(paste0("run_plot_", i), height = "450px")
+            ),
+            shinydashboard::box(
+              title = "Cancer Cases Stage Shift",
+              width = 12,
+              plotlyOutput(paste0("run_sankey_plot_", i), height = "400px")
+            )
+          ),
+          shinydashboard::box(
+            title = tagList(
+              "MCD Cancer Cases – Compliance & Stage Breakdown",
+              tags$span(
+                icon("info-circle"),
+                `data-toggle` = "tooltip",
+                title = paste(
+                  "This sunburst visualization breaks down all cancer cases detected in the MCD arm.",
+                  "The first ring shows individual cancer types.",
+                  "Each cancer splits into those who were MCD-compliant or not.",
+                  "Compliant cases are further divided into True Positives (TP) and False Negatives (FN) based on the result of the MCD.",
+                  "Non-compliant individuals are split into those who were later diagnosed via usual care or incidentally.",
+                  "Each diagnostic path then branches into stage at diagnosis (I–IV).",
+                  "This allows you to trace how compliance and test performance shape stage-specific outcomes."
+                )
+              )
+            ),
+            status = "success",
+            width = 12,
+            height = "500px",
+            plotlyOutput(paste0("mced_sunburst_", i), height = "450px")
+          ),
+          fluidRow(
+            box(
+              status = "success",
+              width = 12,
+              title = tagList(
+                "Mode of Detection for Cancer Cases",
+                tags$span(
+                  icon("info-circle"),
+                  `data-toggle` = "tooltip",
+                  title = paste(
+                    "This bar graph represents the number of cases diagnosed by each mode of detection in the MCD + UC strategy and how it compared to UC alone."
+                  )
+                )
+              ),
+              tagList(
+                uiOutput(paste0("case_plot_controls_", i)),
+                plotlyOutput(paste0("case_category_plot_", i), height = "400px"),
+                
+                tags$div(
+                  style = "margin-top: 10px; padding: 10px 12px; background: #f7f7f7; border: 1px solid #ddd; border-radius: 6px; font-size: 13px;",
+                  tags$b("Definitions:"),
+                  tags$ul(
+                    style = "margin: 6px 0 0 18px;",
+                    tags$li(tags$b("TP"), " = True-Positive"),
+                    tags$li(tags$b("FN"), " = False-Negative"),
+                    tags$li(tags$b("Not compliant to MCD"), " = Did not take MCD test"),
+                    tags$li(tags$b("Usual Care"), " = Usual Care arm only (no MCD test administered)")
+                  )
+                )
+              )
+            )
+          ),
+          fluidRow(
+            box(
+              title = "General Population Summary",
+              width = 12,
+              status = "primary",
+              solidHeader = TRUE,
+              selectInput(
+                inputId = paste0("pathway_cancer_", i),
+                label = "Select Cancer:",
+                choices = c("Overall", run_info$run_selected_cancers),
+                selected = "Overall"
+              ),
+              fluidRow(
+                uiOutput(paste0("pathway_plot_downstream_", i))
+              )
+            )
+          ),
+          fluidRow(
+            box(
+              title = "Cost Breakdown by Category",
+              width = 12,
+              status = "info",
+              solidHeader = TRUE,
+              selectInput(
+                inputId = paste0("cost_cancer_select_", i),
+                label = "Select Cancer:",
+                choices = c("All Cancers", run_info$run_selected_cancers),
+                selected = "All Cancers"
+              ),
+              selectInput(
+                inputId = paste0("cost_group_select_", i),
+                label = "Select Group:",
+                choices = c("Cancer", "Healthy", "Overall"),
+                selected = "Overall"
+              ),
+              # Wrap the plot and note in a tagList
+              tagList(
+                plotlyOutput(paste0("summary_cost_plot_", i), height = "400px"),
+                uiOutput(paste0("test_cost_note_", i))  # dynamic footnote placeholder
+              )
+            )
+          ),
+          fluidRow(
+            box(
+              title = "Over-diagnosed Cases vs Cancer Deaths Averted",
+              width = 12,
+              status = "warning",
+              solidHeader = TRUE,
+              uiOutput(paste0("overdx_plot_controls_", i)),
+              plotlyOutput(paste0("overdx_plot_", i), height = "400px")
+            )
+          )
+        )
+      )
+    })
+    
+    tagList(
+      do.call(tabBox, c(list(id = "run_tabbox", width = 12), tabs))
+    )
+    
+    
+  })
+  
+  
+  # Fixed stage order
+  my_stage_order <- c("I", "II", "III", "IV")
+  
+  # Left side = Usual, Right side = MCD
+  left_nodes  <- paste("Usual:", my_stage_order)  # "Usual: I", ...
+  right_nodes <- paste("MCD:", my_stage_order)
+  
+  ordered_labels <- c(left_nodes, right_nodes)  # 8 labels total
+  
+  # 0-based indices, e.g. "Usual: I" -> 0, "Usual: II" -> 1, ...
+  label2idx <- setNames(seq_along(ordered_labels) - 1, ordered_labels)
+  
+  # Optional: fix node (x,y) positions so the vertical order is guaranteed
+  node_x <- c(rep(0.0001, 4), rep(0.999, 4))  # 4 left at x=0, 4 right at x=1
+  node_y <- c(0.0001, 0.333, 0.666, 0.999, 0.0001, 0.333, 0.666, 0.999)
+  
+  observeEvent(model_runs$all_runs, {
+    for (i in seq_along(model_runs$all_runs)) {
+      local({
+        run_index <- i
+        run_data  <- model_runs$all_runs[[run_index]]
+        
+        params_id <- paste0("param_params_table_", run_index)
+        
+        # Build merged table: Cancer | Specificity | Stage I..IV
+        output[[params_id]] <- DT::renderDT({
+          req(run_data$sensitivity_df, run_data$specificity_df)
+          
+          # Wide sensitivities per cancer
+          sens_wide <- run_data$sensitivity_df |>
+            tidyr::pivot_wider(
+              names_from  = Stage,
+              values_from = Sensitivity
+            )
+          
+          # Specificity (one per cancer)
+          spec_df <- run_data$specificity_df |>
+            dplyr::select(Cancer, Specificity) |>
+            dplyr::distinct()
+          
+          merged <- sens_wide |>
+            dplyr::left_join(spec_df, by = "Cancer") |>
+            # order columns: Cancer, Specificity, I, II, III, IV
+            dplyr::relocate(Specificity, .after = Cancer) |>
+            # nice rounding
+            dplyr::mutate(dplyr::across(where(is.numeric), ~ round(., 3))) |>
+            # keep user’s selection order if you like
+            dplyr::arrange(match(Cancer, run_data$run_selected_cancers))
+          
+          # Rename columns for clarity
+          colnames(merged) <- sub("^I$", "Stage I", colnames(merged))
+          colnames(merged) <- sub("^II$", "Stage II", colnames(merged))
+          colnames(merged) <- sub("^III$", "Stage III", colnames(merged))
+          colnames(merged) <- sub("^IV$", "Stage IV", colnames(merged))
+          names(merged)[names(merged) == "Specificity"] <- "Specificity (0–1)"
+          
+          DT::datatable(
+            merged,
+            rownames = FALSE,
+            options = list(
+              dom = 't',
+              ordering = FALSE,
+              pageLength = 100,
+              scrollX = TRUE
+            )
+          ) |>
+            # Visually distinguish the Specificity column
+            DT::formatStyle(
+              "Specificity (0–1)",
+              backgroundColor = "#f0f7ff",
+              fontWeight = "bold"
+            )
+        })
+        
+        output[[paste0("run_plot_", run_index)]] <- renderPlotly({
+          req(run_data$mced_incident_matrix, run_data$usual_incident_matrix)
+          
+          # 1) Get the dropdown selection
+          selected <- input[[paste0("sankey_select_", run_index)]]
+          req(selected)
+          
+          # 2) Build the raw data frame (no filtering yet)
+          df_mced  <- sum_by_stage_cancer(run_data$mced_incident_matrix, def_param_list$xStage)
+          df_mced$Arm <- "MCD + UC"
+          df_usual <- sum_by_stage_cancer(run_data$usual_incident_matrix, def_param_list$xStage)
+          df_usual$Arm <- "Usual"
+          df_plot  <- rbind(df_mced, df_usual)
+          
+          # 3) Filter or aggregate based on "selected"
+          if (!identical(selected, "All Cancers")) {
+            df_plot <- dplyr::filter(df_plot, Cancer == selected)
+          } else {
+            # Summarize across all cancers by Stage and Arm
+            df_plot <- df_plot %>%
+              dplyr::group_by(Stage, Arm) %>%
+              dplyr::summarize(Cases = sum(Cases), .groups = "drop")
+          }
+          
+          # 4) Ensure Stage is a factor in the correct order
+          df_plot$Stage <- factor(df_plot$Stage, levels = c("I", "II", "III", "IV"))
+          
+          # 5) Choose fill colors for the four stages
+          if (identical(selected, "All Cancers")) {
+            fill_colors <- c("#FFB9AA", "#D47C6A", "#802815", "#550F00")
+          } else {
+            fill_colors <- new_cancer_palettes[[selected]]
+          }
+          
+          # 6) Build the ggplot: fill by Stage
+          df_plot$Arm <- factor(df_plot$Arm, levels = c("Usual", "MCD + UC"))
+          
+          # then facet_wrap(~ Arm) will put “Usual” on the left and “MCD + UC” on the right
+          p <- ggplot(df_plot, aes(
+            x = Stage,
+            y = Cases,
+            fill = Stage,
+            text = paste0(
+              "Stage: ", Stage,
+              "\nCases: ", round(Cases, 0),
+              if (!identical(selected, "All Cancers")) paste0("\nCancer: ", selected) else ""
+            )
+          )) +
+            geom_col(position = "stack") +
+            facet_wrap(~ Arm) +
+            xlab("Stage") +
+            ylab("Number of Cases") +
+            scale_fill_manual(
+              values = setNames(fill_colors, c("I", "II", "III", "IV"))
+            ) +
+            theme_minimal(base_size = 10) +
+            theme(legend.position = "bottom")
+          
+          # 7) Convert to Plotly with tooltips and legend under plot
+          ggplotly(p, tooltip = "text") %>%
+            layout(
+              legend = list(
+                orientation = "h",
+                x = 0.5,
+                xanchor = "center",
+                y = -0.2
+              ),
+              margin = list(b = 80)
+            )
+        })
+        
+        
+        output[[paste0("run_sankey_ui_", run_index)]] <- renderUI({
+          req(run_data$run_selected_cancers)
+          
+          # Build the dropdown: "All Cancers" + specific cancers
+          selectInput(
+            inputId = paste0("sankey_select_", run_index),
+            label   = "Select Cancer (or All Cancers):",
+            choices = c("All Cancers", run_data$run_selected_cancers),
+            selected = "All Cancers"
+          )
+        })
+        
+        output[[paste0("run_sankey_plot_", run_index)]] <- renderPlotly({
+          req(run_data$sankey_data)                 # wait for data
+          sel_id   <- paste0("sankey_select_", run_index)
+          req(input[[sel_id]])                     # <- wait for the input
+          selected <- input[[sel_id]]
+          
+          # 1) Build df_link as before …
+          if (identical(selected, "All Cancers")) {
+            df_link <- run_data$sankey_data %>%
+              group_by(source_stage, target_stage) %>%
+              summarize(n_cases = sum(n_cases), .groups = "drop")
+          } else {
+            df_link <- run_data$sankey_data %>%
+              filter(cancer_type %in% selected) %>%
+              group_by(source_stage, target_stage) %>%
+              summarize(n_cases = sum(n_cases), .groups = "drop")
+          }
+          
+          # 2) Build the node‐label indices
+          my_stage_order <- c("I", "II", "III", "IV")
+          left_nodes  <- paste("Usual Care:", my_stage_order)
+          right_nodes <- paste("MCD + UC:", my_stage_order)
+          ordered_labels <- c(left_nodes, right_nodes)
+          label2idx <- setNames(seq_along(ordered_labels) - 1, ordered_labels)
+          
+          df_link <- df_link %>%
+            mutate(
+              left_label  = paste("Usual Care:", source_stage),
+              right_label = paste("MCD + UC:", target_stage),
+              IDsource = label2idx[left_label],
+              IDtarget = label2idx[right_label]
+            )
+          
+          # 3) Choose node colors from new_cancer_palettes
+          if (identical(selected, "All Cancers")) {
+            # Example: give all 8 nodes a neutral grey if "All Cancers"
+            node_colors <- c("#FFB9AA", "#D47C6A", "#802815", "#550F00",
+                             "#FFB9AA", "#D47C6A", "#802815", "#550F00")
+          } else {
+            # Pull the 4‐color vector for this cancer, then repeat it
+            pal4 <- new_cancer_palettes[[selected]]
+            node_colors <- c(pal4, pal4)
+          }
+          # 4) Sankey plot with dynamic node_colors
+          plot_ly(
+            type = "sankey",
+            arrangement = "snap",
+            node = list(
+              label     = ordered_labels,
+              pad       = 10,
+              thickness = 15,
+              x         = c(rep(0.0001, 4), rep(0.999, 4)),
+              y         = c(0.0001, 0.333, 0.666, 0.999, 0.0001, 0.333, 0.666, 0.999),
+              color     = node_colors
+            ),
+            link = list(
+              source = df_link$IDsource,
+              target = df_link$IDtarget,
+              value  = df_link$n_cases
+            )
+          )
+        })
+        
+        
+        output[[paste0("takehome_msg_", run_index)]] <- renderUI({
+          req(run_data$final_result_list)
+          
+          icer_df <- run_data$final_result_list$Overall$final_icer_result
+          
+          inc_cost    <- icer_df$Value[icer_df$Variable == "Incremental_Cost"]
+          inc_utility <- icer_df$Value[icer_df$Variable == "Incremental_Utility"]
+          icer_value  <- icer_df$Value[icer_df$Variable == "ICER"]
+          no_cancers  <- length(run_data$run_selected_cancers)
+          
+          is_ce <- (icer_value <= 100000) && (inc_utility > 0)
+          border_class <- if (is_ce) "takehome-box-ce" else "takehome-box-notce"
+          
+          cost_phrase <- if (inc_cost >= 0) {
+            paste0("an additional cost of <b>$", scales::comma(round(inc_cost)), "</b>")
+          } else {
+            paste0("a cost savings of <b>$", scales::comma(abs(round(inc_cost))), "</b>")
+          }
+          
+          utility_phrase <- if (inc_utility >= 0) {
+            paste0("a gain of <b>", round(inc_utility, 1), " QALYs</b>")
+          } else {
+            paste0("a loss of <b>", abs(round(inc_utility, 1)), " QALYs</b>")
+          }
+          
+          ce_phrase <- if (is_ce) {
+            "This strategy is <b>cost-effective</b>."
+          } else if (inc_utility <= 0) {
+            "This strategy is <b>not cost-effective</b> (no benefit)."
+          } else {
+            "This strategy is <b>not cost-effective</b>."
+          }
+          
+          icer_text <- paste0("ICER = <b>$", scales::comma(round(icer_value)), "</b> per QALY.")
+          
+          HTML(sprintf("
+    <div class='%s' style='padding: 15px;'>
+      <h3 style='text-align:center;'>%s</h3>
+      <p style='text-align:center; font-size: 18px;'>%s</p>
+      <p style='text-align:center;'>The strategy that supplemented usual care with a multi-cancer detection (MCD) test for <b>%s cancer type%s</b> resulted in</p>
+      
+      <div class='centered-block arrow-block centered-fixed'>
+        <div style='text-align: center;'>
+          <div style='font-size: 40px;'>&uarr;</div>
+          <div>%s</div>
+        </div>
+        <div style='text-align: center;'>
+          <div style='font-size: 40px;'>&darr;</div>
+          <div>%s</div>
+        </div>
+      </div>
+    </div>
+  ",
+                       border_class,
+                       ce_phrase,
+                       icer_text,
+                       no_cancers,
+                       ifelse(no_cancers == 1, "", "s"),
+                       utility_phrase,
+                       cost_phrase))
+        })
+        
+        
+        output[[paste0("run_plot_stage_shift_", run_index)]] <- renderUI({
+          req(run_data$mced_incident_matrix, run_data$usual_incident_matrix)
+          
+          df_mced  <- sum_by_stage_cancer(run_data$mced_incident_matrix, def_param_list$xStage)
+          df_mced$Arm <- "MCED"
+          
+          df_usual <- sum_by_stage_cancer(run_data$usual_incident_matrix, def_param_list$xStage)
+          df_usual$Arm <- "Usual"
+          
+          df_plot  <- rbind(df_mced, df_usual)
+          df_plot$EarlyLate <- ifelse(df_plot$Stage %in% c("I", "II"), "Early", "Late")
+          
+          df_agg <- df_plot %>%
+            group_by(Arm, EarlyLate) %>%
+            summarize(TotalCases = sum(Cases, na.rm = TRUE), .groups = "drop")
+          
+          mced_early  <- df_agg$TotalCases[df_agg$Arm=="MCED"  & df_agg$EarlyLate=="Early"]
+          usual_early <- df_agg$TotalCases[df_agg$Arm=="Usual" & df_agg$EarlyLate=="Early"]
+          mced_early  <- ifelse(length(mced_early)==0,  0, mced_early)
+          usual_early <- ifelse(length(usual_early)==0, 0, usual_early)
+          
+          shift_value <- mced_early - usual_early
+          
+          if (shift_value > 0) {
+            message_str <- sprintf(
+              "The MCD shifted %.0f more cancers to an earlier stage.",
+              shift_value
+            )
+          } else if (shift_value < 0) {
+            message_str <- sprintf(
+              "The MCD had %.0f fewer early-stage cancers than Usual.",
+              abs(shift_value)
+            )
+          } else {
+            message_str <- "No net shift in early-stage cancers compared to Usual."
+          }
+          
+          HTML(sprintf("
+      <div style=\"
+        margin: 10px 0;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f5f5f5;
+        color: #2C3E50;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;\">
+        %s
+      </div>
+    ", message_str))
+        })
+        
+        
+        output[[paste0("mced_summary_box_", run_index)]] <- renderUI({
+          req(run_data$final_result_list)
+          
+          df <- collect_overall_summaries(run_data$final_result_list) |>
+            dplyr::filter(Arm == "MCED")
+          
+          sum_metric <- function(metric) sum(df$Value[df$Metric %in% metric], na.rm = TRUE)
+          fmt_int <- function(x) format(round(x), big.mark = ",")
+          
+          TP <- sum_metric(c("TP", "Total_overdiagnosed"))
+          FP <- sum_metric("fp_counts")
+          FN <- sum_metric("FN")
+          TN <- sum_metric("True_TN")
+          total_tests <- TP + FP + FN + TN
+          
+          HTML(sprintf("
+    <div class='test-summary-box'>
+      <div class='total-header'>Total MCD tests conducted:</div>
+      <div class='total-count'>%s</div>
+
+      <div class='centered-block diagnostic-grid centered-fixed'>
+
+        <div class='diagnostic-group'>
+          <div class='group-label'>Those <b>with cancer</b></div>
+          <div class='diagnostic-row'>
+            <div class='diag-box tp'>TP<br><span>%s</span></div>
+            <div class='diag-box fn'>FN<br><span>%s</span></div>
+          </div>
+        </div>
+
+        <div class='divider'></div>
+
+        <div class='diagnostic-group'>
+          <div class='group-label'>Those <b>without cancer</b></div>
+          <div class='diagnostic-row'>
+            <div class='diag-box tn'>TN<br><span>%s</span></div>
+            <div class='diag-box fp'>FP<br><span>%s</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  ",
+                       fmt_int(total_tests),
+                       fmt_int(TP), fmt_int(FN),
+                       fmt_int(TN), fmt_int(FP)))
+        })
+        
+        
+        
+        output[[paste0("mced_sunburst_", run_index)]] <- renderPlotly({
+          req(run_data$final_result_list, run_data$run_selected_cancers, run_data$final_screen_df_stage,
+              run_data$mced_incident_matrix)
+          
+          sb_df <- build_mced_sunburst(
+            final_result_list = run_data$final_result_list,
+            selected_cancers  = run_data$run_selected_cancers,
+            final_screen_df_stage = run_data$final_screen_df_stage,
+            mced_incident_matrix = run_data$mced_incident_matrix
+          )
+          
+          stage_map <- c("1" = "I", "2" = "II", "3" = "III", "4" = "IV")
+          
+          sb_df <- sb_df %>%
+            mutate(
+              label_for_plot = ifelse(label %in% names(stage_map),
+                                      stage_map[label],
+                                      label)
+            )
+          
+          assign_color <- function(id) {
+            match <- names(cancer_colors)[str_detect(id, fixed(names(cancer_colors), ignore_case = TRUE))]
+            if (length(match) > 0) {
+              return(cancer_colors[[match[1]]])
+            } else {
+              return("#cccccc")  # fallback color
+            }
+          }
+          
+          # Build color vector using the improved matching
+          color_vector <- vapply(sb_df$id, assign_color, character(1))
+          
+          plot_ly(
+            data    = sb_df,
+            ids     = ~id,
+            labels  = ~label_for_plot,
+            parents = ~parent,
+            values  = ~value,
+            type    = "sunburst",
+            sort    = FALSE,  # preserve custom ordering
+            branchvalues = "total",
+            marker = list(colors = color_vector),
+            hovertemplate = paste(
+              "<b>%{label}</b><br>",
+              "Cases: %{value:,.0f}<extra></extra>"
+            )
+          ) %>%
+            layout(
+              margin = list(l = 0, r = 0, t = 40, b = 0)#,
+              #title  = "MCED Cancer Cases – Compliance & Stage Breakdown"
+            )
+        })
+        
+        output[[paste0("pathway_plot_shared_", run_index)]] <- renderPlotly({
+          req(run_data$final_result_list)
+          
+          pathway_cancer <- input[[paste0("pathway_cancer_", run_index)]]
+          pathway_type   <- input[[paste0("pathway_type_", run_index)]]
+          
+          req(pathway_cancer, pathway_type)
+          
+          df <- build_pathway_df(
+            result_list  = run_data$final_result_list,
+            pathway_type = pathway_type,
+            cancer       = pathway_cancer
+          )
+          
+          assign_color <- function(id) {
+            matches <- names(cancer_colors)[
+              sapply(names(cancer_colors), function(x) str_detect(tolower(id), fixed(tolower(x))))
+            ]
+            if (length(matches) > 0) {
+              return(cancer_colors[[matches[1]]])
+            } else {
+              return("#cccccc")  # fallback
+            }
+          }
+          
+          cancer_color <- assign_color(pathway_cancer)
+          
+          # Shared and downstream split
+          df_shared <- df %>%
+            filter(Step %in% c("Healthy", "MCED Compliant", "MCED Non-Compliant")) %>%
+            mutate(
+              fill = case_when(
+                Step == "Healthy"            ~ "Healthy",
+                Step == "MCED Compliant"     ~ "Compliant",
+                Step == "MCED Non-Compliant" ~ "Non-Compliant"
+              )
+            )
+          
+          y_max <- max(df$Count)
+          
+          # Plot 1 – Shared Steps
+          p1 <- ggplot(df_shared, aes(
+            x = Step,
+            y = Count,
+            fill = fill,
+            text = paste0("Step: ", Step, "<br>Count: ", scales::comma(Count))
+          )) +
+            geom_col(color = "black") +
+            scale_fill_manual(
+              values = c(
+                "Healthy" = "grey80",
+                "Compliant"     = "grey50",
+                "Non-Compliant" = "grey30"
+              )
+            ) +
+            ggtitle("MCD Compliance") +
+            xlab("") + ylab("Number of Individuals") +
+            theme(axis.text.x = element_text(angle = 45, vjust = 0.5)) +
+            theme_minimal()
+          
+          ggplotly(p1, tooltip = "text") %>%
+            layout(
+              legend = list(
+                orientation = "h",
+                x = 0.5,
+                y = -0.5,
+                xanchor = "center"
+              ),
+              yaxis = list(range = c(0, y_max)),
+              xaxis = list(tickangle = -45)  # or 90, depending on your preference
+            )
+        })
+        
+        output[[paste0("pathway_plot_downstream_", run_index)]] <- renderUI({
+          req(run_data$final_result_list)
+          
+          cancer_name <- input[[paste0("pathway_cancer_", run_index)]]
+          req(cancer_name)
+          
+          result_list <- run_data$final_result_list
+          screening_cancers <- c("lung and bronchus", "breast", "colon and rectum", "cervix", "prostate")
+          is_screening <- cancer_name %in% screening_cancers
+          
+          overall_df <- result_list[["Overall"]][["mced_TN_FP"]]
+          base_totals <- colSums(overall_df, na.rm = TRUE)
+          
+          if (cancer_name == "Overall") {
+            cancer_df <- NULL
+            cancer_totals <- NULL
+          } else {
+            cancer_df <- result_list[["MCED"]][[cancer_name]][["mced_TN_FP"]]
+            cancer_totals <- colSums(cancer_df, na.rm = TRUE)
+          }
+          
+          # --- FP calculations ---
+          total_fp_results <- if (!is.null(cancer_df)) cancer_totals["FP"] else base_totals["fp_counts"]
+          total_fp_downstream <- if (!is.null(cancer_df)) {
+            cancer_totals["FP_fu"] + cancer_totals["FP_FP_i"] + cancer_totals["FP_i"]
+          } else {
+            base_totals["Total_FP_fu"] + base_totals["FP_FP_i"] + base_totals["FP_i"]
+          }
+          
+          # --- TN calculations ---
+          total_tn_results <- base_totals["True_TN"]  # Always use Overall for TN base
+          total_tn_downstream <- if (!is.null(cancer_df)) {
+            cancer_totals["TN_c"] + cancer_totals["TN_c_FP"] + cancer_totals["TN_c_FP_i"]
+          } else {
+            base_totals["TN_c"] + base_totals["TN_c_FP"] + base_totals["TN_c_FP_i"]
+          }
+          
+          # Format output
+          HTML(glue::glue("
+    <div style='padding: 15px; font-size: 16px;'>
+      <h4>Downstream Diagnostic Procedures Summary for <b>{cancer_name}</b></h4>
+      <ul>
+        <li><b>MCD False Positives:</b> {scales::comma(round(total_fp_results))} Results</li>
+        <li><b>FP-Associated Procedures:</b> {scales::comma(round(total_fp_downstream))} downstream procedures</li>
+        <br>
+        <li><b>MCD True Negatives:</b> {scales::comma(round(total_tn_results))} Results</li>
+        <li><b>TN-Associated Procedures:</b> {scales::comma(round(total_tn_downstream))} downstream procedures</li>
+      </ul>
+    </div>
+  "))
+        })
+        
+        
+        
+        output[[paste0("summary_cost_plot_", run_index)]] <- renderPlotly({
+          req(run_data$final_result_list)
+          
+          selected_cancer <- input[[paste0("cost_cancer_select_", run_index)]]
+          selected_group  <- input[[paste0("cost_group_select_", run_index)]]
+          req(selected_cancer, selected_group)
+          
+          assign_color <- function(id) {
+            matches <- names(cancer_colors)[
+              sapply(names(cancer_colors), function(x) str_detect(tolower(id), fixed(tolower(x))))
+            ]
+            if (length(matches) > 0) {
+              cancer_colors[[matches[1]]]
+            } else {
+              "#cccccc"
+            }
+          }
+          
+          df_cost <- build_cost_breakdown_df(
+            final_icer_result = run_data$final_result_list$Overall$final_icer_result,
+            overall_summary   = run_data$overall_summary,
+            cancer = selected_cancer
+          ) %>%
+            dplyr::filter(Group == selected_group)
+          
+          df_cost$Bucket <- factor(df_cost$Bucket, levels = c(
+            "Test Cost", "Imaging Cost", "Diagnostic Cost", "Invasive Cost", "Post Diagnosis Costs"
+          ))
+          
+          cancer_color <- assign_color(selected_cancer)
+          
+          # Determine border styling for "Test Cost" when not "All Cancers"
+          df_cost <- df_cost %>%
+            mutate(
+              border_color = ifelse(Bucket == "Test Cost" & selected_cancer != "All Cancers", "black", NA),
+              border_size  = ifelse(Bucket == "Test Cost" & selected_cancer != "All Cancers", 1, 0.2)
+            )
+          
+          # ------------------------------------------------------------
+          # Build fill_colors depending on selected_cancer & selected_group
+          # ------------------------------------------------------------
+          if (identical(selected_cancer, "All Cancers")) {
+            # Base hex codes for the four buckets:
+            base_colors <- c(
+              "Imaging Cost"        = "#FFB9AA",
+              "Diagnostic Cost"     = "#D47C6A",
+              "Invasive Cost"       = "#802815",
+              "Post Diagnosis Costs"= "#550F00"
+            )
+            
+            if (identical(selected_group, "Cancer")) {
+              # Use base_colors exactly
+              bucket_colors <- base_colors
+            } else if (identical(selected_group, "Healthy")) {
+              # Lighten each base_color by, say, 20%
+              bucket_colors <- lapply(base_colors, lighten_hex)
+              bucket_colors <- unlist(bucket_colors)
+            } else {
+              # For "Overall", just use the base colors as-is
+              bucket_colors <- base_colors
+            }
+            
+            fill_colors <- c("Test Cost" = "grey70", bucket_colors)
+          }
+          else {
+            # Existing logic for any single-cancer selection:
+            fill_colors <- c(
+              "Test Cost"            = "grey70",
+              "Imaging Cost"         = cancer_color,
+              "Diagnostic Cost"      = cancer_color,
+              "Invasive Cost"        = cancer_color,
+              "Post Diagnosis Costs" = cancer_color
+            )
+          }
+          # ------------------------------------------------------------
+          
+          # Build the ggplot
+          p <- ggplot(df_cost, aes(
+            x = Bucket,
+            y = Cost,
+            fill = Bucket,
+            text = paste0(
+              "Bucket: ", Bucket, "<br>",
+              "Cost: $", scales::comma(Cost, accuracy = 1)
+            )
+          )) +
+            geom_col(aes(color = Bucket), linewidth = df_cost$border_size) +
+            scale_fill_manual(name = "Cost Category", values = fill_colors) +
+            scale_color_manual(
+              values = c(
+                "Test Cost"           = "black",
+                "Imaging Cost"        = NA,
+                "Diagnostic Cost"     = NA,
+                "Invasive Cost"       = NA,
+                "Post Diagnosis Costs"= NA
+              ),
+              guide = "none"
+            ) +
+            xlab("Cost Category") +
+            scale_y_continuous(
+              labels = scales::dollar_format(accuracy = 1)
+            ) +
+            ylab("Total Cost") +
+            ggtitle(paste0("MCD Cost Breakdown – ", selected_cancer, " – ", selected_group)) +
+            theme_minimal() +
+            theme(
+              legend.title   = element_text(size = 11, face = "bold"),
+              legend.text    = element_text(size = 10),
+              legend.position= "right",
+              axis.text.x = element_text(angle = 45, vjust = 0.5)
+            )
+          
+          ggplotly(p, tooltip = "text")
+        })
+        
+        
+        output[[paste0("test_cost_note_", run_index)]] <- renderUI({
+          selected_cancer <- input[[paste0("cost_cancer_select_", run_index)]]
+          
+          if (!is.null(selected_cancer) && selected_cancer != "All Cancers") {
+            tags$p(
+              style = "color:red; font-style:italic; font-size: 90%; margin-top: 5px;",
+              "Note: The MCD test cost is incurred once across all cancers and shown here for context."
+            )
+          } else {
+            NULL
+          }
+        })
+        
+        output[[paste0("case_plot_controls_", run_index)]] <- renderUI({
+          req(run_data$overall_summary)
+          
+          available_cancers <- unique(run_data$overall_summary$Cancer)
+          cancer_choices <- c("All Cancers", sort(available_cancers))
+          
+          tagList(
+            fluidRow(
+              column(
+                6,
+                selectInput(
+                  inputId  = paste0("selected_cancer_type_", run_index),
+                  label    = "Select Cancer Type",
+                  choices  = cancer_choices,
+                  selected = "All Cancers"
+                )
+              ),
+              column(
+                6,
+                selectInput(
+                  inputId  = paste0("selected_case_type_", run_index),
+                  label    = "Select Case Type",
+                  choices  = c("MCED TP", "MCED FN", "MCED NC", "Usual Care", "Overall"),
+                  selected = "Overall"
+                )
+              )
+            )
+          )
+        })
+        
+        output[[paste0("case_category_plot_", run_index)]] <- renderPlotly({
+          req(run_data$overall_summary)
+          
+          cancer_id <- paste0("selected_cancer_type_", run_index)
+          case_id   <- paste0("selected_case_type_", run_index)
+          
+          req(input[[cancer_id]], input[[case_id]])
+          
+          df <- make_bar_df_v3(
+            overall_summary = run_data$overall_summary,
+            cancer_type     = input[[cancer_id]]
+          )
+          
+          if (input[[case_id]] != "Overall") {
+            df <- dplyr::filter(df, CaseType == input[[case_id]])
+          }
+          
+          build_case_plot_v3(df)
+        })
+        
+        local({
+          plot_id <- paste0("case_category_plot_", run_index)
+          outputOptions(output, plot_id, suspendWhenHidden = FALSE)
+        })
+        
+        output[[paste0("overdx_plot_controls_", run_index)]] <- renderUI({
+          req(run_data$overall_summary)
+          available_cancers <- unique(run_data$overall_summary$Cancer)
+          cancer_choices <- c("All Cancers", sort(available_cancers))
+          
+          selectInput(paste0("selected_overdx_cancer_", run_index),
+                      "Select Cancer Type",
+                      choices = cancer_choices,
+                      selected = "All Cancers")
+        })
+        
+        output[[paste0("overdx_plot_", run_index)]] <- renderPlotly({
+          req(run_data$overall_summary)
+          req(input[[paste0("selected_overdx_cancer_", run_index)]])
+          
+          build_overdx_deaths_plot_v2(
+            overall_summary = run_data$overall_summary,
+            selected_cancer = input[[paste0("selected_overdx_cancer_", run_index)]]
+          )
+        })
+        
+      })
+    }
+  })
+  
+  output$summary_ce_table <- renderDT({
+    req(input$wtp_threshold)  # ensure input is available
+    
+    df <- runs_df()
+    if (nrow(df) == 0) return(DT::datatable(data.frame()))
+    
+    wtp <- as.numeric(input$wtp_threshold)
+    
+    df <- df %>%
+      mutate(
+        `Incremental Cost (M)` = round(inc_cost / 1e6, 0),
+        `Incremental QALYs`    = round(inc_utility, 0),
+        `ICER ($/per QALY)` = case_when(
+          inc_cost > 0 & inc_utility < 0 ~ "Dominated by UC",
+          inc_utility > 0                ~ scales::label_currency()(ICER),
+          TRUE                           ~ NA_character_
+        ),
+        `Cost-Effective`       = ifelse(ICER <= wtp & inc_utility > 0, "Yes", "No"),
+        `True Positives`       = round(TP, 0),
+        `False Negatives`      = round(FN, 0),
+        `False Positives`      = round(FP, 0),
+        `True Negative`        = round(TN, 0),
+        `Deaths Averted`       = round(Deaths_averted, 0)
+      ) %>%
+      select(
+        Run = run_label,
+        `Incremental Cost (M)`,
+        `Incremental QALYs`,
+        `ICER ($/per QALY)`,
+        `Cost-Effective`,
+        `True Positives`,
+        `False Negatives`,
+        `True Negative`,
+        `False Positives`,
+        `Deaths Averted`
+      )
+    
+    datatable(
+      df,
+      rownames = FALSE,
+      options = list(
+        dom = 't',
+        ordering = FALSE,
+        pageLength = 10,
+        scrollX = TRUE,
+        columnDefs = list(
+          list(
+            targets = 4,
+            render = JS(
+              "function(data, type, row, meta) {
+              if (type === 'display') {
+                var bg = (data === 'Yes') ? '#d4edda' : '#f8d7da';
+                return '<div style=\"background-color:' + bg + '; padding:5px; border-radius:4px; text-align:center;\">' + data + '</div>';
+              }
+              return data;
+            }"
+            )
+          )
+        )
+      )
+    )
+  })
+  
+  
+  output$ce_summary_box <- renderUI({
+    req(input$wtp_threshold)
+    
+    box(
+      title = paste0("Cost-Effectiveness Summary Table (WTP: $", scales::comma(as.numeric(input$wtp_threshold)), " per QALY)"),
+      status = "info",
+      width = 12,
+      DTOutput("summary_ce_table")
+    )
+  })
+}

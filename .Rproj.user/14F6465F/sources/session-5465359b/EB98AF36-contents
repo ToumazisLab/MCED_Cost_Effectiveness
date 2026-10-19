@@ -1,0 +1,103 @@
+base_vals <- list(
+  all_cause_mortality_mult             = 1,
+  all_sens                             = 1,
+  all_spec                             = 0.98,
+  d_c                                  = 0.03,
+  d_e                                  = 0.03,
+  dwell_scenario                       = 3,
+  fp_disutility_val                    = 0.0125,
+  fp_incidental_cost_pct               = 0,
+  fp_track_num                         = 3,
+  invasive_cost_pct                    = 0,
+  invasive_multi_mult                  = 0.1,
+  invasive_rate_bladder                = 1,
+  invasive_rate_breast                 = 1,
+  invasive_rate_cervix                 = 1,
+  invasive_rate_head_and_neck         = 1,
+  invasive_rate_liver_and_intrahepatic_bile_duct = 1,
+  invasive_rate_lung_and_bronchus     = 1,
+  invasive_rate_lymphoma              = 1,
+  invasive_rate_ovarian               = 1,
+  invasive_rate_pancreas              = 1,
+  invasive_rate_prostate              = 1,
+  invasive_rate_uterus                = 1,
+  mced_compliance_rate                = 0.75,
+  mced_fp_compliance                  = 1,
+  mced_test_cost                      = 500,
+  overdiagnosis_factor                = 0.05,
+  screen_cost_pct                     = 1,
+  stage_cost_i                        = 1,
+  stage_cost_ii                       = 1,
+  stage_cost_iii                      = 1,
+  stage_cost_iv                       = 1,
+  survival_mult                       = 1,
+  total_cancer_mortality_mult        = 1,
+  util_mult                           = 1
+)
+
+sweep_params <- list(
+  all_sens        = seq(0.75, 1.25, length.out = 100),
+  all_spec        = seq(0.98, 0.9999, length.out = 100),
+  mced_test_cost  = seq(50, 1000, length.out = 100)
+)
+
+sweep_thresholds_custom <- function(model, base_vals, sweep_params, threshold = 0.5) {
+  results <- list()
+  
+  for (param in names(sweep_params)) {
+    message("Sweeping ", param)
+    
+    sweep_vals <- sweep_params[[param]]
+    
+    # Repeat base values and override the current parameter
+    test_df <- as.data.frame(matrix(rep(unlist(base_vals), each = length(sweep_vals)), 
+                                    nrow = length(sweep_vals), byrow = FALSE))
+    colnames(test_df) <- names(base_vals)
+    test_df[[param]] <- sweep_vals
+    
+    # Predict
+    mat <- as.matrix(test_df)
+    colnames(mat) <- colnames(X_mat_train)
+    probs <- predict(model, newdata = mat)
+    
+    # Find first crossing above threshold
+    threshold_idx <- which(probs > threshold)[1]
+    threshold_val <- if (!is.na(threshold_idx)) sweep_vals[threshold_idx] else NA
+    
+    results[[param]] <- list(
+      threshold_value = threshold_val,
+      sweep_values    = sweep_vals,
+      probs           = probs
+    )
+  }
+  
+  return(results)
+}
+
+threshold_results <- sweep_thresholds_custom(
+  model        = xgb_mod,
+  base_vals    = base_vals,
+  sweep_params = sweep_params,
+  threshold    = 0.5
+)
+
+
+df_all <- map_dfr(
+  .x = names(threshold_results),
+  .f = ~ tibble(
+    param = .x,
+    value = threshold_results[[.x]]$sweep_values,
+    prob  = threshold_results[[.x]]$probs
+  )
+)
+
+ggplot(df_all, aes(x = value, y = prob)) +
+  geom_line(size = 1.1) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
+  facet_wrap(~ param, scales = "free_x") +
+  labs(
+    title = "One-at-a-Time Threshold Sweep for CE Flag",
+    x = "Parameter Value",
+    y = "Predicted P(CE_flag == 1)"
+  ) +
+  theme_minimal(base_size = 14)

@@ -1,0 +1,69 @@
+Cancer,Stage,Scenario_1,Scenario_2,Scenario_3,Scenario_4
+lung and bronchus,I,4,3,2,1.5
+lung and bronchus,II,2,1.5,1,0.75
+lung and bronchus,III,1,0.75,0.5,0.5
+lung and bronchus,IV,1,0.75,0.5,0.25
+colon and rectum,I,4,3,2,1.5
+colon and rectum,II,2,1.5,1,0.75
+colon and rectum,III,1,0.75,0.5,0.5
+colon and rectum,IV,1,0.75,0.5,0.25
+pancreas,I,8,5,2,1
+pancreas,II,2,1.5,1,0.5
+pancreas,III,1,1,1,0.25
+pancreas,IV,1,0.75,0.5,0.25
+liver and intrahepatic bile duct,I,8,5,2,1
+liver and intrahepatic bile duct,II,2,1.5,1,0.5
+liver and intrahepatic bile duct,III,1,1,1,0.25
+liver and intrahepatic bile duct,IV,1,0.75,0.5,0.25
+breast,I,10,7,4,2
+breast,II,4,3,2,1
+breast,III,2,1.5,1,0.5
+breast,IV,1,1,1,0.5
+esophagus,I,4,3,2,1.5
+esophagus,II,2,1.5,1,0.75
+esophagus,III,1,0.75,0.5,0.5
+esophagus,IV,1,0.75,0.5,0.25
+head and neck,I,8,6,4,1.5
+head and neck,II,4,3,2,0.75
+head and neck,III,2,1.5,1,0.5
+head and neck,IV,1,1,1,0.25
+stomach,I,8,5,2,1
+stomach,II,2,1.5,1,0.5
+stomach,III,1,1,1,0.25
+stomach,IV,1,0.75,0.5,0.25
+ovarian,I,8,6,4,1.5
+ovarian,II,4,3,2,0.75
+ovarian,III,2,1.5,1,0.5
+ovarian,IV,1,1,1,0.25
+kidney and renal pelvis,I,8,5,2,1
+kidney and renal pelvis,II,2,1.5,1,0.5
+kidney and renal pelvis,III,1,1,1,0.25
+kidney and renal pelvis,IV,1,0.75,0.5,0.25
+prostate,I,8,5,2,1
+prostate,II,2,1.5,1,0.5
+prostate,III,1,1,1,0.25
+prostate,IV,1,0.75,0.5,0.25
+breast: hormone receptor-positive,I,10,7,4,2
+breast: hormone receptor-positive,II,4,3,2,1
+breast: hormone receptor-positive,III,2,1.5,1,0.5
+breast: hormone receptor-positive,IV,1,1,1,0.5
+lymphoma,I,8,6,4,1.5
+lymphoma,II,4,3,2,0.75
+lymphoma,III,2,1.5,1,0.5
+lymphoma,IV,1,1,1,0.25
+anus,I,4,3,2,1.5
+anus,II,2,1.5,1,0.75
+anus,III,1,0.75,0.5,0.5
+anus,IV,1,0.75,0.5,0.25
+uterus,I,8,6,4,1.5
+uterus,II,4,3,2,0.75
+uterus,III,2,1.5,1,0.5
+uterus,IV,1,1,1,0.25
+bladder,I,8,6,4,1.5
+bladder,II,4,3,2,0.75
+bladder,III,2,1.5,1,0.5
+bladder,IV,1,1,1,0.25
+cervix,I,8,6,4,1.5
+cervix,II,4,3,2,0.75
+cervix,III,2,1.5,1,0.5
+cervix,IV,1,1,1,0.25

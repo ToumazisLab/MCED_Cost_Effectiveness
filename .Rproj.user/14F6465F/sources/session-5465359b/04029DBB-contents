@@ -1,0 +1,989 @@
+# Binding and creating cloud and CE Acceptability Curve
+design_1 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_design_batch_1.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_2 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_design_batch_2.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_3 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_design_batch_3.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_4 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_design_batch_4.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_5 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_design_batch_5.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+
+out_1 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_out_batch_1.csv", show_col_types = FALSE)
+out_2 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_out_batch_2.csv", show_col_types = FALSE)
+out_3 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_out_batch_3.csv", show_col_types = FALSE)
+out_4 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_out_batch_4.csv", show_col_types = FALSE)
+out_5 <- read_csv("Sensitivity_analysis/Multivar_data_2026-07-06_2/psa_out_batch_5.csv", show_col_types = FALSE)
+
+## ── 1. Combine PSA outputs ─────────────────────────────────────────────
+psa_design_final <- bind_rows(design_1, design_2, design_3, design_4, design_5) %>% 
+  mutate(run_id = row_number())
+
+psa_out_final<- bind_rows(out_1, out_2, out_3, out_4, out_5) %>% 
+  mutate(run_id = row_number())
+
+psa_merged <- psa_design_final %>% 
+  merge(psa_out_final, by = "run_id")
+
+psa_merged_98 <- psa_merged %>% 
+  filter(all_spec >= 0.98)
+
+
+
+wtp <- 100000
+
+psa_merged$NMB <- with(psa_merged, Incremental_Utility * wtp - Incremental_Cost)
+psa_merged$CE_flag <- psa_merged$NMB > 0
+n_runs_all  <- nrow(psa_merged)
+n_CE_all    <- sum(psa_merged$CE_flag, na.rm = TRUE)
+pct_CE_all  <- mean(psa_merged$CE_flag, na.rm = TRUE) * 100
+
+psa_merged_98$NMB <- with(psa_merged_98, Incremental_Utility * wtp - Incremental_Cost)
+psa_merged_98$CE_flag <- psa_merged_98$NMB > 0
+n_runs_98   <- nrow(psa_merged_98)
+n_CE_98     <- sum(psa_merged_98$CE_flag, na.rm = TRUE)
+pct_CE_98   <- mean(psa_merged_98$CE_flag, na.rm = TRUE) * 100
+
+library(randomForest)
+library(fastshap)
+library(yardstick)
+library(broom)
+
+
+# LINEAR REGRESSION
+set.seed(2025)
+n <- nrow(psa_merged_98)
+train_idx <- sample(seq_len(n), size = 0.7 * n)
+
+X <- psa_merged_98[, 2:35]
+y <- psa_merged_98$CE_flag
+
+X_train <- X[train_idx, ]
+y_train <- y[train_idx]
+X_test  <- X[-train_idx, ]
+y_test  <- y[-train_idx]
+
+X_train_clean <- X_train %>% janitor::clean_names()
+X_test_clean <- X_test %>% janitor::clean_names()
+colnames(X_train_clean)
+
+glm_mod <- glm(y_train ~ ., data = data.frame(X_train_clean, y_train), family = "binomial")
+probs <- predict(glm_mod, newdata = X_test_clean, type = "response")
+preds_glm <- ifelse(probs > 0.5, TRUE, FALSE)
+
+# Yardstick evaluation
+df_eval_glm <- tibble(truth = factor(y_test), prediction = factor(preds_glm))
+accuracy(df_eval_glm, truth, prediction)
+f_meas(df_eval_glm, truth, prediction)
+sensitivity(df_eval_glm, truth, prediction)
+specificity(df_eval_glm, truth, prediction)
+
+exp_coef <- exp(coef(glm_mod))
+exp_ci <- exp(confint(glm_mod))
+cbind(OR = exp_coef, exp_ci)
+
+df_probs <- data.frame(
+  prob = probs,
+  CE_flag = y_test
+)
+
+ggplot(df_probs, aes(x = prob, fill = CE_flag)) +
+  geom_histogram(position = "identity", bins = 40, alpha = 0.6) +
+  labs(title = "Predicted Probability of Cost-Effectiveness (GLM)",
+       x = "Predicted Probability", y = "Count") +
+  theme_minimal()
+
+
+# Tidy the model
+glm_tidy <- tidy(glm_mod) %>%
+  filter(term != "(Intercept)") %>%
+  mutate(
+    abs_estimate = abs(estimate),
+    sign = ifelse(estimate > 0, "Positive", "Negative")
+  ) %>%
+  arrange(desc(abs_estimate))
+
+library(car)
+vif(glm_mod)
+
+cor_matrix <- cor(select(X_train_clean, all_sens, all_spec, mced_test_cost, survival_mult), use = "complete.obs")
+round(cor_matrix, 2)
+
+X_check <- select(X_train_clean, c("mced_test_cost", "all_sens", "all_spec"))
+cor(X_check)
+
+
+ggplot(glm_tidy, aes(x = reorder(term, abs_estimate), y = abs_estimate, fill = sign)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Logistic Regression Variable Importance",
+    x = "Variable", y = "|Coefficient|"
+  ) +
+  scale_fill_manual(values = c("Positive" = "forestgreen", "Negative" = "firebrick")) +
+  theme_minimal()
+
+glm_tidy <- tidy(glm_mod) %>%
+  filter(term != "(Intercept)") %>%
+  mutate(
+    abs_estimate = abs(estimate),
+    sign = ifelse(estimate > 0, "Positive", "Negative")
+  ) %>%
+  arrange(desc(abs_estimate)) %>%
+  slice_max(order_by = abs_estimate, n = 15)
+
+ggplot(glm_tidy, aes(x = reorder(term, abs_estimate), y = abs_estimate, fill = sign)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "GLM Variable Importance (|Coefficient|)",
+    x = "Parameter", y = "|Coefficient|"
+  ) +
+  scale_fill_manual(values = c("Positive" = "forestgreen", "Negative" = "firebrick")) +
+  theme_minimal(base_size = 14)
+
+library(glmnet)
+
+X_mat <- model.matrix(CE_flag ~ ., data = psa_merged_98)[, -1]
+y_vec <- psa_merged_98$CE_flag
+
+cv_ridge <- cv.glmnet(X_mat, y_vec, family = "binomial", alpha = 0)  # alpha=0 => Ridge
+
+# Plot the cross-validation curve
+plot(cv_ridge)
+
+# Extract the best coefficients
+ridge_coefs <- coef(cv_ridge, s = "lambda.min")
+
+# Convert to tidy format for plotting
+library(tidyverse)
+tidy_ridge <- as.matrix(ridge_coefs) %>%
+  as_tibble(rownames = "term") %>%
+  rename(coef = !!sym(names(.)[2])) %>%  # Dynamically rename the 2nd column (the coef values)
+  filter(term != "(Intercept)") %>%
+  mutate(abs_coef = abs(coef)) %>%
+  arrange(desc(abs_coef)) %>%
+  slice_max(abs_coef, n = 20)
+
+
+ggplot(tidy_ridge, aes(x = reorder(term, abs_coef), y = abs_coef)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Top 20 Ridge Logistic Regression Coefficients",
+    x = "Variable",
+    y = "|Coefficient (Shrinkage Applied)|"
+  ) +
+  theme_minimal(base_size = 14)
+
+glm_contrib <- X_test_clean %>%
+  mutate(pred = predict(glm_mod, newdata = X_test_clean, type = "link")) %>%
+  pivot_longer(cols = everything(), names_to = "variable", values_to = "value") %>%
+  left_join(tibble(variable = names(glm_mod$coefficients)[-1],
+                   coef = glm_mod$coefficients[-1]), by = "variable") %>%
+  mutate(contribution = coef * value)
+
+ggplot(glm_contrib, aes(x = contribution, y = variable, color = value)) +
+  gghalves::geom_half_point(side = "l", alpha = 0.5) +
+  scale_color_viridis_c() +
+  labs(title = "GLM: Variable Contributions", x = "Coef × Feature Value") +
+  theme_minimal()
+
+## XGBOOST
+library(xgboost)
+
+# Convert to matrix format
+X_mat_train <- as.matrix(X_train)
+X_mat_test  <- as.matrix(X_test)
+y_train_bin <- as.numeric(y_train)
+
+xgb_mod <- xgboost(data = X_mat_train, label = y_train_bin,
+                   objective = "binary:logistic",
+                   nrounds = 100, verbose = 0)
+
+# Predict
+probs_xgb <- predict(xgb_mod, newdata = X_mat_test)
+preds_xgb <- probs_xgb > 0.5
+
+df_eval_xgb <- tibble(truth = factor(y_test), prediction = factor(preds_xgb))
+accuracy(df_eval_xgb, truth, prediction)
+f_meas(df_eval_xgb, truth, prediction)
+
+
+#### SVM
+library(e1071)
+
+svm_mod <- svm(x = X_train, y = as.factor(y_train), probability = TRUE)
+preds_svm <- predict(svm_mod, X_test)
+
+df_eval_svm <- tibble(truth = factor(y_test), prediction = preds_svm)
+accuracy(df_eval_svm, truth, prediction)
+f_meas(df_eval_svm, truth, prediction)
+
+
+#### Random forest
+rf_mod <- randomForest(x = X_train, y = as.factor(y_train), ntree = 100)
+
+probs <- predict(rf_mod, newdata = X_test, type = "prob")[, 2]
+preds <- ifelse(probs > 0.5, TRUE, FALSE)
+
+# Combine predictions and true labels in a tibble
+df_eval <- tibble(
+  truth = factor(y_test, levels = c(TRUE, FALSE)),
+  prediction = factor(preds, levels = c(TRUE, FALSE))
+)
+
+#### COMPARE ALL MODELS
+compare_metrics <- function(df_eval, label) {
+  tibble(
+    model = label,
+    accuracy = accuracy(df_eval, truth, prediction)[[3]],
+    f1 = f_meas(df_eval, truth, prediction)[[3]],
+    sens = sens(df_eval, truth, prediction)[[3]],
+    spec = spec(df_eval, truth, prediction)[[3]]
+  )
+}
+
+Predictive_models <- bind_rows(
+  compare_metrics(df_eval, "Random Forest"),
+  compare_metrics(df_eval_xgb, "XGBoost")
+)
+
+Predictive_models
+
+xgb.importance(model = xgb_mod) %>%
+  xgb.plot.importance(top_n = 10, measure = "Gain")
+
+
+library(SHAPforxgboost)
+
+shap_vals <- shap.values(xgb_model = xgb_mod, X_train = X_mat_train)
+shap_long <- shap.prep(shap_contrib = shap_vals$shap_score, X_train = X_mat_train, top_n = 20)
+
+shap_long <- shap.prep.stack.data(shap_contrib = shap_vals$shap_score, n_groups = 2)
+
+shap.plot.summary(data_long = shap_plot)
+
+
+top_vars <- shap_long %>%
+  group_by(variable) %>%
+  summarize(mean_abs_shap = mean(abs(value)), .groups = "drop") %>%
+  top_n(20, mean_abs_shap) %>%
+  arrange(desc(mean_abs_shap)) %>%
+  pull(variable)
+
+# Filter shap_long to include only top N variables
+shap_filtered <- shap_long %>% 
+  filter(variable %in% top_vars) %>%
+  mutate(variable = factor(variable, levels = rev(top_vars)))  # preserve order
+
+shap_filtered <- shap_filtered %>%
+  mutate(rf_bin = cut(rfvalue, breaks = 10))  # or use quantile-based bins
+
+shap_var <- shap_binned %>% 
+  filter(variable == "mced_test_cost")
+
+p1 <- ggplot(shap_var, aes(x = value, y = variable, fill = rf_bin)) +
+  geom_violin(scale = "width", draw_quantiles = c(0.5), color = NA) +
+  scale_fill_viridis_d(name = "Feature value (binned)") +
+  theme_minimal(base_size = 13)
+
+shap_var <- shap_binned %>% 
+  filter(variable == "all_spec")
+
+p2 <- ggplot(shap_var, aes(x = value, y = variable, fill = rf_bin)) +
+  geom_violin(scale = "width", draw_quantiles = c(0.5), color = NA) +
+  scale_fill_viridis_d(name = "Feature value (binned)") +
+  theme_minimal(base_size = 13)
+
+shap_var <- shap_binned %>% 
+  filter(variable == "survival_mult") %>%
+  mutate(
+    rf_bin = factor(rf_bin, levels = levels_label)
+  )
+
+p3 <- ggplot(shap_var, aes(x = value, y = variable, fill = rf_bin)) +
+  geom_violin(scale = "width", draw_quantiles = c(0.5), color = NA) +
+  scale_fill_viridis_d(name = "Feature value (binned)") +
+  theme_minimal(base_size = 13)
+
+shap_var <- shap_binned %>% 
+  filter(variable == "all_sens") %>%
+  mutate(
+    rf_bin = factor(rf_bin, levels = levels_label)
+  )
+
+p4 <- ggplot(shap_var, aes(x = value, y = variable, fill = rf_bin)) +
+  geom_violin(scale = "width", draw_quantiles = c(0.5), color = NA) +
+  scale_fill_viridis_d(name = "Feature value (binned)") +
+  theme_minimal(base_size = 13)
+
+p1 + p2 + p3 + p4
+# Summary plot: global importance with distributions
+shap.plot.summary(shap_long)
+
+top5_vars_df <- shap_long %>%
+  group_by(variable) %>%
+  summarise(mean_abs_shap = mean(abs(value), na.rm = TRUE)) %>%
+  arrange(desc(mean_abs_shap)) %>%
+  top_n(5, wt = mean_abs_shap)  # robust alternative to slice()
+
+top5_vars <- top5_vars_df$variable
+
+# Step 2: For those top 5, calculate average feature value where SHAP ≈ 0
+neutral_summary <- shap_long %>%
+  filter(variable %in% top5_vars, abs(value) < 0.05) %>%  # near-zero SHAP values
+  group_by(variable) %>%
+  summarise(
+    mean_value_at_zero_shap = mean(rfvalue, na.rm = TRUE),
+    count = n()
+  ) %>%
+  arrange(desc(mean_value_at_zero_shap))
+
+
+library(sensitivity)
+
+# Wrap the model prediction into a function
+xgb_pred_fn <- function(X_input) {
+  X_mat <- as.matrix(X_input)
+  predict(xgb_mod, newdata = X_mat)
+}
+
+# Sample X1 and X2 from your design matrix X
+X1 <- X[sample(nrow(X), size = nrow(X), replace = TRUE), ]
+X2 <- X[sample(nrow(X), size = nrow(X), replace = TRUE), ]
+
+# Run Sobol with model = xgb_pred_fn
+sob <- sobol2002(model = xgb_pred_fn, X1 = X1, X2 = X2, nboot = 100)
+plot(sob)
+
+# Threshold for filtering — adjust as needed
+threshold <- 0.1  
+
+# Extract Sobol indices
+Si  <- sob$S
+STi <- sob$T
+
+# Create a combined dataframe
+sob_df <- data.frame(
+  variable   = rownames(Si),
+  main       = Si$original,
+  total      = STi$original
+)
+
+# Filter for variables with meaningful importance
+sob_df_filtered <- sob_df %>%
+  filter(main > threshold | total > threshold)
+
+# Re-plot only important variables
+plot(sob,  which = c(1:4))
+
+df_thresholwhichdf_thresholds <- as_tibble(X_test) %>%
+  mutate(prob_CE = probs_xgb)
+
+plot_threshold_curve <- function(varname, bins = 10) {
+  var_labels <- c(
+    mced_test_cost = "MCD Test Cost ($)",
+    all_spec = "MCD Test Specificity",
+    all_sens = "MCD Test Sensitivity (vs Base)",
+    survival_mult = "Cancer-Specific Survival (vs Base)",
+    dwell_scenario = "Cancer Stage Dwell Time Scenario"
+  )
+  
+  x_limits <- list(
+    mced_test_cost = c(50, 1000),
+    all_spec = c(0.98, 0.9999),
+    all_sens = c(0.75, 1.25),
+    survival_mult = c(0.75, 1.25),
+    dwell_scenario = c(1, 3)
+  )
+  
+  scale_labels <- function(x, varname) {
+    if (varname %in% c("all_sens", "survival_mult")) {
+      scales::percent(x - 1, accuracy = 1)  # express as +/- from base
+    } else {
+      x
+    }
+  }
+  
+  var_label <- var_labels[[as.character(varname)]]
+  limits <- x_limits[[as.character(varname)]]
+  
+  df_thresholds %>%
+    select({{varname}}, prob_CE) %>%
+    rename(x = {{varname}}) %>%
+    mutate(bin = cut(x, breaks = bins)) %>%
+    group_by(bin) %>%
+    summarise(
+      mean_prob_CE = mean(prob_CE),
+      center = mean(x, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    ggplot(aes(x = center, y = mean_prob_CE)) +
+    geom_line() +
+    geom_point() +
+    geom_hline(yintercept = c(0.1, 0.5, 0.9), linetype = "dashed", color = "gray") +
+    scale_x_continuous(
+      limits = limits,
+      labels = ~ scale_labels(.x, as.character(varname))
+    ) +
+    labs(
+      x = var_label,
+      y = "P(Cost-Effective)"
+    ) +
+    theme_minimal()
+}
+
+top5_plots <- lapply(top5_vars, plot_threshold_curve)
+
+top4_plots <- top5_plots[1:4]
+(top4_plots[[1]] | top4_plots[[2]]) /
+  (top4_plots[[3]] | top4_plots[[4]])
+
+
+
+df_probs <- data.frame(prob = predict(xgb_mod, newdata = X_mat_test),
+                       actual = y_test)
+
+ggplot(df_probs, aes(x = prob, fill = actual)) +
+  geom_histogram(position = "identity", bins = 40, alpha = 0.6) +
+  labs(title = "XGBoost Predicted Probabilities",
+       x = "Probability of Cost-Effectiveness", y = "Count") +
+  theme_minimal()
+
+conf_mat(df_eval, truth = truth, estimate = prediction)
+
+# Accuracy, Sensitivity, Specificity, etc.
+accuracy(df_eval, truth, prediction)
+sens(df_eval, truth, prediction)
+spec(df_eval, truth, prediction)
+f_meas(df_eval, truth, prediction)
+
+
+shap_vals <- fastshap::explain(
+  object = rf_mod,
+  X = X,
+  pred_wrapper = function(object, newdata) {
+    predict(object, newdata = newdata, type = "prob")[, 2]  # probability CE == TRUE
+  },
+  nsim = 20
+)
+
+# Global importance (mean absolute contribution)
+shap_summary <- colMeans(abs(shap_vals))
+
+# Normalize to sum to variance of Bernoulli(p): p*(1-p)
+p_ce <- mean(y)
+var_ce <- p_ce * (1 - p_ce)
+shap_normalized <- shap_summary / sum(shap_summary) * var_ce
+shap_sorted <- sort(shap_normalized, decreasing = TRUE)
+
+barplot(shap_sorted[1:20],
+        las = 2, horiz = TRUE,
+        main = "Shapley Decomposition of Cost-Effectiveness Variance",
+        xlab = "Variance Contribution",
+        col = "steelblue")
+abline(v = var_ce, lty = 2, col = "red")
+legend("topright", legend = paste0("Total Var = ", round(var_ce, 3)),
+       bty = "n", text.col = "red")
+
+
+wtp_seq <- seq(10000, 150000, by = 5000)
+var_seq <- sapply(wtp_seq, function(wtp_i) {
+  ce_i <- with(psa_merged_98, Incremental_Utility * wtp_i - Incremental_Cost > 0)
+  p_i <- mean(ce_i)
+  p_i * (1 - p_i)  # variance of binary outcome
+})
+
+df_shap <- data.frame(
+  variable = names(shap_sorted),
+  shap_value = shap_sorted
+) %>%
+  arrange(desc(shap_value)) %>%
+  mutate(
+    cumulative = cumsum(shap_value),
+    variable = factor(variable, levels = rev(variable))  # for ggplot order
+  )
+
+total_var <- sum(df_shap$shap_value)
+
+
+
+
+## ── 2. Define the WTP grid ─────────────────────────────────────────────
+wtp_grid <- seq(0, 300000, by = 1000)  # 0–100k in 5-k increments
+
+#### ── 3. Calculate CEAC for both strategies ─────────────────────────────####
+ceac_df <- map_dfr(
+  wtp_grid,
+  function(w){
+    psa_out_final %>% 
+      # Net-monetary benefit for each strategy
+      mutate(NMB_MCED =  w * mced_utility  - mced_cost,
+             NMB_UC   =  w * usual_utility - usual_cost,
+             Best     =  case_when(
+               NMB_MCED > NMB_UC ~ "MCED",
+               NMB_MCED < NMB_UC ~ "Usual care",
+               TRUE              ~ "Tie"
+             )) %>% 
+      summarise(
+        WTP     = w,
+        MCED    = mean(Best == "MCED"),
+        UC      = mean(Best == "Usual care")
+      )
+  }
+) %>% 
+  pivot_longer(cols = c(MCED, UC),
+               names_to   = "Strategy",
+               values_to  = "Prob_CE")
+
+ceac_df_98 <- map_dfr(
+  wtp_grid,
+  function(w){
+    psa_out_final %>%
+      left_join(psa_design_final, by = "run_id") %>%  # safer merge
+      filter(all_spec >= 0.98) %>% 
+      mutate(NMB_MCED =  w * mced_utility  - mced_cost,
+             NMB_UC   =  w * usual_utility - usual_cost,
+             Best     =  case_when(
+               NMB_MCED > NMB_UC ~ "MCED ≥ 0.98",
+               NMB_MCED < NMB_UC ~ "Usual care",
+               TRUE              ~ "Tie"
+             )) %>% 
+      summarise(
+        WTP         = w,
+        `MCED ≥ 0.98` = mean(Best == "MCED ≥ 0.98"),
+        `Usual care`  = mean(Best == "Usual care")
+      )
+  }
+) %>%
+  pivot_longer(cols = c(`MCED ≥ 0.98`, `Usual care`),
+               names_to   = "Strategy",
+               values_to  = "Prob_CE")
+
+
+wtp50_all <- ceac_df %>%
+  filter(Strategy == "MCED", Prob_CE >= 0.5) %>%
+  summarise(WTP50 = min(WTP)) %>%
+  pull(WTP50)
+
+
+wtp50_98 <- ceac_df_98 %>%
+  filter(Strategy == "MCED ≥ 0.98", Prob_CE >= 0.5) %>%
+  summarise(WTP50 = min(WTP)) %>%
+  pull(WTP50)
+
+# 2. Tidy up & combine the two CEAC data‐frames
+# CEAC for all runs (>95% spec)
+ceac_all <- ceac_df %>%
+  mutate(
+    Strategy = ifelse(Strategy == "MCED", "MCD + UC", "Usual Care"),
+    `MCD Test Specificity` = "Specificity ≥ 95%"
+  )
+
+# CEAC for ≥98% spec
+ceac_98 <- ceac_df_98 %>%
+  mutate(
+    Strategy = ifelse(Strategy == "MCED ≥ 0.98", "MCD + UC", "Usual Care"),
+    `MCD Test Specificity` = "Specificity ≥ 98%"
+  )
+
+# Combine
+ceac_comb <- bind_rows(ceac_all, ceac_98)
+
+# 3. Plot
+ggplot(ceac_comb,
+       aes(x = WTP, y = Prob_CE,
+           color    = Strategy,
+           linetype = `MCD Test Specificity`,
+           size     = Strategy)) +
+  
+  # lines
+  geom_line() +
+  
+  # greyscale colors
+  scale_color_manual(
+    name   = "Strategy",
+    values = c("Usual Care" = "grey20",
+               "MCD + UC"   = "grey60")
+  ) +
+  
+  # solid vs dashed for the two filters
+  scale_linetype_manual(
+    name   = "MCD Test Specificity",
+    values = c("Specificity ≥ 95%" = "solid",
+               "Specificity ≥ 98%" = "dashed")
+  ) +
+  
+  # bold vs regular
+  scale_size_manual(
+    name   = "Strategy",
+    values = c("Usual Care" = 1.5,
+               "MCD + UC"   = 0.8)
+  ) +
+  
+  # vertical reference lines
+  geom_vline(xintercept = 100000,   linetype = "dotted") +
+  geom_vline(xintercept = wtp50_98, linetype = "dotted") +
+  geom_vline(xintercept = wtp50_all, linetype = "dotted") +
+  
+  # labels for the vlines
+  annotate("text",
+           x      = 100000, y = 0.08,
+           label  = "$100,000/QALY",
+           angle  = 90, vjust = -0.3, hjust = 0.2, size = 5) +
+  annotate("text",
+           x      = wtp50_98, y = 0.08,
+           label  = paste0("$",format(wtp50_98, big.mark = ","), "/QALY"),
+           angle  = 90, vjust = -0.3, hjust = 0.2, size = 5) +
+  annotate("text",
+           x      = 200000, y = 0.08,
+           label  = "$200,000/QALY",
+           angle  = 90, vjust = -0.3, hjust = 0.2, size = 5) +
+  
+  # axes
+  scale_x_continuous(
+    name   = "Willingness-to-pay ($ per QALY)",
+    labels = dollar_format(),
+    breaks = seq(0, 300000, by = 50000)
+  ) +
+  scale_y_continuous(
+    name   = "Probability Cost-Effective",
+    labels = percent_format(accuracy = 1),
+    limits = c(0, 1)
+  ) +
+  
+  # clean grey background
+  theme_classic(base_size = 14) +
+  theme(
+    legend.position = "bottom",
+    legend.box      = "vertical"
+  )
+
+
+
+ceac_df_base <- ceac_df %>%
+  mutate(Strategy = recode(Strategy,
+                           "MCED" = "MCED (All)",
+                           "UC"   = "Usual care"))
+
+# Combine both CEAC datasets
+ceac_df_base <- ceac_df %>%
+  mutate(Strategy = recode(Strategy,
+                           "MCED" = "MCD (MCD Specificity ≥ 0.95)",
+                           "UC"   = "Usual care (MCD Specificity ≥ 0.95)"))
+
+ceac_df_98 <- ceac_df_98 %>%
+  mutate(Strategy = recode(Strategy,
+                           "MCED ≥ 0.98" = "MCD (MCD Specificity ≥ 0.98)",
+                           "Usual care"  = "Usual care (MCD Specificity ≥ 0.98)"))
+
+# Combine both
+ceac_combined <- bind_rows(ceac_df, ceac_df_98)
+
+# Factor order for consistent legend and line types
+ceac_combined$Strategy <- factor(ceac_combined$Strategy, levels = c(
+  "Usual care (MCD Specificity ≥ 0.95)", "MCD (MCD Specificity ≥ 0.95)", "Usual care (MCD Specificity ≥ 0.98)", "MCD (MCD Specificity ≥ 0.98)" 
+  ))
+
+# Line size and alpha per group
+style_map <- tibble::tibble(
+  Strategy = factor(c("Usual care (MCD Specificity ≥ 0.95)", "MCD (MCD Specificity ≥ 0.95)", "Usual care (MCD Specificity ≥ 0.98)", "MCD (MCD Specificity ≥ 0.98)"),
+                    levels = c("Usual care (MCD Specificity ≥ 0.95)", "MCD (MCD Specificity ≥ 0.95)", "Usual care (MCD Specificity ≥ 0.98)", "MCD (MCD Specificity ≥ 0.98)" )),
+  LineSize = c(1.2, 1.2, 0.6, 0.6),
+  Alpha    = c(1.0, 1.0, 0.5, 0.5)
+)
+
+ceac_combined <- ceac_combined %>%
+  left_join(style_map, by = "Strategy")
+
+
+wtp_lines <- data.frame(
+  WTP = c(100000, wtp50_98),
+  Threshold = c("WTP $100,000", "WTP $143,000")
+)
+
+# CEAC Plot
+p1 <- ggplot(ceac_combined, aes(x = WTP, y = Prob_CE, colour = Strategy, group = Strategy)) +
+  geom_line(aes(size = LineSize, alpha = Alpha)) +
+  scale_size_identity() +  # allow per-line size
+  scale_alpha_identity() +  # allow per-line alpha
+  geom_vline(
+    data = wtp_lines,
+    aes(xintercept = WTP, linetype = Threshold),
+    color = "black"
+  ) +
+  scale_linetype_manual(
+    name = NULL,
+    values = c("WTP $100,000" = "dashed", "WTP $138,000" = "solid")
+  ) +
+  scale_y_continuous(
+    labels = scales::percent_format(accuracy = 1),
+    limits = c(0, 1),
+    name   = "% iterations cost-effective"
+  ) +
+  scale_x_continuous(
+    labels = scales::comma_format(accuracy = 1),
+    name   = "Willingness-to-pay (USD per QALY)"
+  ) +
+  scale_colour_manual(
+    values = c(
+      "MCD (MCD Specificity ≥ 0.95)"        = "#1f77b4",  # blue
+      "MCD (MCD Specificity ≥ 0.98)"       = "#2ca02c",  # green
+      "Usual care (MCD Specificity ≥ 0.95)" = "#d62728",  # red
+      "Usual care (MCD Specificity ≥ 0.98)"= "#d62728"   # same red, lighter alpha
+    ),
+    name = NULL
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "right")
+
+p1
+#### Shapley Effect ####
+
+ceac_df_98 <- ceac_df_98 %>% 
+  left_join(style_map, by = "Strategy" ) %>% 
+  mutate(Var = Prob_CE * (1 - Prob_CE)) 
+
+wtp_50 <- ceac_df_98 %>%
+  filter(Strategy == "MCD Specificity ≥ 0.98") %>%
+  arrange(abs(Prob_CE - 0.5)) %>%
+  slice(1) %>%
+  pull(WTP)
+
+psa_joined <- psa_design_final %>%
+  left_join(psa_out_final, by = "run_id") %>%
+  filter(all_spec >= 0.98) %>%  # only subset of interest
+  
+  mutate(
+    NMB_MCED = wtp_50 * mced_utility - mced_cost,
+    NMB_UC   = wtp_50 * usual_utility - usual_cost,
+    CE_binary = as.integer(NMB_MCED > NMB_UC)
+  )
+
+
+ggplot(ceac_df_98, aes(x = WTP, y = Var, colour = Strategy, group = Strategy)) +
+  geom_line(aes(size = LineSize, alpha = Alpha)) +
+  scale_size_identity() +  # allow per-line size
+  scale_alpha_identity() +  # allow per-line alpha
+  geom_vline(
+    data = wtp_lines,
+    aes(xintercept = WTP, linetype = Threshold),
+    color = "black"
+  ) +
+  scale_linetype_manual(
+    name = NULL,
+    values = c("WTP $100,000" = "dashed")
+  ) +
+  scale_y_continuous(
+    labels = scales::percent_format(accuracy = 1),
+    limits = c(0, 1),
+    name   = "Variance"
+  ) +
+  scale_x_continuous(
+    labels = scales::comma_format(accuracy = 1),
+    name   = "Willingness-to-pay (USD per QALY)"
+  ) +
+  scale_colour_manual(
+    values = c(
+      "MCED (All Runs)"        = "#1f77b4",  # blue
+      "MCED Specificity ≥ 0.98"       = "#2ca02c",  # green
+      "Usual care (All Runs)" = "#d62728",  # red
+      "Usual care (MCED Specificity ≥ 0.98)"= "#d62728"   # same red, lighter alpha
+    ),
+    name = NULL
+  ) +
+  ggtitle("Cost-Effectiveness Acceptability Curve") +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "right")
+
+
+#### ####
+
+psa_design_final <- bind_rows(design_1, design_2, design_3, design_4, design_5) %>% 
+  mutate(
+    run_id = row_number(),
+    spec_bucket = cut(
+      all_spec,
+      breaks = seq(0.95, 1.00, by = 0.01),
+      include.lowest = TRUE,
+      right = FALSE,
+      labels = paste0(seq(0.95, 0.99, by = 0.01), "-", c(0.96, 0.97, 0.98, 0.99, 0.9999))
+    )
+  )
+
+# 1. Join spec_bucket from design
+psa_cloud <- psa_out_final %>%
+  left_join(select(psa_design_final, run_id, spec_bucket), by = "run_id")
+
+wtp <- 100000
+
+bucket_levels <- levels(psa_cloud$spec_bucket)  # uses actual cut levels
+bucket_colors <- c(
+  "0.95-0.96"    = "#D9D9D9",  # light grey
+  "0.96-0.97"    = "#BFBFBF",
+  "0.97-0.98"    = "#A6A6A6",
+  "0.98-0.99"    = "#737373",
+  "0.99-0.9999"  = "#404040"   # dark grey
+)
+
+
+
+# Step 1: compute CE %
+psa_ce_table <- psa_cloud %>%
+  mutate(
+    NMB = Incremental_Utility * wtp - Incremental_Cost,
+    CE  = NMB > 0
+  ) %>%
+  group_by(spec_bucket) %>%
+  summarise(
+    pct_CE = (sum(CE == TRUE)/length(CE))*100,
+    .groups = "drop"
+  )
+
+# Step 2: relabel spec_bucket to include % CE
+psa_ce_table <- psa_ce_table %>%
+  mutate(spec_label = paste0(as.character(spec_bucket), " (", round(pct_CE, 1), "% CE)"))
+
+# Step 3: join back to original data
+psa_cloud <- psa_cloud %>%
+  left_join(psa_ce_table, by = "spec_bucket")
+
+
+ggplot() +
+  geom_point(
+    data  = psa_cloud,
+    aes(x = Incremental_Utility,
+        y = Incremental_Cost / 1e6,
+        colour = spec_label),
+    size  = 2,
+    alpha = 0.5
+  ) +
+  geom_hline(yintercept = 0, colour = "grey50") +
+  geom_vline(xintercept = 0, colour = "grey50") +
+  geom_abline(
+    intercept = 0,
+    slope     = wtp / 1e6,
+    linetype  = "dashed",
+    colour    = "black"
+  ) +
+  annotate("text",
+           x = max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+           y = (wtp / 1e6) * max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+           label = paste0("WTP = $", format(wtp, big.mark = ","), "/QALY"),
+           hjust = 1.1,
+           vjust = 0.5,
+           # angle = atan(wtp / 1e6) * 180 / pi,
+           size = 5,
+           fontface = "italic") +
+  scale_colour_manual(
+    values = setNames(
+      bucket_colors[names(bucket_colors) %in% psa_ce_table$spec_bucket],
+      psa_ce_table$spec_label
+    ),
+    name = "Specificity Bucket"
+  ) +
+  scale_y_continuous(
+    name   = "Incremental Cost (millions USD)",
+    labels = dollar_format(prefix = "$", suffix = " M")
+  ) +
+  scale_x_continuous(
+    name   = "Incremental Utility (QALYs)",
+    labels = comma_format()
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "right")
+
+
+
+#### CANSPEC ####
+design_1 <- read_csv("../CanSpec_2025-06-27_1/psa_design_batch_1.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_2 <- read_csv("../CanSpec_2025-06-27_1/psa_design_batch_2.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_3 <- read_csv("../CanSpec_2025-06-27_1/psa_design_batch_3.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_4 <- read_csv("../CanSpec_2025-06-27_1/psa_design_batch_4.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_5 <- read_csv("../CanSpec_2025-06-27_1/psa_design_batch_5.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+
+out_1 <- read_csv("../CanSpec_2025-06-27_1/psa_out_batch_1.csv", show_col_types = FALSE)
+out_2 <- read_csv("../CanSpec_2025-06-27_1/psa_out_batch_2.csv", show_col_types = FALSE)
+out_3 <- read_csv("../CanSpec_2025-06-27_1/psa_out_batch_3.csv", show_col_types = FALSE)
+out_4 <- read_csv("../CanSpec_2025-06-27_1/psa_out_batch_4.csv", show_col_types = FALSE)
+out_5 <- read_csv("../CanSpec_2025-06-27_1/psa_out_batch_5.csv", show_col_types = FALSE)
+
+
+cancer_spec_out_final <- bind_rows(out_1, out_2, out_3, out_4, out_5) %>% 
+  mutate(run_id = row_number())  
+
+wtp_threshold <- 100000
+
+cancer_spec_out_final <- cancer_spec_out_final %>%
+  mutate(
+    cost_effective = Incremental_Utility > 0 & ICER <= wtp_threshold
+  )
+
+screen_cancers <- c("lung and bronchus", "breast", "colon and rectum", "prostate", "cervix")
+
+long_spec_df <- cancer_spec_out_final %>%
+  select(run_id, starts_with("Spec_")) %>%
+  pivot_longer(
+    cols = starts_with("Spec_"),
+    names_to = "param",
+    values_to = "specificity"
+  ) %>%
+  mutate(
+    cancer = str_remove(param, "Spec_")
+  ) %>%
+  filter(cancer %in% screen_cancers) %>%
+  left_join(select(cancer_spec_out_final, run_id, cost_effective), by = "run_id")
+
+
+thresholds <- c(0.95, 0.96, 0.97, 0.98, 0.99)
+
+long_spec_df_thresh <- map_dfr(thresholds, function(thresh) {
+  long_spec_df %>%
+    filter(specificity > thresh) %>%
+    mutate(spec_thresh = thresh)
+}) %>%
+  mutate(
+    spec_label = paste0("Spec > ", formatC(spec_thresh, format = "f", digits = 2))
+  )
+
+ce_summary <- long_spec_df_thresh %>%
+  group_by(cancer, spec_label) %>%
+  summarise(
+    runs = n(),
+    cost_effective = sum(cost_effective, na.rm = TRUE),
+    prob_CE = round(100 * cost_effective / runs, 1),
+    .groups = "drop"
+  )
+
+
+
+# View the table
+ce_summary
+
+grey_palette <- c(
+  "lung and bronchus"   = "grey20",
+  "breast"              = "grey40",
+  "colon and rectum"    = "grey60",
+  "prostate"            = "grey70",
+  "cervix"              = "grey85"
+)
+
+# Plot with custom greyscale fill
+ggplot(ce_summary, aes(x = spec_label, y = prob_CE, fill = cancer)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  labs(
+    x = "MCD Test Specificity Threshold",
+    y = "Probability Cost-Effective (%)",
+    fill = "Cancer"
+  ) +
+  scale_fill_manual(values = grey_palette) +
+  scale_y_continuous(limits = c(0, 15)) +
+  theme_minimal(base_size = 14)
+

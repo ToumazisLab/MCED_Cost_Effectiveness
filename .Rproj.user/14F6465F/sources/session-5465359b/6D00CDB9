@@ -1,0 +1,28 @@
+{
+    "id": "6D00CDB9",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1783371708612.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "id": "f26e9965acce438ba7e404ac852a9c3b",
+        "name": "baseline_list",
+        "title": "baseline_list",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 0,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1783371708612,
+    "read_only": false,
+    "read_only_alternatives": []
+}

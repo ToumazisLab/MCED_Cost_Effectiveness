@@ -1,0 +1,145 @@
+library(ggplot2)
+library(ggalluvial)
+library(dplyr)
+library(scales)
+
+# 1) Get the data
+df_sankey <- baseline$sankey_df_all   # baseline_list[["98%"]][["sankey_df_all"]]
+
+# 2) Aggregate across cancers for "All Cancers"
+df_link <- df_sankey %>%
+  group_by(source_stage, target_stage) %>%
+  summarise(n_cases = sum(n_cases), .groups = "drop")
+
+# 3) Recode for plotting
+df_plot <- df_link %>%
+  mutate(
+    source_label = paste("UC:", source_stage),
+    target_label = paste("MCD + UC:", target_stage)
+  )
+
+df_alluvial <- df_plot %>%
+  select(source_label, target_label, n_cases) %>%
+  rename(Stage = source_label, Stage2 = target_label, freq = n_cases)
+
+# Define a manual greyscale palette for Usual Care stages
+grey_fill <- c(
+  "Stage I"   = "#1b9e77",  # green
+  "Stage II"  = "#7570b3",  # blue-violet
+  "Stage III" = "#e6ab02",  # goldenrod
+  "Stage IV"  = "#d95f02"   # orange
+)
+
+# Plot
+ggplot(df_alluvial,
+       aes(axis1 = Stage, axis2 = Stage2, y = freq)) +
+  geom_alluvium(aes(fill = Stage), width = 1/12, color = "grey40") +
+  geom_stratum(width = 2/12, fill = "grey95", color = "grey30") +
+  geom_text(
+    stat = "stratum",
+    aes(label = paste0(stratum, "\n", comma(after_stat(y)))),
+    size = 3.5
+  ) +
+  scale_fill_manual(values = grey_fill, name = "Usual Care Stage") +
+  scale_x_discrete(limits = c("Usual Care", "MCD + UC"), expand = c(.1, .05)) +
+  scale_y_continuous(labels = comma) +
+  theme_minimal(base_size = 15) +
+  theme(panel.grid = element_blank()) +
+  labs(
+    y = "Number of Cases",
+    x = NULL
+  )
+
+df_alluvial <- df_plot %>%
+  mutate(
+    source_stage_clean = paste("Stage", source_stage),
+    target_stage_clean = paste("Stage", target_stage)
+  ) %>%
+  select(Stage = source_stage_clean, Stage2 = target_stage_clean, freq = n_cases)
+
+
+ggplot(df_alluvial,
+       aes(axis1 = Stage, axis2 = Stage2, y = freq)) +
+  geom_alluvium(aes(fill = Stage), width = 1/12, color = "grey40") +
+  geom_stratum(width = 2/12, fill = "grey95", color = "grey30") +
+  geom_text(
+    stat = "stratum",
+    aes(label = paste0(stratum, "\n", comma(after_stat(y)))),
+    size = 3.5
+  ) +
+  scale_fill_manual(values = grey_fill) +
+  scale_x_discrete(limits = c("Usual Care", "MCD + UC"), expand = c(.1, .05)) +
+  scale_y_continuous(labels = comma) +
+  theme_minimal(base_size = 15) +
+  theme(panel.grid = element_blank()) +
+  labs(
+    y = "Number of Cases",
+    x = NULL
+  )
+
+get_overdx_long <- function() {
+  bind_rows(lapply(cancer_types_overall, function(cancer) {
+    df <- baseline_list[["98%"]][["final_result_list"]][["MCED"]][[cancer]][["MCED_Cancer_cases"]]
+    df <- df[, grepl("^overdiagnosed_", colnames(df))]
+    df$cycle <- seq_len(nrow(df))
+    df_long <- pivot_longer(df, cols = starts_with("overdiagnosed_"),
+                            names_to = "stage", values_to = "n_cases")
+    df_long$stage <- gsub("overdiagnosed_", "", df_long$stage)
+    df_long$cancer_type <- cancer
+    df_long
+  }))
+}
+
+df_overdx <- get_overdx_long()
+
+df_overdx_summary <- df_overdx %>%
+  group_by(stage) %>%
+  summarise(n_cases = sum(n_cases), .groups = "drop") %>%
+  mutate(
+    source_stage = NA_character_,  # No source
+    target_stage = stage,
+    source_label = NA_character_,
+    target_label = paste("Overdiagnosed:", stage)
+  )
+
+df_overdx_link <- df_overdx_summary %>%
+  select(source_label, target_label, n_cases)
+
+df_alluvial_extra <- bind_rows(df_plot %>%
+                                 select(source_label, target_label, n_cases),
+                               df_overdx_link) %>%
+  rename(Stage = source_label, Stage2 = target_label, freq = n_cases)
+
+grey_fill_extended <- c(
+  "Usual Care: I"   = "grey25",
+  "Usual Care: II"  = "grey45",
+  "Usual Care: III" = "grey65",
+  "Usual Care: IV"  = "grey85",
+  "Overdiagnosed: I"   = "grey35",
+  "Overdiagnosed: II"  = "grey55",
+  "Overdiagnosed: III" = "grey75",
+  "Overdiagnosed: IV"  = "grey90"
+)
+
+x_axis_labels <- c("Usual Care", "Overdiagnosed", "MCD + UC")
+
+ggplot(df_alluvial_extra,
+       aes(axis1 = Stage, axis2 = Stage2, y = freq)) +
+  geom_alluvium(aes(fill = Stage), width = 1/12, color = "grey40") +
+  geom_stratum(width = 1/12, fill = "grey95", color = "grey30") +
+  geom_text(
+    stat = "stratum",
+    aes(label = paste0(stratum, "\n", comma(after_stat(y)))),
+    size = 3.1
+  ) +
+  scale_fill_manual(values = grey_fill_extended, name = NULL) +
+  scale_x_discrete(limits = x_axis_labels, expand = c(.1, .05)) +
+  scale_y_continuous(labels = comma) +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid = element_blank()) +
+  labs(
+    y = "Number of Cases",
+    x = NULL
+  )
+
+

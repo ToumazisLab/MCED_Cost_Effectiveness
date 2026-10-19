@@ -1,0 +1,106 @@
+plot_threshold_curve <- function(varname, bins = 10) {
+  # Define human-readable names and axis ranges
+  var_labels <- c(
+    mced_test_cost = "MCD Test Cost ($)",
+    all_spec = "MCD Test Specificity",
+    all_sens = "MCD Test Sensitivity (Multiplier)",
+    survival_mult = "Cancer-Specific Survival (Multiplier)",
+    dwell_scenario = "Cancer Stage Dwell Time Scenario (Moderate)"
+  )
+  
+  x_limits <- list(
+    mced_test_cost = c(50, 1000),
+    all_spec = c(0.95, 0.9999),
+    all_sens = c(0.75, 1.25),         # -25% to +25% multiplier
+    survival_mult = c(0.75, 1.25),     # -25% to +25% multiplier
+    dwell_scenario = c(1, 3)
+  )
+  
+  var_label <- var_labels[[as.character(varname)]]
+  limits <- x_limits[[as.character(varname)]]
+  
+  df_thresholds %>%
+    select({{varname}}, prob_CE) %>%
+    rename(x = {{varname}}) %>%
+    mutate(bin = cut(x, breaks = bins)) %>%
+    group_by(bin) %>%
+    summarise(
+      mean_prob_CE = mean(prob_CE),
+      center = mean(x, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    ggplot(aes(x = center, y = mean_prob_CE)) +
+    geom_line() +
+    geom_point() +
+    geom_hline(yintercept = c(0.1, 0.5, 0.9), linetype = "dashed", color = "gray") +
+    scale_x_continuous(limits = limits) +
+    labs(
+      x = var_label,
+      y = "P(Cost-Effective)"
+    ) +
+    theme_minimal()
+}
+
+top5_plots <- lapply(top5_vars, plot_threshold_curve)
+top5_plots[[1]] 
+
+
+library(ggplot2)
+library(patchwork)
+
+plot_threshold_curve <- function(varname, bins = 10) {
+  var_labels <- c(
+    mced_test_cost = "MCD Test Cost ($)",
+    all_spec = "MCD Test Specificity",
+    all_sens = "MCD Test Sensitivity (vs Base)",
+    survival_mult = "Cancer-Specific Survival (vs Base)",
+    dwell_scenario = "Cancer Stage Dwell Time Scenario"
+  )
+  
+  x_limits <- list(
+    mced_test_cost = c(50, 1000),
+    all_spec = c(0.98, 0.9999),
+    all_sens = c(0.75, 1.25),
+    survival_mult = c(0.75, 1.25),
+    dwell_scenario = c(1, 3)
+  )
+  
+  scale_labels <- function(x, varname) {
+    if (varname %in% c("all_sens", "survival_mult")) {
+      scales::percent(x - 1, accuracy = 1)  # express as +/- from base
+    } else {
+      x
+    }
+  }
+  
+  var_label <- var_labels[[as.character(varname)]]
+  limits <- x_limits[[as.character(varname)]]
+  
+  df_thresholds %>%
+    select({{varname}}, prob_CE) %>%
+    rename(x = {{varname}}) %>%
+    mutate(bin = cut(x, breaks = bins)) %>%
+    group_by(bin) %>%
+    summarise(
+      mean_prob_CE = mean(prob_CE),
+      center = mean(x, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    ggplot(aes(x = center, y = mean_prob_CE)) +
+    geom_line() +
+    geom_point() +
+    geom_hline(yintercept = c(0.1, 0.5, 0.9), linetype = "dashed", color = "gray") +
+    scale_x_continuous(
+      limits = limits,
+      labels = ~ scale_labels(.x, as.character(varname))
+    ) +
+    labs(
+      x = var_label,
+      y = "P(Cost-Effective)"
+    ) +
+    theme_minimal()
+}
+
+top4_plots <- top5_plots[1:4]
+(top4_plots[[1]] | top4_plots[[2]]) /
+  (top4_plots[[3]] | top4_plots[[4]])

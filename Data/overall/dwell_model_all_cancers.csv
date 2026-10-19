@@ -1,0 +1,257 @@
+Cancer,dwell_group,scenario,Stage,dwell,number_stage
+anus,A,1,I,4,1
+anus,A,1,II,2,2
+anus,A,1,III,1,3
+anus,A,1,IV,1,4
+anus,A,2,I,3,1
+anus,A,2,II,1.5,2
+anus,A,2,III,0.75,3
+anus,A,2,IV,0.75,4
+anus,A,3,I,2,1
+anus,A,3,II,1,2
+anus,A,3,III,0.5,3
+anus,A,3,IV,0.5,4
+anus,A,4,I,1.5,1
+anus,A,4,II,0.75,2
+anus,A,4,III,0.5,3
+anus,A,4,IV,0.25,4
+colon and rectum,A,1,I,4,1
+colon and rectum,A,1,II,2,2
+colon and rectum,A,1,III,1,3
+colon and rectum,A,1,IV,1,4
+colon and rectum,A,2,I,3,1
+colon and rectum,A,2,II,1.5,2
+colon and rectum,A,2,III,0.75,3
+colon and rectum,A,2,IV,0.75,4
+colon and rectum,A,3,I,2,1
+colon and rectum,A,3,II,1,2
+colon and rectum,A,3,III,0.5,3
+colon and rectum,A,3,IV,0.5,4
+colon and rectum,A,4,I,1.5,1
+colon and rectum,A,4,II,0.75,2
+colon and rectum,A,4,III,0.5,3
+colon and rectum,A,4,IV,0.25,4
+esophagus,A,1,I,4,1
+esophagus,A,1,II,2,2
+esophagus,A,1,III,1,3
+esophagus,A,1,IV,1,4
+esophagus,A,2,I,3,1
+esophagus,A,2,II,1.5,2
+esophagus,A,2,III,0.75,3
+esophagus,A,2,IV,0.75,4
+esophagus,A,3,I,2,1
+esophagus,A,3,II,1,2
+esophagus,A,3,III,0.5,3
+esophagus,A,3,IV,0.5,4
+esophagus,A,4,I,1.5,1
+esophagus,A,4,II,0.75,2
+esophagus,A,4,III,0.5,3
+esophagus,A,4,IV,0.25,4
+lung and bronchus,A,1,I,4,1
+lung and bronchus,A,1,II,2,2
+lung and bronchus,A,1,III,1,3
+lung and bronchus,A,1,IV,1,4
+lung and bronchus,A,2,I,3,1
+lung and bronchus,A,2,II,1.5,2
+lung and bronchus,A,2,III,0.75,3
+lung and bronchus,A,2,IV,0.75,4
+lung and bronchus,A,3,I,2,1
+lung and bronchus,A,3,II,1,2
+lung and bronchus,A,3,III,0.5,3
+lung and bronchus,A,3,IV,0.5,4
+lung and bronchus,A,4,I,1.5,1
+lung and bronchus,A,4,II,0.75,2
+lung and bronchus,A,4,III,0.5,3
+lung and bronchus,A,4,IV,0.25,4
+cervix,B,1,I,8,1
+cervix,B,1,II,4,2
+cervix,B,1,III,2,3
+cervix,B,1,IV,1,4
+cervix,B,2,I,6,1
+cervix,B,2,II,3,2
+cervix,B,2,III,1.5,3
+cervix,B,2,IV,1,4
+cervix,B,3,I,4,1
+cervix,B,3,II,2,2
+cervix,B,3,III,1,3
+cervix,B,3,IV,1,4
+cervix,B,4,I,1.5,1
+cervix,B,4,II,0.75,2
+cervix,B,4,III,0.5,3
+cervix,B,4,IV,0.25,4
+uterus,B,1,I,8,1
+uterus,B,1,II,4,2
+uterus,B,1,III,2,3
+uterus,B,1,IV,1,4
+uterus,B,2,I,6,1
+uterus,B,2,II,3,2
+uterus,B,2,III,1.5,3
+uterus,B,2,IV,1,4
+uterus,B,3,I,4,1
+uterus,B,3,II,2,2
+uterus,B,3,III,1,3
+uterus,B,3,IV,1,4
+uterus,B,4,I,1.5,1
+uterus,B,4,II,0.75,2
+uterus,B,4,III,0.5,3
+uterus,B,4,IV,0.25,4
+head and neck,B,1,I,8,1
+head and neck,B,1,II,4,2
+head and neck,B,1,III,2,3
+head and neck,B,1,IV,1,4
+head and neck,B,2,I,6,1
+head and neck,B,2,II,3,2
+head and neck,B,2,III,1.5,3
+head and neck,B,2,IV,1,4
+head and neck,B,3,I,4,1
+head and neck,B,3,II,2,2
+head and neck,B,3,III,1,3
+head and neck,B,3,IV,1,4
+head and neck,B,4,I,1.5,1
+head and neck,B,4,II,0.75,2
+head and neck,B,4,III,0.5,3
+head and neck,B,4,IV,0.25,4
+lymphoma,B,1,I,8,1
+lymphoma,B,1,II,4,2
+lymphoma,B,1,III,2,3
+lymphoma,B,1,IV,1,4
+lymphoma,B,2,I,6,1
+lymphoma,B,2,II,3,2
+lymphoma,B,2,III,1.5,3
+lymphoma,B,2,IV,1,4
+lymphoma,B,3,I,4,1
+lymphoma,B,3,II,2,2
+lymphoma,B,3,III,1,3
+lymphoma,B,3,IV,1,4
+lymphoma,B,4,I,1.5,1
+lymphoma,B,4,II,0.75,2
+lymphoma,B,4,III,0.5,3
+lymphoma,B,4,IV,0.25,4
+ovarian,B,1,I,8,1
+ovarian,B,1,II,4,2
+ovarian,B,1,III,2,3
+ovarian,B,1,IV,1,4
+ovarian,B,2,I,6,1
+ovarian,B,2,II,3,2
+ovarian,B,2,III,1.5,3
+ovarian,B,2,IV,1,4
+ovarian,B,3,I,4,1
+ovarian,B,3,II,2,2
+ovarian,B,3,III,1,3
+ovarian,B,3,IV,1,4
+ovarian,B,4,I,1.5,1
+ovarian,B,4,II,0.75,2
+ovarian,B,4,III,0.5,3
+ovarian,B,4,IV,0.25,4
+kidney and renal pelvis,C,1,I,8,1
+kidney and renal pelvis,C,1,II,2,2
+kidney and renal pelvis,C,1,III,1,3
+kidney and renal pelvis,C,1,IV,1,4
+kidney and renal pelvis,C,2,I,5,1
+kidney and renal pelvis,C,2,II,1.5,2
+kidney and renal pelvis,C,2,III,1,3
+kidney and renal pelvis,C,2,IV,0.75,4
+kidney and renal pelvis,C,3,I,2,1
+kidney and renal pelvis,C,3,II,1,2
+kidney and renal pelvis,C,3,III,1,3
+kidney and renal pelvis,C,3,IV,0.5,4
+kidney and renal pelvis,C,4,I,1,1
+kidney and renal pelvis,C,4,II,0.5,2
+kidney and renal pelvis,C,4,III,0.25,3
+kidney and renal pelvis,C,4,IV,0.25,4
+liver and intrahepatic bile duct,C,1,I,8,1
+liver and intrahepatic bile duct,C,1,II,2,2
+liver and intrahepatic bile duct,C,1,III,1,3
+liver and intrahepatic bile duct,C,1,IV,1,4
+liver and intrahepatic bile duct,C,2,I,5,1
+liver and intrahepatic bile duct,C,2,II,1.5,2
+liver and intrahepatic bile duct,C,2,III,1,3
+liver and intrahepatic bile duct,C,2,IV,0.75,4
+liver and intrahepatic bile duct,C,3,I,2,1
+liver and intrahepatic bile duct,C,3,II,1,2
+liver and intrahepatic bile duct,C,3,III,1,3
+liver and intrahepatic bile duct,C,3,IV,0.5,4
+liver and intrahepatic bile duct,C,4,I,1,1
+liver and intrahepatic bile duct,C,4,II,0.5,2
+liver and intrahepatic bile duct,C,4,III,0.25,3
+liver and intrahepatic bile duct,C,4,IV,0.25,4
+pancreas,C,1,I,8,1
+pancreas,C,1,II,2,2
+pancreas,C,1,III,1,3
+pancreas,C,1,IV,1,4
+pancreas,C,2,I,5,1
+pancreas,C,2,II,1.5,2
+pancreas,C,2,III,1,3
+pancreas,C,2,IV,0.75,4
+pancreas,C,3,I,2,1
+pancreas,C,3,II,1,2
+pancreas,C,3,III,1,3
+pancreas,C,3,IV,0.5,4
+pancreas,C,4,I,1,1
+pancreas,C,4,II,0.5,2
+pancreas,C,4,III,0.25,3
+pancreas,C,4,IV,0.25,4
+prostate,C,1,I,8,1
+prostate,C,1,II,2,2
+prostate,C,1,III,1,3
+prostate,C,1,IV,1,4
+prostate,C,2,I,5,1
+prostate,C,2,II,1.5,2
+prostate,C,2,III,1,3
+prostate,C,2,IV,0.75,4
+prostate,C,3,I,2,1
+prostate,C,3,II,1,2
+prostate,C,3,III,1,3
+prostate,C,3,IV,0.5,4
+prostate,C,4,I,1,1
+prostate,C,4,II,0.5,2
+prostate,C,4,III,0.25,3
+prostate,C,4,IV,0.25,4
+stomach,C,1,I,8,1
+stomach,C,1,II,2,2
+stomach,C,1,III,1,3
+stomach,C,1,IV,1,4
+stomach,C,2,I,5,1
+stomach,C,2,II,1.5,2
+stomach,C,2,III,1,3
+stomach,C,2,IV,0.75,4
+stomach,C,3,I,2,1
+stomach,C,3,II,1,2
+stomach,C,3,III,1,3
+stomach,C,3,IV,0.5,4
+stomach,C,4,I,1,1
+stomach,C,4,II,0.5,2
+stomach,C,4,III,0.25,3
+stomach,C,4,IV,0.25,4
+bladder,D,1,I,10,1
+bladder,D,1,II,4,2
+bladder,D,1,III,2,3
+bladder,D,1,IV,1,4
+bladder,D,2,I,7,1
+bladder,D,2,II,3,2
+bladder,D,2,III,1.5,3
+bladder,D,2,IV,1,4
+bladder,D,3,I,4,1
+bladder,D,3,II,2,2
+bladder,D,3,III,1,3
+bladder,D,3,IV,1,4
+bladder,D,4,I,2,1
+bladder,D,4,II,1,2
+bladder,D,4,III,0.5,3
+bladder,D,4,IV,0.5,4
+breast,D,1,I,10,1
+breast,D,1,II,4,2
+breast,D,1,III,2,3
+breast,D,1,IV,1,4
+breast,D,2,I,7,1
+breast,D,2,II,3,2
+breast,D,2,III,1.5,3
+breast,D,2,IV,1,4
+breast,D,3,I,4,1
+breast,D,3,II,2,2
+breast,D,3,III,1,3
+breast,D,3,IV,1,4
+breast,D,4,I,2,1
+breast,D,4,II,1,2
+breast,D,4,III,0.5,3
+breast,D,4,IV,0.5,4

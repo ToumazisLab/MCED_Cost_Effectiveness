@@ -1,0 +1,26 @@
+{
+    "id": "2428F595",
+    "path": "~/Documents/MCED_testing/Run_One_Model.R",
+    "project_path": null,
+    "type": "r_source",
+    "hash": "2858549535",
+    "contents": "",
+    "dirty": false,
+    "created": 1750182591149.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "315,0",
+        "scrollLine": "0"
+    },
+    "folds": "160|29|167|0|\n",
+    "lastKnownWriteTime": 1786123125,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1786123125068,
+    "read_only": false,
+    "read_only_alternatives": []
+}

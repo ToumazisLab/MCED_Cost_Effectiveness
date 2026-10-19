@@ -1,0 +1,173 @@
+# Define cost thresholds and bin labels
+mcd_test_thresholds <- c(250, 500, 750, 1000)
+
+# Create labels that match the case_when bins
+cost_bins <- tibble(
+  lower = c(50, 250, 500, 750),
+  upper = c(250, 500, 750, 1000),
+  label = c(
+    "MCD Test Cost $50-250",
+    "MCD Test Cost $250-500",
+    "MCD Test Cost $500-750",
+    "MCD Test Cost $750-1000"
+  )
+)
+
+# Compute % CE for each bin using filter range matching labels
+psa_ce_thresholds <- pmap_dfr(cost_bins, function(lower, upper, label) {
+  filtered <- psa_design_final %>% 
+    filter(mced_test_cost >= lower, mced_test_cost < upper) %>% 
+    select(run_id)
+  
+  joined <- psa_out_final %>% 
+    semi_join(filtered, by = "run_id") %>% 
+    mutate(
+      NMB = Incremental_Utility * wtp - Incremental_Cost,
+      CE = NMB > 0
+    )
+  
+  tibble(
+    mcd_test_thresh_label = label,
+    pct_CE = mean(joined$CE) * 100
+  )
+}) %>%
+  mutate(label_ce = paste0(mcd_test_thresh_label, " (", round(pct_CE, 1), "% CE)")) %>% 
+  mutate(
+    cost_bin_order = case_when(
+      mcd_test_thresh_label == "MCD Test Cost $50-250"   ~ 1,
+      mcd_test_thresh_label == "MCD Test Cost $250-500"  ~ 2,
+      mcd_test_thresh_label == "MCD Test Cost $500-750"  ~ 3,
+      mcd_test_thresh_label == "MCD Test Cost $750-1000" ~ 4,
+      TRUE ~ NA_real_
+    ),
+    label_ce = paste0(mcd_test_thresh_label, " (", round(pct_CE, 1), "% CE)")
+  )
+
+# Apply the same binning logic to psa_cloud
+psa_cloud <- psa_out_final %>%
+  left_join(select(psa_design_final, run_id, mced_test_cost), by = "run_id") %>%
+  mutate(
+    mcd_test_thresh_label = case_when(
+      mced_test_cost < 250 ~ "MCD Test Cost $50-250",
+      mced_test_cost < 500 ~ "MCD Test Cost $250-500",
+      mced_test_cost < 750 ~ "MCD Test Cost $500-750",
+      mced_test_cost < 1000 ~ "MCD Test Cost $750-1000",
+      TRUE ~ NA_character_  # outside bin range
+    )
+  ) %>%
+  left_join(psa_ce_thresholds, by = "mcd_test_thresh_label")
+
+# Define consistent bucket colors
+bucket_colors <- c(
+  "MCD Test Cost $50-250 (XX% CE)"   = "#404040",
+  "MCD Test Cost $250-500 (XX% CE)"  = "#737373",
+  "MCD Test Cost $500-750 (XX% CE)"  = "#A6A6A6",
+  "MCD Test Cost $750-1000 (XX% CE)" = "#D9D9D9"
+)
+
+# Update actual names from the data
+names(bucket_colors) <- psa_ce_thresholds$label_ce
+
+psa_ce_thresholds <- psa_ce_thresholds %>%
+  mutate(
+    cost_bin_order = case_when(
+      mcd_test_thresh_label == "MCD Test Cost $50-250"   ~ 1,
+      mcd_test_thresh_label == "MCD Test Cost $250-500"  ~ 2,
+      mcd_test_thresh_label == "MCD Test Cost $500-750"  ~ 3,
+      mcd_test_thresh_label == "MCD Test Cost $750-1000" ~ 4,
+      TRUE ~ NA_real_
+    ),
+    label_ce = paste0(mcd_test_thresh_label, " (", round(pct_CE, 1), "% CE)")
+  )
+
+psa_cloud <- psa_cloud %>%
+  left_join(psa_ce_thresholds %>% select(mcd_test_thresh_label, label_ce, cost_bin_order), 
+            by = "mcd_test_thresh_label") %>%
+  mutate(
+    label_ce = factor(label_ce, levels = label_ce[order(cost_bin_order)])
+  )
+
+
+ggplot() +
+  geom_point(
+    data  = psa_cloud,
+    aes(x = Incremental_Utility,
+        y = Incremental_Cost / 1e6,
+        color = label_ce),
+    size  = 2,
+    alpha = 0.5
+  ) +
+  geom_hline(yintercept = 0, colour = "grey50") +
+  geom_vline(xintercept = 0, colour = "grey50") +
+  geom_abline(
+    intercept = 0,
+    slope     = wtp / 1e6,
+    linetype  = "dashed",
+    colour    = "black"
+  ) +
+  annotate("text",
+           x = max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+           y = (wtp / 1e6) * max(psa_cloud$Incremental_Utility, na.rm = TRUE) * 0.95,
+           label = paste0("WTP = $", format(wtp, big.mark = ","), "/QALY"),
+           hjust = 1.1,
+           vjust = 0.5,
+           size = 5,
+           fontface = "italic") +
+  scale_color_manual(
+    values = bucket_colors,
+    name = "MCD Test Cost Thresholds"
+  ) +
+  scale_y_continuous(
+    name = "Incremental Cost (millions USD)",
+    labels = scales::dollar_format(prefix = "$", suffix = " M")
+  ) +
+  scale_x_continuous(
+    name = "Incremental Utility (QALYs)",
+    labels = scales::comma_format()
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(legend.position = "right")
+
+#### SPEC ####
+
+
+bucket_colors <- c(
+  "#D9D9D9",  # lightest
+  "#BFBFBF",
+  "#A6A6A6",
+  "#737373",
+  "#595959",
+  "#404040"   # darkest
+)
+
+spec_thresholds <- c(0.95, 0.96, 0.97, 0.98, 0.99, 0.995)
+
+psa_ce_thresholds <- map_df(spec_thresholds, function(thresh) {
+  filtered <- psa_design_final %>%
+    filter(all_spec > thresh) %>%
+    select(run_id)
+  
+  joined <- psa_out_final %>%
+    semi_join(filtered, by = "run_id") %>%
+    mutate(
+      NMB = Incremental_Utility * wtp - Incremental_Cost,
+      CE = NMB > 0
+    )
+  
+  tibble(
+    spec_thresh = thresh,
+    label = paste0("MCD Test Specificity > ", formatC(thresh, format = "f", digits = 3)),
+    pct_CE = mean(joined$CE) * 100
+  )
+})
+
+
+
+bucket_colors_spec <- c(
+  "MCD Test Specificity > 0.95"  = "#D9D9D9",
+  "MCD Test Specificity > 0.96"  = "#BFBFBF",
+  "MCD Test Specificity > 0.97"  = "#A6A6A6",
+  "MCD Test Specificity > 0.98"  = "#737373",
+  "MCD Test Specificity > 0.99"  = "#595959",
+  "MCD Test Specificity > 0.995" = "#404040"
+)

@@ -1,0 +1,17 @@
+Cancer,Screening_modality,Screening_cost,gender,Comply_overall,Compliance_frequency,Specificity,Eligibility,Incidental_modality,incidental_cost,Invasive_modality,Invasive_procedure,invasive_cost,Frequency,Start_age,end_age,Diagnostic_modality,FP_cost
+breast,Scr mammo bi incl cad,125.74,1,0.777,0.3885,0.89,1,Ct thorax dx c-,133.92,Bx breast 1st lesion us imag,0.033,481.61,1,40,74,"Dx mammo incl cad bi, Mri breast c-+ w/cad bi",298.3
+cervix,Ca screen;pelvic/breast exam,38.64,1,0.789,0.263,0.85,1,Transvaginal US non-ob,117.22,Biopsy of cervix*,0.03,28.49,1,30,65,Colposcopy of cervix,131.63
+colon and rectum,Colon cancer screening not high risk ,"1,235.79",0,0.738,0.0738,0.89,1,Colonoscopy and biopsy,"1,776",NA,0,0,1,50,75,Colon and Rectum biopsy,540.22
+lung and bronchus,Screening LDCT,138.51,0,,0.18,0.87,0.12,Average of Ct thorax diagnostic with contrast and without contrast,151.12,Core ndl bx lng/med perq,0.03,824.5,1,50,80,Follow-up CT thorax dx c-,133.92
+prostate,Prostate ca screening; digital rectal exam,22.92,2,,0.613,0.82,1,CT Abd & Pelvis W W/O Contrast,305.83,Biopsy of prostate with US Guidance,0.2,236.74,1,55,69,Multiparameter MRI of the prostate,389.06
+anus,NA,0,0,,0,1,0,Colonoscopy and biopsy,"1,776",NA,0,0,0,0,0,Same as incidental screening,0
+bladder,NA,0,0,,0,1,0,Ct abdomen w and wo contrast,264.25,Cystoscopy w/biopsy(s),0.1,370.34,0,0,0,Same as incidental screening,0
+esophagus,NA,0,0,,0,1,0,"Esophagogastroduodenoscopy, flexible, transoral; diagnostic, including collection of specimen(s) by brushing or washing, when performed",369.35,NA,0,0,0,0,0,Same as incidental screening,0
+head and neck,NA,0,0,,0,1,0,Diagnostic laryngoscopy,127.05,Biopsy of neck/chest,0.1,263.26,0,0,0,Same as incidental screening,0
+kidney and renal pelvis,NA,0,0,,0,1,0,CT Abd & Pelvis W W/O Contrast,305.83,"Renal biopsy; percutaneous, by trocar or needle",0.1,497.71,0,0,0,Same as incidental screening,0
+liver and intrahepatic bile duct,NA,0,0,,0,1,0,Ct abdomen w/o & w/dye,264.25,"Biopsy of liver, needle, percutaneous",0.1,292.41,0,0,0,Same as incidental screening,0
+lymphoma,NA,0,0,,0,1,0,CT Chest w/ Contrast,133.92,Biopsy/removal lymph nodes,0.1,436.81,0,0,0,Same as incidental screening,0
+ovarian,NA,0,1,,0,1,0,Transvaginal us non-ob,117.22,Biopsy of ovary,0.1,433.86,0,0,0,Same as incidental screening,0
+pancreas,NA,0,0,,0,1,0,Ct abdomen w/o & w/dye,235.1,Needle biopsy pancreas,0.1,497.38,0,0,0,Same as incidental screening,0
+stomach,NA,0,0,,0,1,0,"Esophagogastroduodenoscopy, flexible, transoral; diagnostic, including collection of specimen(s) by brushing or washing, when performed",369.35,NA,0,0,0,0,0,Same as incidental screening,0
+uterus,NA,0,1,,0,1,0,Transvaginal us non-ob,117.22,Biopsy of uterus lining,0.1,100.2,0,0,0,Same as incidental screening,0

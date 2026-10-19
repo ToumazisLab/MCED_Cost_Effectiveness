@@ -1,0 +1,65 @@
+Cancer,Stage,original_sens,Grail,Thunder,thromboSeq,Sensitivity_3,Sensitivity
+breast,I,0.03,0.03,,0,0.015,0.02
+prostate,I,0.03,0.03,,,0.03,0.03
+kidney and renal pelvis,I,0.05,0.05,,,0.05,0.05
+stomach,I,0.17,0.17,,,0.17,0.17
+bladder,I,0.18,0.18,,,0.18,0.18
+esophagus,I,0.13,0.13,0.222,,0.176,0.18
+colon and rectum,I,0.43,0.43,0.286,0,0.239,0.24
+anus,I,0.25,0.25,,,0.25,0.25
+uterus,I,0.17,0.17,,0.57,0.26,0.26
+pancreas,I,0.61,0.61,0.2,0,0.27,0.27
+lung and bronchus,I,0.22,0.22,0.275,0.5,0.332,0.33
+lymphoma,I,0.27,0.27,,0.5,0.385,0.39
+ovarian,I,0.5,0.5,0.333,0.48,0.438,0.44
+head and neck,I,0.63,0.63,,0.5,0.565,0.57
+cervix,I,0.58,0.58,,,0.58,0.58
+liver and intrahepatic bile duct,I,0.81,0.81,0.773,,0.792,0.79
+prostate,II,0.05,0.05,,,0.05,0.05
+bladder,II,0.18,0.18,,,0.18,0.18
+kidney and renal pelvis,II,0.19,0.19,,,0.19,0.19
+uterus,II,0.3,0.3,,0,0.26,0.26
+breast,II,0.48,0.48,,0.17,0.325,0.33
+esophagus,II,0.65,0.65,0.375,0,0.342,0.34
+pancreas,II,0.61,0.61,0.333,0.4,0.448,0.45
+stomach,II,0.5,0.5,,,0.5,0.5
+lung and bronchus,II,0.8,0.8,0.333,0.7,0.611,0.61
+ovarian,II,0.8,0.8,0.667,0.5,0.656,0.66
+colon and rectum,II,0.85,0.85,0.714,0.5,0.6725,0.67
+lymphoma,II,0.58,0.58,,0.8,0.69,0.69
+anus,II,0.75,0.75,,,0.75,0.75
+head and neck,II,0.82,0.82,,1,0.7525,0.75
+liver and intrahepatic bile duct,II,0.81,0.81,0.818,,0.814,0.81
+cervix,II,1,1,,,0.99,0.99
+prostate,III,0.14,0.14,,,0.14,0.14
+kidney and renal pelvis,III,0.19,0.19,,,0.19,0.19
+uterus,III,0.74,0.74,,0.25,0.495,0.5
+pancreas,III,0.86,0.86,0.529,0.3,0.563,0.56
+colon and rectum,III,0.88,0.88,0.76,0.33,0.6725,0.67
+breast,III,0.85,0.85,,0.5,0.675,0.68
+esophagus,III,0.94,0.94,0.8,0.4,0.676,0.68
+lymphoma,III,0.66,0.66,,0.8,0.6975,0.7
+bladder,III,0.75,0.75,,,0.75,0.75
+head and neck,III,0.84,0.84,,0.35,0.7525,0.75
+lung and bronchus,III,0.91,0.91,0.833,0.63,0.791,0.79
+ovarian,III,0.87,0.87,0.941,0.58,0.797,0.8
+stomach,III,0.8,0.8,,,0.8,0.8
+liver and intrahepatic bile duct,III,1,1,0.95,,0.975,0.98
+anus,III,1,1,,,0.99,0.99
+cervix,III,1,1,,,0.99,0.99
+kidney and renal pelvis,IV,0.55,0.55,,0.67,0.61,0.61
+esophagus,IV,1,1,0.917,0,0.676,0.68
+lymphoma,IV,0.66,0.66,,0.67,0.6975,0.7
+breast,IV,0.91,0.91,,0.52,0.715,0.72
+colon and rectum,IV,0.95,0.95,1,0.5,0.817,0.82
+head and neck,IV,0.96,0.96,,0.67,0.815,0.82
+pancreas,IV,0.96,0.96,0.96,0.61,0.843,0.84
+lung and bronchus,IV,0.95,0.95,0.846,0.77,0.855,0.86
+ovarian,IV,0.95,0.95,1,0.69,0.88,0.88
+prostate,IV,0.83,0.83,,1,0.915,0.92
+anus,IV,1,1,,,0.99,0.99
+bladder,IV,1,1,,,0.99,0.99
+cervix,IV,1,1,,,0.99,0.99
+liver and intrahepatic bile duct,IV,1,1,1,,0.99,0.99
+stomach,IV,1,1,,,0.99,0.99
+uterus,IV,1,1,,,0.99,0.99

@@ -1,0 +1,258 @@
+# =============================================================================
+# MCED Model — Scenario Runner
+#
+# Edit ONLY the CONFIG block (section 2). Everything below it is mechanical.
+#
+#   RUN_MODE = "base"   -> base inputs, spec 0.98 / cost $500, df_sensitivity$Sensitivity
+#   RUN_MODE = "grail"  -> grail inputs, spec 0.995 / cost $949, df_sensitivity$Grail
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# 1. Setup
+# -----------------------------------------------------------------------------
+source("Global.R")
+source("Functions/Preparation_Scripts/Def_params.R", echo = FALSE)
+source("Functions/Preparation_Scripts/Source_file.R", echo = FALSE)
+source("Functions/Shiny/run_model.R", echo = FALSE)
+
+
+# -----------------------------------------------------------------------------
+# 2. CONFIG  <<< the only block you normally touch
+# -----------------------------------------------------------------------------
+
+RUN_MODE <- "grail"        # "base" or "grail"
+RUN_SWEEPS <- TRUE        # TRUE = run the full spec x cost grid + subsets
+# FALSE = base/grail case only
+
+cancer_types <- cancer_types_overall
+# Alternatives:
+# cancer_types <- c("lung and bronchus", "colon and rectum", "prostate", "breast", "cervix")
+# cancer_types <- setdiff(cancer_types_overall, def_param_list$screening_cancers)
+
+SENSITIVITY_FILE <- "Data/overall/sensitivity_long_overall.csv"
+
+
+## --- Base inputs -------------------------------------------------------------
+base_input_params <- list(
+  mced_start_cycle         = 6,
+  mced_end_cycle           = 41,
+  mced_compliance_rate     = 0.75,
+  overdiagnosis_factor     = 0.05,
+  mced_test_cost           = 500,
+  dwell_scenario           = "Scenario_2",
+  ss_scenario              = 3,
+  ts_matrix                = "time_shift_matrix_2",
+  reduced_comply           = 1,
+  fp_track_num             = 3,
+  invasive_multi           = 0.1,     # must be between 0-1
+  mced_fp_compliance       = 1,
+  fp_disutility_val        = 0.0125,
+  tn_disutility_val        = 0,
+  d_c                      = 0.03,
+  d_e                      = 0.03,
+  active_slip              = FALSE,
+  two_step                 = FALSE,
+  overall_sens             = 0,
+  overall_specificity      = 0,
+  mced_secondary_test_cost = 0,
+  survival_method          = "floor_max"
+)
+
+## --- Grail inputs ------------------------------------------------------------
+grail_input_params <- list(
+  mced_start_cycle         = 11,
+  mced_end_cycle           = 40,
+  mced_compliance_rate     = 0.9,
+  overdiagnosis_factor     = 0.05,
+  mced_test_cost           = 949,
+  dwell_scenario           = "Scenario_1",
+  ss_scenario              = 1,
+  ts_matrix                = "time_shift_matrix_1",
+  reduced_comply           = 1,
+  fp_track_num             = 3,
+  invasive_multi           = 0.1,     # must be between 0-1
+  mced_fp_compliance       = 1,
+  fp_disutility_val        = 0.0125,
+  tn_disutility_val        = 0,
+  d_c                      = 0.03,
+  d_e                      = 0.03,
+  active_slip              = FALSE,
+  two_step                 = FALSE,
+  overall_sens             = 0,
+  overall_specificity      = 0,
+  mced_secondary_test_cost = 0,
+  survival_method          = "floor_max"
+)
+
+## --- Mode resolution ---------------------------------------------------------
+cfg <- switch(
+  RUN_MODE,
+  base = list(
+    input_params  = base_input_params,
+    sensitivity_col = "Sensitivity",   # use the file's Sensitivity column as-is
+    spec_default  = 0.98,
+    cost_default  = 500,
+    label         = "base_case_spec0.98_cost500"
+  ),
+  grail = list(
+    input_params  = grail_input_params,
+    sensitivity_col = "Grail",         # overwrite Sensitivity with Grail values
+    spec_default  = 0.99,
+    cost_default  = 949,
+    label         = "grail_spec0.995_cost949"
+  ),
+  stop("RUN_MODE must be either 'base' or 'grail'")
+)
+
+input_params <- cfg$input_params
+
+
+# -----------------------------------------------------------------------------
+# 3. Load data + sensitivity
+# -----------------------------------------------------------------------------
+data_loaded <- load_data(input_params, def_param_list)
+
+df_sensitivity <- read_csv(SENSITIVITY_FILE, show_col_types = FALSE) %>%
+  filter(Cancer %in% cancer_types)
+
+# In "base" this is a no-op; in "grail" it swaps in the Grail column.
+stopifnot(cfg$sensitivity_col %in% names(df_sensitivity))
+df_sensitivity$Sensitivity <- df_sensitivity[[cfg$sensitivity_col]]
+
+sensitivity_results <- process_sensitivity(
+  cancer_list      = cancer_types,
+  sensitivity_long = df_sensitivity,
+  seer_draw        = data_loaded$seer_draw,
+  xStage           = def_param_list$xStage,
+  active_slip      = FALSE,
+  dwell_model_df   = data_loaded$dwell_model_all_cancers
+)
+
+sensitivity_processed <- sensitivity_results$sensitivity_long
+sensitivity_matrix    <- sensitivity_results$Values
+
+
+# -----------------------------------------------------------------------------
+# 4. Helpers
+# -----------------------------------------------------------------------------
+all_cancers       <- cancer_types
+screening_cancers <- intersect(def_param_list$screening_cancers, all_cancers)
+nonscreen_cancers <- setdiff(all_cancers, screening_cancers)
+
+# Subset the sensitivity value matrix to a given cancer list
+vals_for <- function(clist) {
+  V <- sensitivity_matrix
+  if (!is.null(rownames(V))) V[rownames(V) %in% clist, , drop = FALSE] else V
+}
+
+# `spec` may be either a single numeric (applied to all cancers in clist)
+# or a data.frame with columns Cancer / Specificity (for split scenarios).
+run_scenario <- function(clist, spec, cost) {
+  spec_df <- if (is.data.frame(spec)) {
+    spec
+  } else {
+    data.frame(Cancer = clist, Specificity = rep(spec, length(clist)))
+  }
+  
+  run_usual_model(
+    cancer_list          = clist,
+    data_list            = data_loaded,
+    def_param_list       = def_param_list,
+    input_params         = modifyList(input_params, list(mced_test_cost = cost)),
+    sensitivity_long     = df_sensitivity[df_sensitivity$Cancer %in% clist, , drop = FALSE],
+    specificity_data     = spec_df,
+    Values               = vals_for(clist),
+    cancer_types_overall = cancer_types_overall
+  )
+}
+
+
+# -----------------------------------------------------------------------------
+# 5. Scenario definitions
+# -----------------------------------------------------------------------------
+
+## 5a. Base / grail case ------------------------------------------------------
+all_runs <- setNames(
+  list(run_scenario(all_cancers, cfg$spec_default, cfg$cost_default)),
+  cfg$label
+)
+
+## 5b. Main results grid ------------------------------------------------------
+if (RUN_SWEEPS) {
+  
+  spec_values <- c(0.95, 0.98, 0.9999)
+  cost_values <- c(50, 500, 1000)
+  
+  grid <- expand.grid(
+    spec = spec_values,
+    cost = cost_values,
+    KEEP.OUT.ATTRS = FALSE,
+    stringsAsFactors = FALSE
+  )
+  grid <- grid[order(grid$spec, grid$cost), ]
+  
+  grid_runs <- setNames(
+    Map(function(s, k) run_scenario(all_cancers, s, k), grid$spec, grid$cost),
+    sprintf("spec_%s_cost_%s", grid$spec, grid$cost)
+  )
+  
+  ## Screening / non-screening subsets (held at spec 0.98, cost 500)
+  subset_runs <- list(
+    screening_only    = run_scenario(screening_cancers, 0.98, 500),
+    nonscreening_only = run_scenario(nonscreen_cancers, 0.98, 500)
+  )
+  
+  ## Split scenario: screening 0.98, non-screening 0.99, cost $510
+  spec_df_split <- rbind(
+    data.frame(Cancer = screening_cancers, Specificity = 0.98),
+    data.frame(Cancer = nonscreen_cancers, Specificity = 0.99)
+  )
+  
+  split_run <- list(
+    split_screen0.98_nonscreen0.99_cost510 =
+      run_scenario(all_cancers, spec_df_split, 500)
+  )
+  
+  all_runs <- c(all_runs, grid_runs, subset_runs, split_run)
+}
+
+
+# -----------------------------------------------------------------------------
+# 6. Extract ICER summary
+# -----------------------------------------------------------------------------
+pull_icer <- function(icer_df, var) {
+  v <- icer_df$Value[icer_df$Variable == var]
+  if (length(v)) v[1] else 0
+}
+
+extract_icer_summary <- function(run_obj, run_name) {
+  icer_df <- run_obj[["final_result_list"]][["Overall"]][["final_icer_result"]]
+  tibble(
+    run_name  = run_name,
+    inc_cost  = pull_icer(icer_df, "Incremental_Cost"),
+    inc_qalys = pull_icer(icer_df, "Incremental_Utility"),
+    icer      = pull_icer(icer_df, "ICER")
+  )
+}
+
+df_all <- imap_dfr(all_runs, extract_icer_summary) %>%
+  mutate(
+    mode       = RUN_MODE,
+    inc_cost_M = inc_cost / 1e6
+  ) %>%
+  relocate(mode)
+
+df_all
+
+
+# -----------------------------------------------------------------------------
+# 7. Optional: run both modes in one pass
+# -----------------------------------------------------------------------------
+# Re-source this file with RUN_MODE flipped, then bind:
+#
+#   RUN_MODE <- "grail"; source("run_scenarios.R"); df_grail <- df_all
+#   RUN_MODE <- "base";  source("run_scenarios.R"); df_base  <- df_all
+#   df_compare <- bind_rows(df_base, df_grail)
+#
+# (Comment out the RUN_MODE assignment in section 2 first so it isn't overwritten.)

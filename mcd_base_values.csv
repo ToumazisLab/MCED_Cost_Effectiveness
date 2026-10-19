@@ -1,0 +1,36 @@
+﻿run_id,param_name,base_value
+0,all_cause_mortality_mult,1
+0,all_sens,1
+0,all_spec,0.98
+0,d_c,0.03
+0,d_e,0.03
+0,dwell_scenario,2
+0,fp_disutility_val,0.0125
+0,fp_incidental_cost_pct,1
+0,fp_track_num,3
+0,invasive_cost_pct,0
+0,invasive_multi_mult,0.1
+0,invasive_rate_bladder,1
+0,invasive_rate_breast,1
+0,invasive_rate_cervix,1
+0,invasive_rate_head and neck,1
+0,invasive_rate_liver and intrahepatic bile duct,1
+0,invasive_rate_kidney and renal pelvis,1
+0,invasive_rate_lung and bronchus,1
+0,invasive_rate_lymphoma,1
+0,invasive_rate_ovarian,1
+0,invasive_rate_pancreas,1
+0,invasive_rate_prostate,1
+0,invasive_rate_uterus,1
+0,mced_compliance_rate,0.75
+0,mced_fp_compliance,1
+0,mced_test_cost,500
+0,overdiagnosis_factor,0.05
+0,screen_cost_pct,0
+0,stage_cost_I,1
+0,stage_cost_II,1
+0,stage_cost_III,1
+0,stage_cost_IV,1
+0,survival_mult,1
+0,total_cancer_mortality_mult,1
+0,util_mult,1

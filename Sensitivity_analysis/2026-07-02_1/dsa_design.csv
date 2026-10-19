@@ -1,0 +1,74 @@
+param_name,change_type,new_value,run_id,label
+invasive_rate_bladder,minus,0.75,1,invasive_rate_bladder_minus
+invasive_rate_breast,minus,0.75,2,invasive_rate_breast_minus
+invasive_rate_cervix,minus,0.75,3,invasive_rate_cervix_minus
+invasive_rate_head and neck,minus,0.75,4,invasive_rate_head and neck_minus
+invasive_rate_kidney and renal pelvis,minus,0.75,5,invasive_rate_kidney and renal pelvis_minus
+invasive_rate_liver and intrahepatic bile duct,minus,0.75,6,invasive_rate_liver and intrahepatic bile duct_minus
+invasive_rate_lung and bronchus,minus,0.75,7,invasive_rate_lung and bronchus_minus
+invasive_rate_lymphoma,minus,0.75,8,invasive_rate_lymphoma_minus
+invasive_rate_ovarian,minus,0.75,9,invasive_rate_ovarian_minus
+invasive_rate_pancreas,minus,0.75,10,invasive_rate_pancreas_minus
+invasive_rate_prostate,minus,0.75,11,invasive_rate_prostate_minus
+invasive_rate_uterus,minus,0.75,12,invasive_rate_uterus_minus
+invasive_rate_bladder,plus,1.25,13,invasive_rate_bladder_plus
+invasive_rate_breast,plus,1.25,14,invasive_rate_breast_plus
+invasive_rate_cervix,plus,1.25,15,invasive_rate_cervix_plus
+invasive_rate_head and neck,plus,1.25,16,invasive_rate_head and neck_plus
+invasive_rate_kidney and renal pelvis,plus,1.25,17,invasive_rate_kidney and renal pelvis_plus
+invasive_rate_liver and intrahepatic bile duct,plus,1.25,18,invasive_rate_liver and intrahepatic bile duct_plus
+invasive_rate_lung and bronchus,plus,1.25,19,invasive_rate_lung and bronchus_plus
+invasive_rate_lymphoma,plus,1.25,20,invasive_rate_lymphoma_plus
+invasive_rate_ovarian,plus,1.25,21,invasive_rate_ovarian_plus
+invasive_rate_pancreas,plus,1.25,22,invasive_rate_pancreas_plus
+invasive_rate_prostate,plus,1.25,23,invasive_rate_prostate_plus
+invasive_rate_uterus,plus,1.25,24,invasive_rate_uterus_plus
+mced_compliance_rate,minus,0.5625,25,mced_compliance_rate_minus
+mced_compliance_rate,plus,0.9375,26,mced_compliance_rate_plus
+overdiagnosis_factor,minus,0.037500000000000006,27,overdiagnosis_factor_minus
+overdiagnosis_factor,plus,0.0625,28,overdiagnosis_factor_plus
+mced_test_cost,minus,100,29,mced_test_cost_minus
+mced_test_cost,plus,1000,30,mced_test_cost_plus
+fp_track_num,minus,1,31,fp_track_num_minus
+fp_track_num,plus,5,32,fp_track_num_plus
+invasive_multi_mult,minus,0.075,33,invasive_multi_mult_minus
+invasive_multi_mult,plus,0.0125,34,invasive_multi_mult_plus
+fp_disutility_val,minus,0.009375000000000001,35,fp_disutility_val_minus
+fp_disutility_val,plus,0.015625,36,fp_disutility_val_plus
+d_c,minus,0.0225,37,d_c_minus
+d_c,plus,0.0375,38,d_c_plus
+d_e,minus,0.0225,39,d_e_minus
+d_e,plus,0.0375,40,d_e_plus
+dwell_scenario,plus,1,41,dwell_scenario_plus
+dwell_scenario,minus,2,42,dwell_scenario_minus
+dwell_scenario,base,3,43,dwell_scenario_base
+screen_cost_pct,minus,-0.25,44,screen_cost_pct_minus
+screen_cost_pct,plus,0.25,45,screen_cost_pct_plus
+mced_fp_compliance,minus,0.75,46,mced_fp_compliance_minus
+mced_fp_compliance,plus,1,47,mced_fp_compliance_plus
+stage_cost_I,minus,0.75,48,stage_cost_I_minus
+stage_cost_II,minus,0.75,49,stage_cost_II_minus
+stage_cost_III,minus,0.75,50,stage_cost_III_minus
+stage_cost_IV,minus,0.75,51,stage_cost_IV_minus
+stage_cost_I,plus,1.25,52,stage_cost_I_plus
+stage_cost_II,plus,1.25,53,stage_cost_II_plus
+stage_cost_III,plus,1.25,54,stage_cost_III_plus
+stage_cost_IV,plus,1.25,55,stage_cost_IV_plus
+fp_incidental_cost_pct,minus,-0.25,56,fp_incidental_cost_pct_minus
+fp_incidental_cost_pct,plus,0.25,57,fp_incidental_cost_pct_plus
+invasive_cost_pct,minus,-0.25,58,invasive_cost_pct_minus
+invasive_cost_pct,plus,0.25,59,invasive_cost_pct_plus
+survival_mult,minus,0.75,60,survival_mult_minus
+survival_mult,plus,1.25,61,survival_mult_plus
+cost_per_year_mult,minus,0.75,62,cost_per_year_mult_minus
+cost_per_year_mult,plus,1.25,63,cost_per_year_mult_plus
+all_cause_mortality_mult,minus,0.75,64,all_cause_mortality_mult_minus
+all_cause_mortality_mult,plus,1.25,65,all_cause_mortality_mult_plus
+total_cancer_mortality_mult,minus,0.75,66,total_cancer_mortality_mult_minus
+total_cancer_mortality_mult,plus,1.25,67,total_cancer_mortality_mult_plus
+all_sens,minus,0.75,68,all_sens_minus
+all_sens,plus,1.25,69,all_sens_plus
+all_spec,minus,0.75,70,all_spec_minus
+all_spec,plus,0.999,71,all_spec_plus
+util_mult,minus,0.75,72,util_mult_minus
+util_mult,plus,1.25,73,util_mult_plus

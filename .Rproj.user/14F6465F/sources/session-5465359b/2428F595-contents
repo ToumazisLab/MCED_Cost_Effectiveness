@@ -1,0 +1,315 @@
+source("Global.R")
+# source("Functions/Preparation_Scripts/Source_file.R", echo=TRUE)
+source("Functions/Preparation_Scripts/Def_params.R", echo=FALSE)
+source("Functions/Preparation_Scripts/Source_file.R", echo=FALSE)
+source("Functions/Shiny/run_model.R", echo=FALSE)
+
+# cancer_types <- utils::select.list(
+#   choices  = cancer_types_overall,
+#   title    = "Select one or more cancers:",
+#   multiple = TRUE
+# )
+
+# cancer_types <- c("lung and bronchus", "colon and rectum", "prostate", "breast", "cervix")
+# 
+# cancer_types <- setdiff(cancer_types_overall, def_param_list$screening_cancers)
+# # 
+cancer_types <- cancer_types_overall
+
+# Only Change this List when rerunning the model
+# Base inputs
+# input_params <- list(
+#   mced_start_cycle = 6,
+#   mced_end_cycle = 41,
+#   mced_compliance_rate = 0.75,
+#   overdiagnosis_factor = 0.05,
+#   mced_test_cost = 500,
+#   dwell_scenario = "Scenario_2",
+#   ss_scenario = 3,
+#   ts_matrix = "time_shift_matrix_2",
+#   reduced_comply = 1,
+#   fp_track_num = 3,
+#   invasive_multi = 0.1, # Must be between 0-1
+#   mced_fp_compliance = 1, 
+#   fp_disutility_val = 0.0125,
+#   tn_disutility_val = 0,
+#   d_c = 0.03,
+#   d_e = 0.03,
+#   active_slip = FALSE,
+#   two_step = FALSE,
+#   overall_sens = 0,
+#   overall_specificity = 0,
+#   mced_secondary_test_cost = 0,
+#   survival_method = "floor_max"
+# )
+
+#Grail inputs
+input_params <- list(
+  mced_start_cycle = 11,
+  mced_end_cycle = 40,
+  mced_compliance_rate = 0.9,
+  overdiagnosis_factor = 0.05,
+  mced_test_cost = 949,
+  dwell_scenario = "Scenario_1",
+  ss_scenario = 1,
+  ts_matrix = "time_shift_matrix_1",
+  reduced_comply = 1,
+  fp_track_num = 1,
+  invasive_multi = 0.1, # Must be between 0-1
+  mced_fp_compliance = 1, 
+  fp_disutility_val = 0.0125,
+  tn_disutility_val = 0,
+  d_c = 0.03,
+  d_e = 0.03,
+  active_slip = FALSE,
+  two_step = FALSE,
+  overall_sens = 0,
+  overall_specificity = 0,
+  mced_secondary_test_cost = 0,
+  survival_method = "floor_max"
+)
+
+data_loaded <- load_data(input_params, def_param_list)
+
+
+sens_cancers <- cancer_types
+
+# data_loaded <- load_data(input_params, def_param_list)
+df_sensitivity <- read_csv("Data/overall/sensitivity_long_overall.csv", show_col_types = FALSE) 
+
+df_sensitivity <- df_sensitivity %>%
+  filter(Cancer %in% sens_cancers)
+
+# For grail
+df_sensitivity$Sensitivity <- df_sensitivity$Grail
+
+
+sensitivity_results <- process_sensitivity(
+  cancer_list      = sens_cancers,
+  sensitivity_long = df_sensitivity,
+  seer_draw        = data_loaded$seer_draw,
+  xStage           = def_param_list$xStage,
+  active_slip      = FALSE,
+  dwell_model_df   = data_loaded$dwell_model_all_cancers
+)
+
+sensitivity_processed <- sensitivity_results$sensitivity_long
+sensitivity_matrix <- sensitivity_results$Values
+
+
+baseline_list <- list()
+
+for (i in c(0.95, 0.96, 0.97, 0.98, 0.99, 0.9999)) {
+  original_specificity <- data.frame(
+    Cancer = cancer_types,
+    Specificity = rep(i, length(cancer_types))
+  )
+
+  baseline_list[[paste0("baseline_All_", i)]] <- run_usual_model(
+    cancer_list          = cancer_types,
+    data_list            = data_loaded,
+    def_param_list       = def_param_list,
+    input_params         = input_params,
+    sensitivity_long     = df_sensitivity,
+    specificity_data     = original_specificity,
+    Values               = sensitivity_matrix,
+    cancer_types_overall = cancer_types_overall
+  )
+}
+
+baseline_list <- setNames(
+  baseline_list,
+  nm = c(paste0(seq(95, 99), "%"), "99.99%")
+)
+
+
+
+original_specificity <- data.frame(
+  Cancer = cancer_types,
+  Specificity = rep(0.99, length(cancer_types))
+)
+
+
+baseline_grail <- run_usual_model(
+  cancer_list          = cancer_types,
+  data_list            = data_loaded,
+  def_param_list       = def_param_list,
+  input_params         = input_params,
+  sensitivity_long     = df_sensitivity,
+  specificity_data     = original_specificity,
+  Values               = sensitivity_matrix,
+  cancer_types_overall = cancer_types_overall
+)
+
+#### ####
+## --- Helpers --------------------------------------------------------------
+
+all_cancers       <- cancer_types_overall
+screening_cancers <- def_param_list$screening_cancers
+nonscreen_cancers <- setdiff(all_cancers, screening_cancers)
+
+spec_base <- 0.98
+cost_base <- 500
+
+spec_values <- c(0.95, 0.96, 0.97, 0.99, 0.9999)  # hold cost at 500
+cost_values <- c(100, 250, 750, 1000)             # hold spec at 0.98
+
+make_spec_df <- function(clist, spec_val) {
+  data.frame(Cancer = clist, Specificity = rep(spec_val, length(clist)))
+}
+
+vals_for <- function(clist) {
+  V <- sensitivity_matrix
+  if (!is.null(rownames(V))) {
+    V[rownames(V) %in% clist, , drop = FALSE]
+  } else {
+    V
+  }
+}
+
+run_model_scenario <- function(clist, spec_val, cost_val) {
+  run_usual_model(
+    cancer_list          = clist,
+    data_list            = data_loaded,
+    def_param_list       = def_param_list,
+    input_params         = modifyList(input_params, list(mced_test_cost = cost_val)),
+    sensitivity_long     = df_sensitivity[df_sensitivity$Cancer %in% clist, , drop = FALSE],
+    specificity_data     = make_spec_df(clist, spec_val),
+    Value               = vals_for(clist),
+    cancer_types_overall = cancer_types_overall
+  )
+}
+
+## --- Build baseline_list ---------------------------------------------------
+
+baseline_list <- list(
+  "baseline*" = run_model_scenario(all_cancers, spec_base, cost_base)
+)
+
+# Specificity sweeps (cost fixed at 500)
+spec_runs <- setNames(
+  lapply(spec_values, function(s) run_model_scenario(all_cancers, s, cost_base)),
+  paste0("Specificity_", spec_values)
+)
+
+# MCED test cost sweeps (spec fixed at 0.98)
+cost_runs <- setNames(
+  lapply(cost_values, function(cst) run_model_scenario(all_cancers, spec_base, cst)),
+  paste0("mced_test_cost_", cost_values)
+)
+
+# Screening-only and Non-screening-only (spec=0.98, cost=500)
+subset_runs <- list(
+  "Screening Cancers Only"     = run_model_scenario(screening_cancers,   spec_base, cost_base),
+  "Non-Screening Cancers Only" = run_model_scenario(nonscreen_cancers,   spec_base, cost_base)
+)
+
+# Combine
+baseline_list <- c(baseline_list, subset_runs)
+
+##### 
+## ---------------------------------------------------------------
+## --- Requested Scenarios ---------------------------------------
+## ---------------------------------------------------------------
+
+requested_runs <- list(
+  
+  # 1) Spec = 0.95 and mced_test_cost = 50
+  "spec_0.95_cost_50" = run_model_scenario(
+    all_cancers, spec_val = 0.95, cost_val = 50
+  ),
+  
+  "spec_0.95_cost_500" = run_model_scenario(
+    all_cancers, spec_val = 0.95, cost_val = 500
+  ),
+  
+  "spec_0.95_cost_1000" = run_model_scenario(
+    all_cancers, spec_val = 0.95, cost_val = 1000
+  ),
+  
+  "spec_0.98_cost_50" = run_model_scenario(
+    all_cancers, spec_val = 0.98, cost_val = 50
+  ),
+  
+  "spec_0.98_cost_500" = run_model_scenario(
+    all_cancers, spec_val = 0.98, cost_val = 500
+  ),
+  
+  "spec_0.98_cost_1000" = run_model_scenario(
+    all_cancers, spec_val = 0.98, cost_val = 1000
+  ),
+  
+  "spec_0.9999_cost_50" = run_model_scenario(
+    all_cancers, spec_val = 0.9999, cost_val = 50
+  ),
+  
+  # 4) Spec = 0.98 and mced_test_cost = 50  (low cost extreme)
+  "spec_0.9999_cost_500" = run_model_scenario(
+    all_cancers, spec_val = 0.9999, cost_val = 500
+  ),
+  
+  # 5) Spec = 0.98 and mced_test_cost = 1000 (high cost extreme)
+  "spec_0.9999_cost_1000" = run_model_scenario(
+    all_cancers, spec_val = 0.9999, cost_val = 1000
+  ),
+  
+  # 6) Screening only (same spec=0.98, cost=500)
+  "screening_only" = run_model_scenario(
+    screening_cancers, spec_val = 0.98, cost_val = 500
+  ),
+  
+  # 7) Non-screening only
+  "nonscreening_only" = run_model_scenario(
+    nonscreen_cancers, spec_val = 0.98, cost_val = 500
+  )
+)
+
+additional_runs <- list(
+  "screen_0.98_nonscreen_0.99_cost_500" = {
+    # build per-group specificity table
+    cn_sc  <- data.frame(Cancer = screening_cancers,
+                         Specificity = rep(0.98, length(screening_cancers)))
+    cn_nsc <- data.frame(Cancer = nonscreen_cancers,
+                         Specificity = rep(0.99, length(nonscreen_cancers)))
+    spec_df_mixed <- rbind(cn_sc, cn_nsc)
+    
+    run_usual_model(
+      cancer_list          = all_cancers,
+      data_list            = data_loaded,
+      def_param_list       = def_param_list,
+      input_params         = modifyList(input_params, list(mced_test_cost = 500)),
+      sensitivity_long     = df_sensitivity[df_sensitivity$Cancer %in% all_cancers, , drop = FALSE],
+      specificity_data     = spec_df_mixed,
+      Values               = vals_for(all_cancers),
+      cancer_types_overall = cancer_types_overall
+    )
+  }
+)
+
+all_runs <- c(requested_runs, additional_runs)
+
+## ---------------------------------------------------------------
+
+# --- helpers you already have ---
+pull_icer <- function(icer_df, var) {
+  v <- icer_df$Value[icer_df$Variable == var]
+  if (length(v)) v[1] else 0
+}
+
+# Extract one row per run from baseline_list
+extract_icer_summary <- function(run_obj, run_name) {
+  icer_df <- run_obj[["final_result_list"]][["Overall"]][["final_icer_result"]]
+  tibble(
+    run_name = run_name,
+    inc_cost  = pull_icer(icer_df, "Incremental_Cost"),
+    inc_qalys = pull_icer(icer_df, "Incremental_Utility"),
+    icer      = pull_icer(icer_df, "ICER")
+  )
+}
+
+
+df_all <- imap_dfr(all_runs, extract_icer_summary) %>%
+  mutate(inc_cost_M = inc_cost / 1e6)  # plot in Millions
+
+df_all
+

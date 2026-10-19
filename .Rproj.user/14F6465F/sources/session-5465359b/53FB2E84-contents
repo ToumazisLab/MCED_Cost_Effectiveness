@@ -1,0 +1,163 @@
+# Binding and creating cloud and CE Acceptability Curve
+design_1 <- read_csv("Sensitivity_analysis/Multivar_data_2026-01-25_1/psa_design_batch_1.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_2 <- read_csv("Sensitivity_analysis/Multivar_data_2026-01-25_1/psa_design_batch_2.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_3 <- read_csv("Sensitivity_analysis/Multivar_data_2026-01-25_1/psa_design_batch_3.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_4 <- read_csv("Sensitivity_analysis/Multivar_data_2026-01-25_1/psa_design_batch_4.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+design_5 <- read_csv("Sensitivity_analysis/Multivar_data_2026-01-25_1/psa_design_batch_5.csv", show_col_types = FALSE) %>% 
+  pivot_wider(id_cols = run_id, names_from = param_name, values_from = sample_value)
+
+out_1 <- read_csv("Sensitivity_analysis/Multivar_data_2026-01-25_1/psa_out_batch_1.csv", show_col_types = FALSE)
+out_2 <- read_csv("Sensitivity_analysis/Multivar_data_2026-01-25_1/psa_out_batch_2.csv", show_col_types = FALSE)
+out_3 <- read_csv("Sensitivity_analysis/Multivar_data_2026-01-25_1/psa_out_batch_3.csv", show_col_types = FALSE)
+out_4 <- read_csv("Sensitivity_analysis/Multivar_data_2026-01-25_1/psa_out_batch_4.csv", show_col_types = FALSE)
+out_5 <- read_csv("Sensitivity_analysis/Multivar_data_2026-01-25_1/psa_out_batch_5.csv", show_col_types = FALSE)
+
+## ── 1. Combine PSA outputs ─────────────────────────────────────────────
+psa_design_final <- bind_rows(design_1, design_2, design_3, design_4, design_5) %>% 
+  mutate(run_id = row_number())
+
+psa_out_final <- bind_rows(out_1, out_2, out_3, out_4, out_5) %>% 
+  mutate(run_id = row_number())
+
+psa_merged <- psa_design_final %>% 
+  merge(psa_out_final, by = "run_id")
+
+psa_merged_98 <- psa_merged %>% 
+  filter(all_spec >= 0.98)
+
+
+compute_ceac_cost <- function(cost_limit, spec_lim, wtp_grid, psa_out_final, psa_design_final) {
+  
+  map_dfr(wtp_grid, function(w) {
+    
+    psa_out_final %>%
+      left_join(psa_design_final, by = "run_id") %>%
+      filter(
+        mced_test_cost <= cost_limit,
+        all_spec >= spec_lim
+      ) %>%
+      mutate(
+        NMB_MCED = w * mced_utility  - mced_cost,
+        NMB_UC   = w * usual_utility - usual_cost,
+        Best     = case_when(
+          NMB_MCED > NMB_UC ~ "MCED",
+          NMB_MCED < NMB_UC ~ "UC",
+          TRUE              ~ "Tie"
+        )
+      ) %>%
+      summarise(
+        WTP = w,
+        MCED = mean(Best == "MCED"),
+        UC   = mean(Best == "UC"),
+        CostLimit = cost_limit,
+        SpecLimit = spec_lim
+      )
+  }) %>%
+    pivot_longer(c(MCED, UC), names_to = "Strategy", values_to = "Prob_CE")
+}
+wtp_grid <- seq(0, 300000, by = 1000)  # 0–100k in 5-k increments
+
+ceac_full_full  <- compute_ceac_cost(1000, 0.95, wtp_grid, psa_out_final, psa_design_final)
+ceac_rest_rest  <- compute_ceac_cost(1000,  0.98, wtp_grid, psa_out_final_98, psa_design_final_98)
+
+
+
+wtp50_98 <- ceac_rest_rest %>%
+  filter(Strategy == "MCED", Prob_CE >= 0.5) %>%
+  summarise(WTP50 = min(WTP)) %>%
+  pull(WTP50)
+
+ceac_cost_combined <- bind_rows(ceac_full_full, ceac_rest_rest)
+
+
+ceac_cost_combined <- ceac_cost_combined %>%
+  mutate(
+    Strategy_simple = case_when(
+      Strategy == "MCED" ~ "MCD + UC",
+      Strategy == "UC"   ~ "Usual Care"
+    ),
+    `Sampling Range` = case_when(
+      CostLimit == 1000 & SpecLimit == 0.95 ~ "MCD test specificity ≥95%",
+      CostLimit == 1000  & SpecLimit == 0.98 ~ "MCD test specificity ≥98%"
+    )
+  )
+
+color_map <- c(
+  "MCD + UC"   = "black",
+  "Usual Care" = "skyblue"
+)
+
+linetype_map <- c(
+  "MCD test specificity ≥95%" = "solid",
+  "MCD test specificity ≥98%" = "dashed"
+)
+
+
+ggplot(
+  ceac_cost_combined,
+  aes(
+    x = WTP, y = Prob_CE,
+    colour   = Strategy_simple,
+    linetype = `Sampling Range`,
+    size     = `Sampling Range`,
+    group    = interaction(Strategy_simple, `Sampling Range`)
+  )
+) +
+  geom_line(alpha = 0.9) +
+  
+  # COLOR: MCED = black, UC = light blue 
+  scale_colour_manual(values = color_map, name = "Strategy") +
+  
+  # LINETYPE: solid = MCD test specificity ≥95%/cost $50-1000, dashed = restricted
+  scale_linetype_manual(
+    values = c("MCD test specificity ≥95%" = "solid",
+               "MCD test specificity ≥98%" = "dashed"),
+    name = "Sampling Range"
+  ) +
+  
+  # SIZE: increase distinction between full and MCD test specificity ≥98%/ cost $50-500
+  scale_size_manual(
+    values = c("MCD test specificity ≥95%" = 1.6,
+               "MCD test specificity ≥98%" = 1.0),
+    guide = "none"   # hide since shown in linetype legend
+  ) +
+  
+  scale_y_continuous(
+    name   = "Probability Cost-Effective",
+    labels = scales::percent_format(accuracy = 1),
+    limits = c(0, 1)
+  ) +
+  
+  scale_x_continuous(
+    name   = "Willingness-to-pay ($ per QALY)",
+    labels = scales::dollar_format(),
+    breaks = seq(0, 300000, by = 50000)
+  ) +
+  
+  # Reference lines
+  geom_vline(xintercept = 100000,   linetype = "dotted") +
+  geom_vline(xintercept = wtp50_98, linetype = "dotted") +
+  
+  annotate("text",
+           x      = 100000, y = 0.1,
+           label  = "WTP = $100,000/QALY",
+           angle  = 90, vjust = -0.2, size = 5) +
+  annotate("text",
+           x      = wtp50_98, y = 0.1,
+           label  = paste0("WTP = $",
+                           format(wtp50_98, big.mark = ","), "/QALY"),
+           angle  = 90, vjust = -0.2, size = 5) +
+  
+  theme_classic() +
+  theme(
+    axis.title  = element_text(size = 18),
+    axis.text   = element_text(size = 15),
+    legend.title = element_text(size = 16),
+    legend.text  = element_text(size = 14),
+    legend.position = "bottom",
+    legend.box      = "vertical"
+  )

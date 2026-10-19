@@ -1,0 +1,337 @@
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(stringr)
+library(scales)
+library(ggrepel)
+
+df <- df_all
+
+# ------------------------------------------------------------
+# 0) Drop runs you don’t want
+# ------------------------------------------------------------
+df <- df %>%
+  filter(
+    run_name != "screening_only",
+    run_name != "nonscreening_only",
+    !str_detect(run_name, "^screen_0\\.965_nonscreen_0\\.995_cost_")
+  )
+
+# ------------------------------------------------------------
+# 1) Parse cost + scenario key
+# ------------------------------------------------------------
+df <- df %>%
+  mutate(
+    test_cost = as.numeric(str_extract(run_name, "(?<=cost_)[0-9]+")),
+    key = str_remove(run_name, "_cost_[0-9]+$")
+  ) %>%
+  filter(test_cost %in% c(50, 500, 1000))
+
+# ------------------------------------------------------------
+# 2) Groups
+# ------------------------------------------------------------
+df <- df %>%
+  mutate(
+    cancer_group = case_when(
+      str_detect(run_name, "^spec_0\\.95_cost_")   ~ "Specificity 0.95",
+      str_detect(run_name, "^spec_0\\.98_cost_")   ~ "Specificity 0.98",
+      str_detect(run_name, "^spec_0\\.9999_cost_") ~ "Specificity 0.9999",
+      str_detect(run_name, "^screen_0\\.98_nonscreen_0\\.99_cost_") ~ "Screen 0.98 / Non 0.99",
+      TRUE ~ NA_character_
+    ),
+    shape_group = case_when(
+      str_detect(run_name, "^spec_")   ~ "All Cancers",
+      str_detect(run_name, "^screen_") ~ "Split by Screening",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(cancer_group), !is.na(shape_group))
+
+# ------------------------------------------------------------
+# 3) Pivot wide to get endpoints for 50/500/1000
+#    Use inc_cost_M (already millions)
+# ------------------------------------------------------------
+plot_df <- df %>%
+  select(key, cancer_group, shape_group, test_cost, inc_cost_M, inc_qalys, icer) %>%
+  pivot_wider(
+    id_cols = c(key, cancer_group, shape_group),
+    names_from = test_cost,
+    values_from = c(inc_cost_M, inc_qalys, icer),
+    names_glue = "{.value}_{test_cost}"
+  ) %>%
+  filter(
+    !is.na(inc_cost_M_50), !is.na(inc_cost_M_500), !is.na(inc_cost_M_1000),
+    !is.na(inc_qalys_50),  !is.na(inc_qalys_500),  !is.na(inc_qalys_1000)
+  )
+
+# ICER labels: use 500 midpoint
+fmt_icer <- function(x) paste0("$", format(round(x), big.mark = ","), "/QALY")
+plot_df <- plot_df %>%
+  mutate(icer_label = fmt_icer(icer_500))
+
+# ------------------------------------------------------------
+# 4) Manual colors: blues for all-cancer specs, purple for split
+# ------------------------------------------------------------
+col_map <- c(
+  "Specificity 0.95" = "#6BAED6",   # light blue
+  "Specificity 0.98" = "#3182BD",   # medium blue
+  "Specificity 0.9999" = "#08519C", # dark blue
+  "Screen 0.98 / Non 0.99" = "#7B2CBF"  # purple
+)
+
+shape_map <- c(
+  "All Cancers" = 16,         # filled circle
+  "Split by Screening" = 8    # star
+)
+
+# ------------------------------------------------------------
+# 5) Add legend entries for WTP line + error bar meaning
+#    (dummy hidden layer; legend overridden to show it)
+# ------------------------------------------------------------
+legend_df <- tibble(
+  x = 0, y = 0, ymin = -1, ymax = 1,
+  legend_line = "Test cost $50–$1000 (midpoint $500)"
+)
+
+# For the WTP line label, we place text along the line using a point near the right side
+x_wtp <- max(plot_df$inc_qalys_500, na.rm = TRUE) * 0.1
+y_wtp <- 400  # millions
+
+# ------------------------------------------------------------
+# 6) Plot
+# ------------------------------------------------------------
+p <- ggplot(plot_df, aes(x = inc_qalys_500, y = inc_cost_M_500)) +
+  
+  # Black origin axes
+  geom_hline(yintercept = 0, linewidth = 0.7, color = "black") +
+  geom_vline(xintercept = 0, linewidth = 0.7, color = "black") +
+  
+  # WTP line (legend + visible)
+  geom_abline(
+    aes(linetype = "WTP = $100,000/QALY"),
+    slope = 100000 / 1e6, linewidth = 1.1, color = "black",
+    linetype = "dashed"
+  ) +
+  
+  # WTP label next to line
+  annotate(
+    "text", x = x_wtp, y = y_wtp,
+    label = "WTP = $100,000/QALY",
+    hjust = 0, vjust = -0.5, size = 4
+  ) +
+  
+  # Error bars (50 -> 1000)
+  geom_errorbar(
+    aes(ymin = inc_cost_M_50, ymax = inc_cost_M_1000, color = cancer_group),
+    linewidth = 0.8, show.legend = FALSE
+  ) +
+  geom_segment(
+    aes(x = inc_qalys_50, xend = inc_qalys_1000, y = inc_cost_M_500, yend = inc_cost_M_500, color = cancer_group),
+    linewidth = 0.8, show.legend = FALSE
+  ) +
+  
+  # Midpoints (500)
+  geom_point(aes(color = cancer_group, shape = shape_group), size = 3.2) +
+  
+  # ICER labels: repel + higher visibility
+  geom_label_repel(
+    aes(label = icer_label, color = cancer_group),
+    fill = "white", label.size = 0,
+    size = 3.8,
+    box.padding = 0.5, point.padding = 0.4,
+    min.segment.length = 0,
+    seed = 1,
+    show.legend = FALSE
+  ) +
+  
+  # Dummy hidden errorbar JUST for legend meaning
+  geom_errorbar(
+    data = legend_df,
+    aes(x = x, ymin = ymin, ymax = ymax, linetype = legend_line),
+    inherit.aes = FALSE,
+    color = "black",
+    linewidth = 0.8,
+    alpha = 0,            # hide on plot
+    show.legend = TRUE
+  ) +
+  
+  # Scales
+  scale_color_manual(values = col_map) +
+  scale_shape_manual(values = shape_map) +
+  scale_linetype_manual(
+    values = c(
+      "WTP = $100,000/QALY" = "dashed",
+      "Test cost $50–$1000 (midpoint $500)" = "solid"
+    )
+  ) +
+  
+  # Make the hidden legend errorbar visible in the legend only
+  guides(
+    linetype = guide_legend(
+      override.aes = list(alpha = 1, color = "black", linewidth = 1)
+    )
+  ) +
+  
+  # Axes formatting
+  scale_x_continuous(labels = label_comma(), expand = expansion(mult = 0.06)) +
+  scale_y_continuous(labels = label_comma(), expand = expansion(mult = 0.06)) +
+  
+  theme_classic(base_size = 14) +
+  theme(
+    axis.text  = element_text(size = 12),
+    axis.title = element_text(size = 14),
+    legend.position = "right",
+    legend.title = element_blank()
+  ) +
+  labs(
+    x = "Incremental QALYs",
+    y = "Incremental Cost (Millions)"
+  )
+
+print(p)
+ggsave("ce_plane_plot_millions.png", p, width = 8, height = 5.5, dpi = 300)
+
+
+library(dplyr)
+library(purrr)
+library(readr)
+
+summarize_runset_main <- function(runs,
+                                  uc_once = TRUE,
+                                  uc_ref_name = "spec_0.98_cost_500",
+                                  uc_label = "UC",
+                                  mcd_label = "UC+MCD") {
+  
+  imap_dfr(runs, function(run_obj, run_name) {
+    
+    out <- list()
+    
+    # UC row (optionally only once, drawn from base-case object)
+    if (!uc_once || identical(run_name, uc_ref_name)) {
+      out <- append(out, list(
+        main_summarize_run(run_obj,
+                           run_name = paste0(run_name, " (", uc_label, ")"),
+                           is_usual = TRUE)
+      ))
+    }
+    
+    # UC+MCD row (always)
+    out <- append(out, list(
+      main_summarize_run(run_obj,
+                         run_name = paste0(run_name, " (", mcd_label, ")"),
+                         is_usual = FALSE)
+    ))
+    
+    bind_rows(out)
+  })
+}
+
+summarize_runset_secondary <- function(runs,
+                                       uc_once = TRUE,
+                                       uc_ref_name = "spec_0.98_cost_500",
+                                       uc_label = "UC",
+                                       mcd_label = "UC+MCD") {
+  
+  imap_dfr(runs, function(run_obj, run_name) {
+    
+    out <- list()
+    
+    if (!uc_once || identical(run_name, uc_ref_name)) {
+      out <- append(out, list(
+        secondary_summarize_run(run_obj,
+                                run_name = paste0(run_name, " (", uc_label, ")"),
+                                is_usual = TRUE)
+      ))
+    }
+    
+    out <- append(out, list(
+      secondary_summarize_run(run_obj,
+                              run_name = paste0(run_name, " (", mcd_label, ")"),
+                              is_usual = FALSE)
+    ))
+    
+    bind_rows(out)
+  })
+}
+
+requested_runs_nice <- requested_runs
+names(requested_runs_nice)[names(requested_runs_nice) == "screening_only"] <- "screening_only_cost_500"
+names(requested_runs_nice)[names(requested_runs_nice) == "nonscreening_only"] <- "nonscreening_only_cost_500"
+
+summary_all <- summarize_runset_main(requested_runs_nice, uc_once = TRUE, uc_ref_name = "spec_0.98_cost_500")
+second_summary_all <- summarize_runset_secondary(requested_runs_nice, uc_once = TRUE, uc_ref_name = "spec_0.98_cost_500")
+
+
+summary_all <- summarize_runset_main(
+  runs = all_runs,
+  uc_once = TRUE,                 # <- only keep UC once
+  uc_ref_name = "spec_0.98_cost_500"
+)
+
+second_summary_all <- summarize_runset_secondary(
+  runs = requested_runs,
+  uc_once = TRUE,
+  uc_ref_name = "spec_0.98_cost_500"
+)
+
+screen_only <- summarize_runset_main(
+  runs = requested_runs_nice,
+  uc_once = TRUE,                 # <- only keep UC once
+  uc_ref_name = "screening_only_cost_500"
+)
+
+nonscreen_only <- summarize_runset_main(
+  runs = requested_runs_nice,
+  uc_once = TRUE,                 # <- only keep UC once
+  uc_ref_name = "nonscreening_only_cost_500"
+)
+
+secondary_screen_only <- summarize_runset_secondary(
+  runs = requested_runs_nice,
+  uc_once = TRUE,                 # <- only keep UC once
+  uc_ref_name = "screening_only_cost_500"
+)
+
+secondary_nonscreen_only <- summarize_runset_secondary(
+  runs = requested_runs_nice,
+  uc_once = TRUE,                 # <- only keep UC once
+  uc_ref_name = "nonscreening_only_cost_500"
+)
+
+summarize_runset_main <- function(runs, uc_once = TRUE, uc_ref_name, uc_tag="(UC)", mcd_tag="(UC+MCD)") {
+  purrr::imap_dfr(runs, function(run_obj, run_name) {
+    
+    rows <- list(
+      main_summarize_run(run_obj, paste0(run_name, " ", mcd_tag), is_usual = FALSE)
+    )
+    
+    if (!uc_once || identical(run_name, uc_ref_name)) {
+      rows <- append(rows, list(
+        main_summarize_run(run_obj, paste0(run_name, " ", uc_tag), is_usual = TRUE)
+      ))
+    }
+    
+    dplyr::bind_rows(rows)
+  })
+}
+
+summary_all_main <- dplyr::bind_rows(
+  summary_all,
+  screen_only,
+  nonscreen_only
+) %>%
+  dplyr::arrange(dplyr::desc(stringr::str_detect(Run, "\\(UC\\)"))) %>%  # prefer keeping UC rows if collisions
+  dplyr::distinct(Run, .keep_all = TRUE)
+
+summary_all_secondary <- dplyr::bind_rows(
+  second_summary_all,
+  secondary_screen_only,
+  secondary_nonscreen_only
+) %>%
+  dplyr::arrange(dplyr::desc(stringr::str_detect(Run, "\\(UC\\)"))) %>%
+  dplyr::distinct(Run, .keep_all = TRUE)
+
+
+
+write_csv(summary_all_main, "summary_main_final.csv")
+write_csv(summary_all_secondary, "summary_secondary_final.csv")

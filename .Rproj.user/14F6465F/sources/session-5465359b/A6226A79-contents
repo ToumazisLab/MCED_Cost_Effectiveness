@@ -1,0 +1,158 @@
+library(ggplot2)
+library(dplyr)
+library(scales)
+
+# Prepare plot data
+plot_df <- summary_all %>%
+  filter(grepl("baseline_All_", Run)) %>%
+  mutate(
+    # fix naming for the 99.99 case
+    Run_clean = gsub("baseline_All_99.99", "baseline_All_9999", Run),
+    
+    # ICER label formatting
+    ICER_Label = case_when(
+      `Incremental Utility` < 0 & `Incremental Cost (M, $USD)` > 0 ~ "Dominated by UC",
+      TRUE ~ paste0("$", comma(ICER), "/QALY")
+    ),
+    
+    # Clean scenario label (works now for 9999)
+    Run_Label = paste0(
+      "MCD Specificity = 0.",
+      gsub("baseline_All_", "", Run_clean),
+      " (", ICER_Label, ")"
+    ),
+    
+    # Point label (x, y)
+    Label_Pos = paste0(
+      "(", comma(`Incremental Utility`, accuracy = 1),
+      ", $", comma(`Incremental Cost (M, $USD)`, accuracy = 1), ")"
+    )
+  )
+
+# WTP slope
+wtp <- 100000
+
+# Plot
+ggplot(plot_df, aes(x = `Incremental Utility`, y = `Incremental Cost (M, $USD)`, color = Run_Label)) +
+  # Reference lines
+  geom_vline(xintercept = 0, color = "black", linewidth = 0.4) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.4) +
+  
+  # WTP line and label
+  geom_abline(slope = wtp / 1e6, intercept = 0, linetype = "dashed", color = "black") +
+  annotate("text", 
+           x = max(plot_df$`Incremental Utility`) * 0.7, 
+           y = (wtp / 1e6) * max(plot_df$`Incremental Utility`) * 0.9, 
+           label = "WTP = $100,000/QALY", hjust = 0, vjust = 0, size = 5) +
+  
+  # Rays from origin
+  geom_segment(aes(x = 0, y = 0, 
+                   xend = `Incremental Utility`, 
+                   yend = `Incremental Cost (M, $USD)`), 
+               alpha = 0.7, color = "grey40") +
+  
+  # Scenario points
+  geom_point(size = 3) +
+  
+  # (X, Y) labels above points
+  geom_text(aes(label = Label_Pos), vjust = -1, size = 6, color = "black") +
+  
+  # Axes formatting
+  scale_x_continuous(
+    name = "Incremental Utility (QALYs)",
+    labels = comma_format(accuracy = 1),
+    limits = c(min(plot_df$`Incremental Utility`) * 1.5, 
+               max(plot_df$`Incremental Utility`) * 2)
+  ) +
+  scale_y_continuous(
+    name = "Incremental Cost (Millions USD)",
+    labels = dollar_format(prefix = "$", suffix = " M", accuracy = 1),
+    limits = c(0, max(plot_df$`Incremental Cost (M, $USD)`) * 1.2)
+  ) +
+  
+  # Legend
+  labs(
+    color = "Scenario (ICER)"
+  ) +
+  
+  # Theme
+  theme_classic(base_size = 16) +
+  theme(
+    legend.position = "right",
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x      = element_text(size = 18),
+    axis.title.y      = element_text(size = 18),
+    axis.text = element_text(size = 18)
+  ) 
+  scale_color_grey(start = 0.8, end = 0.3)
+  
+  
+  # New 
+  plot_df <- summary_all %>%
+    filter(grepl("baseline_All_", Run)) %>%
+    mutate(
+      # ICER label
+      ICER_Label = ifelse(`Incremental Utility` < 0 & `Incremental Cost (M, $USD)` > 0,
+                          "Dominated by UC",
+                          paste0("$", comma(ICER), "/QALY")),
+      # ---- clean specificity: 0.95 ... 0.9999 ----
+      spec_str  = sub("baseline_All_", "", Run),                    # e.g., "95", "9999"
+      spec_num  = as.numeric(paste0("0.", spec_str)),               # 0.95, 0.9999
+      spec_fmt  = sub("0+$","", formatC(spec_num, format = "f", digits = 4)),
+      Run_Label = paste0("MCD Specificity = ", spec_fmt, " (", ICER_Label, ")"),
+      # point label
+      Label_Pos = paste0("(", comma(`Incremental Utility`, accuracy = 1),
+                         ", $", comma(`Incremental Cost (M, $USD)`, accuracy = 1), ")")
+    )
+  
+  ggplot(plot_df,
+         aes(x = `Incremental Utility`,
+             y = `Incremental Cost (M, $USD)`,
+             color = Run_Label)) +
+    
+    # reference axes through origin
+    geom_vline(xintercept = 0, color = "black", linewidth = 0.4) +
+    geom_hline(yintercept = 0, color = "black", linewidth = 0.4) +
+    
+    # WTP line + label
+    geom_abline(slope = wtp / 1e6, intercept = 0, linetype = "dashed", color = "black") +
+    annotate("text",
+             x = max(plot_df$`Incremental Utility`) * 0.8,
+             y = (wtp / 1e6) * max(plot_df$`Incremental Utility`) * 0.8,
+             label = "WTP = $100,000/QALY", hjust = 0, vjust = -1.5, size = 4) +
+    
+    # rays + points + (x,y) labels
+    geom_segment(aes(x = 0, y = 0,
+                     xend = `Incremental Utility`,
+                     yend = `Incremental Cost (M, $USD)`),
+                 alpha = 0.7, color = "grey40") +
+    geom_point(size = 3) +
+    geom_text(aes(label = Label_Pos), vjust = -1, size = 3.2, color = "black") +
+    
+    # axes
+    scale_x_continuous(
+      name   = "Incremental Utility (QALYs)",
+      labels = comma_format(accuracy = 1),
+      limits = c(min(plot_df$`Incremental Utility`) * 1.5,
+                 max(plot_df$`Incremental Utility`) * 2)
+    ) +
+    scale_y_continuous(
+      name   = "Incremental Cost (Millions USD)",
+      labels = dollar_format(prefix = "$", suffix = " M", accuracy = 1),
+      limits = c(0, max(plot_df$`Incremental Cost (M, $USD)`) * 1.2)
+    ) +
+    
+    labs(color = "Scenario (ICER)") +
+    
+    # theme with visible axis lines (no grids)
+    theme_classic(base_size = 14) +                                 # draws x/y axes (spines)
+    theme(
+      legend.position  = "right",
+      axis.title.x      = element_text(size = 18),
+      axis.title.y      = element_text(size = 18),
+      axis.text = element_text(size = 14)
+    ) +
+    
+    # greys for scenarios (remember the '+')
+    scale_color_grey(start = 0.8, end = 0.3)

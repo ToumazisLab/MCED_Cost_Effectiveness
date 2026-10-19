@@ -1,0 +1,48 @@
+# ("Functions/Preparation_Scripts/Def_params.R", echo=FALSE)
+source("Functions/Preparation_Scripts/Input_file.R", echo=FALSE)
+
+# Sensitivity Functions
+source("Functions/Stage_Shift/stage_shift_helpers.R", echo=FALSE)
+source("Functions/Stage_Shift/load_standard_dwell_model.R", echo=FALSE)
+source("Functions/Stage_Shift/slip_rate_from_dwell.R", echo=FALSE)
+source("Functions/Stage_Shift/run_intercept_model.R", echo=FALSE)
+source("Functions/process_sensitivity.R", echo=FALSE)
+
+# Model Functions
+source("Functions/create_combined_specificity.R", echo=FALSE)
+source("Functions/Preparation_Scripts/ts_matrix.R", echo=FALSE)
+source("Functions/Updated_TP_Calculation_by_Cancer.R", echo=FALSE)
+source("Functions/2_run_markov.R", echo=FALSE)
+source("Functions/Matrix_Normalization.R", echo=FALSE)
+source("Functions/3_calculate_incidence.R", echo=FALSE)
+source("Functions/initialize_cancer_metrics.R", echo=FALSE)
+source("Functions/fp_disutility.R", echo=FALSE)
+source("Functions/usual_calculate_tn_fp.R", echo=FALSE)
+source("Functions/Usual_care_screening_counts.R", echo=FALSE)
+source("Functions/Screening_Diag_Cost.R", echo=FALSE)
+source("Functions/mced_tn_fp_probabilities.R", echo=FALSE)
+source("Functions/mced_fp_usual_compliance.R", echo=FALSE)
+source("Functions/calculate_screen_vs_incidental_dx.R", echo=FALSE)
+source("Functions/Generate_m_count_cancers.R", echo=FALSE)
+source("Functions/mced_tn_fp_usual_care_and_costs.R", echo=FALSE)
+source("Functions/Mced_nc_calculations.R", echo=FALSE)
+source("Functions/Decision_tree.R", echo=FALSE)
+source("Functions/Calculate_total_qalys.R", echo=FALSE)
+source("Functions/Calculate_mced_tp_fn.R", echo=FALSE)
+source("Functions/calculate_overdiagnosis.R", echo=FALSE)
+source("Functions/Shift_backward.R", echo=FALSE)
+source("Functions/Shift_forward.R", echo=FALSE)
+source("Functions/calculate_tn_fp_by_cancer.R", echo=FALSE)
+source("Functions/calculate_deaths_by_cancer_stage.R", echo=FALSE)
+source("Functions/mced_disutility.R", echo=FALSE)
+source("Functions/mced_cancer_cases_costs.R", echo=FALSE)
+source("Functions/Classify_cases_helper.R", echo=FALSE)
+source("Functions/Cancer_deaths_summary.R", echo=FALSE)
+
+# Plot Functions
+source("Functions/Plot_codes/Summary_plot_df.R", echo=FALSE)
+source("Functions/Plot_codes/bar_plot.R", echo=FALSE)
+
+
+source("Functions/Shiny/run_model.R", echo=FALSE)
+source("Functions/Preparation_Scripts/Summary_long_df.R", echo=FALSE)
